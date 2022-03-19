@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectObj.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectNpc2D.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerObj2D.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="UIObject.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="UIModelMgr.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Sample.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="GameScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerObj2D.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectObj.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectNpc2D.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="UIObject.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="UIModelMgr.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="player.txt">
+      <Filter>Shader</Filter>
+    </Text>
+    <Text Include="..\..\data\shader\DefaultUI.txt">
+      <Filter>Shader</Filter>
+    </Text>
+    <Text Include="PixelShader.txt">
+      <Filter>Shader</Filter>
+    </Text>
+    <Text Include="Shader.txt">
+      <Filter>Shader</Filter>
+    </Text>
+    <Text Include="SpriteData.txt">
+      <Filter>Shader</Filter>
+    </Text>
+    <Text Include="VertexShader.txt">
+      <Filter>Shader</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{92e6fc1b-1051-45ca-ae41-877342872659}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{72ff901e-7c47-42f7-a804-654a58707b34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj">
+      <UniqueIdentifier>{5765b8c2-0f17-4826-9294-8f94404347dd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

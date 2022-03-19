@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="UIModelMgr.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIObj.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectNpc2D.cpp">
+      <Filter>Npc &amp; Player\Npc - SwordMan</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerObj2D.cpp">
+      <Filter>Npc &amp; Player\Player</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Sample.h" />
+    <ClInclude Include="UIModelMgr.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIObj.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectNpc2D.h">
+      <Filter>Npc &amp; Player\Npc - SwordMan</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerObj2D.h">
+      <Filter>Npc &amp; Player\Player</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\data\shader\DefaultUI.txt">
+      <Filter>Shader</Filter>
+    </Text>
+    <Text Include="player.txt">
+      <Filter>Shader</Filter>
+    </Text>
+    <Text Include="PixelShader.txt">
+      <Filter>Shader</Filter>
+    </Text>
+    <Text Include="Shader.txt">
+      <Filter>Shader</Filter>
+    </Text>
+    <Text Include="VertexShader.txt">
+      <Filter>Shader</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{d0e6a75d-f010-4ff4-9136-c943d8d8e460}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{b3698228-c087-41b4-99f9-97f0f8b0ab9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{758d6475-812b-44aa-96d7-0946dfc133d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Npc &amp; Player">
+      <UniqueIdentifier>{ee78c90e-bf1b-4409-9b1e-0a31f54b8b3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Npc &amp; Player\Npc - SwordMan">
+      <UniqueIdentifier>{17a87067-f12e-4e48-83b6-9e77390a568d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Npc &amp; Player\Player">
+      <UniqueIdentifier>{89d35aee-4a19-47d5-957e-d915b3b857e1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
