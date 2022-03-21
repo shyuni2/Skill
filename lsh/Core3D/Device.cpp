@@ -5,6 +5,7 @@ HRESULT Device::InitDeivice()
 	HRESULT hr = S_OK; 
 	CreateDevice();
 	CreateRenderTargetView();
+	CreateDepthStencilView();
 	SetViewport();
 	return hr;
 }
@@ -37,6 +38,9 @@ bool Device::CreateDevice()
 	{
 		return false;
 	}	
+	DXGI_SWAP_CHAIN_DESC scd;
+	m_pSwapChain->GetDesc(&scd);
+
 	return true;
 }
 bool Device::CreateRenderTargetView()
@@ -46,6 +50,75 @@ bool Device::CreateRenderTargetView()
 	m_pd3dDevice->CreateRenderTargetView(backBuffer.Get(), NULL, m_pRenderTargetView.GetAddressOf());
 
 	m_pImmediateContext->OMSetRenderTargets(1, m_pRenderTargetView.GetAddressOf(), NULL);
+
+	D3D11_RENDER_TARGET_VIEW_DESC rtvd;
+	m_pRenderTargetView->GetDesc(&rtvd);
+
+	return true;
+}
+bool Device::CreateDepthStencilView()
+{
+	HRESULT hr;
+	Microsoft::WRL::ComPtr<ID3D11Texture2D> pDSTexture = nullptr;
+	D3D11_TEXTURE2D_DESC DescDepth;
+	DescDepth.Width = m_SwapChainDesc.BufferDesc.Width;
+	DescDepth.Height = m_SwapChainDesc.BufferDesc.Height;
+	DescDepth.MipLevels = 1;
+	DescDepth.ArraySize = 1;
+	DescDepth.Format = DXGI_FORMAT_R24G8_TYPELESS;
+	DescDepth.SampleDesc.Count = 1;
+	DescDepth.SampleDesc.Quality = 0;
+	DescDepth.Usage = D3D11_USAGE_DEFAULT;
+		
+	DescDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL; // 백 버퍼 깊이 및 스텐실 버퍼 생성
+	if (DescDepth.Format == DXGI_FORMAT_R24G8_TYPELESS || DescDepth.Format == DXGI_FORMAT_D32_FLOAT)
+	{
+		DescDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE; // 깊이맵 전용 깊이맵 생성
+	}
+
+	DescDepth.CPUAccessFlags = 0;
+	DescDepth.MiscFlags = 0;
+	if (FAILED(hr = m_pd3dDevice->CreateTexture2D(&DescDepth, NULL, &pDSTexture)))
+	{
+		return false;
+	}
+
+	// 쉐이더 리소스 생성 : 깊이 맵 쉐도우에서 사용
+	D3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc;
+	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+	ZeroMemory(&dsvDesc, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
+	ZeroMemory(&srvDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
+
+	switch (DescDepth.Format)
+	{
+	case DXGI_FORMAT_R32_TYPELESS:
+	{
+		dsvDesc.Format = DXGI_FORMAT_D32_FLOAT;
+		srvDesc.Format = DXGI_FORMAT_R32_FLOAT;
+	}break;
+	case DXGI_FORMAT_R24G8_TYPELESS:
+	{
+		dsvDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+		srvDesc.Format = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
+	}break;
+	}
+
+	if (srvDesc.Format == DXGI_FORMAT_R32_FLOAT || srvDesc.Format == DXGI_FORMAT_R24_UNORM_X8_TYPELESS)
+	{
+		srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Texture2D.MipLevels = 1;
+		if (FAILED(hr = m_pd3dDevice->CreateShaderResourceView(pDSTexture.Get(), &srvDesc, &m_pDsvSRV)))
+		{
+			return false;
+		}
+	}
+
+	dsvDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	if (FAILED(hr = m_pd3dDevice->CreateDepthStencilView(pDSTexture.Get(), &dsvDesc, &m_pDepthStencilView)))
+	{
+		return false;
+	}
+	//m_pDepthStencilView->GetDesc(&m_DepthStencilDesc);
 	return true;
 }
 bool Device::SetViewport()
@@ -75,6 +148,7 @@ void Device::ResizeDevice(UINT iWidth, UINT iHeight)
 }
 bool Device::CleapupDevice()
 {
+	// Comptr 써서 할필요 없음
 	////if (m_pd3dDevice)m_pd3dDevice->Release();	// 디바이스 객체
 	//if (m_pImmediateContext)m_pImmediateContext->Release();// 다비이스 컨텍스트 객체
 	//if (m_pSwapChain)m_pSwapChain->Release();	// 스왑체인 객체

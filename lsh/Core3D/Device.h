@@ -12,9 +12,14 @@ public:
 	DXGI_SWAP_CHAIN_DESC m_SwapChainDesc;	
 	D3D11_VIEWPORT m_ViewPort;
 public:
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> m_pDepthStencilView;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pSRV;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pDsvSRV; // ±Ì¿Ãπˆ∆€ ∏Æº“Ω∫∫‰
+public:
 	HRESULT InitDeivice();
 	virtual bool CreateDevice();
 	virtual bool CreateRenderTargetView();
+	virtual bool CreateDepthStencilView();
 	virtual bool SetViewport();
 	virtual bool CleapupDevice();
 	void ResizeDevice(UINT iWidth, UINT iHeight);

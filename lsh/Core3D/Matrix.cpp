@@ -99,9 +99,9 @@ Matrix Matrix::ViewLookAt(Vector3& vPosition, Vector3& vTarget, Vector3& vUP)
 	Vector3 vRightVector = (vUP ^ vDirection).Normal(); // X Axis
 	Vector3 vUpVector = (vDirection ^ vRightVector).Normal(); // Y Axis
 
-	_11 = vRightVector.x;	_12 = vUpVector.x;	_13 = vDirection.x;
-	_21 = vRightVector.y;	_22 = vUpVector.y;	_23 = vDirection.y;
-	_31 = vRightVector.z;	_32 = vUpVector.z;	_33 = vDirection.z;
+	_11 = vRightVector.x; _12 = vUpVector.x; _13 = vDirection.x;
+	_21 = vRightVector.y; _22 = vUpVector.y; _23 = vDirection.y;
+	_31 = vRightVector.z; _32 = vUpVector.z; _33 = vDirection.z;
 
 	_41 = -(vPosition.x * _11 + vPosition.y * _21 + vPosition.z * _31);
 	_42 = -(vPosition.x * _12 + vPosition.y * _22 + vPosition.z * _32);

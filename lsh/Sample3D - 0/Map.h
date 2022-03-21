@@ -8,7 +8,6 @@ struct Face
 	Vector3 vNomal;
 };
 
-
 class Map : public Obj3D
 {
 public:

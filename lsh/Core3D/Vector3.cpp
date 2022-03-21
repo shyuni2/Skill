@@ -35,10 +35,11 @@ Vector3 Vector3::operator - (const Vector3& v)
 }
 Vector3 Vector3::operator * (float fValue)
 {
-	this->x *= fValue;
-	this->y *= fValue;
-	this->z *= fValue;
-	return *this;
+	Vector3 ret;
+	ret.x = x * fValue;
+	ret.y = y * fValue;
+	ret.z = z * fValue;
+	return ret;
 }
 Vector3 Vector3::operator / (float fValue)
 {

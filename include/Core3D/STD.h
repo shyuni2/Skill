@@ -14,6 +14,9 @@
 #include <atlconv.h> // A2W
 #include "Collision.h"
 #include <wrl.h> 
+#include <DirectXMath.h>
+#include <DirectXPackedVector.h>
+#include <DirectXCollision.h>
 
 using namespace std;
 using namespace Microsoft::WRL;

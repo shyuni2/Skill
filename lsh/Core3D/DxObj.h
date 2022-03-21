@@ -139,7 +139,9 @@ public:
 public:
 	virtual bool Init();
 	virtual bool Frame();
+	virtual bool PreRender(); // 렌더하기 전에 설정할거
 	virtual bool Render();
+	virtual bool PostRender();
 	virtual bool Release();
 public:
 	DxObj();

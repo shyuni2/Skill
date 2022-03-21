@@ -2,26 +2,26 @@ struct VS_INPUT
 {
 	float3 p : POSITION;
 	float3 n : NORMAL;
-	float4 c : COLOR; // COLOR0 ~ COLOR1  
-	float2 t : TEXCOORDO; // TEXCOORD0 ~ TEXCOORD15
-};						
-
+	float4 c : COLOR;    // COLOR0 ~ COLOR1
+	float2 t : TEXCOORD0; // TEXCOORD0 ~ TEXCOORD15
+};
 struct VS_OUTPUT
 {
-	float4 p : SV_POSITION;
+	float4 p : SV_POSITION; // 3 -> 4
 	float3 n : NORMAL;
-	float4 c : COLOR0; // COLOR0 ~ COLOR1
+	float4 c : COLOR0;    // COLOR0 ~ COLOR1
 	float2 t : TEXCOORD0; // TEXCOORD0 ~ TEXCOORD15
 };
 
-// 상수버퍼(단위:레지스터 단위(float4)로 할당되어야 한다)
+// 상수버퍼(단위:레지스터 단위(float4)로 할당되어야 한다.)
 cbuffer cb0 : register(b0)
 {
-	matrix g_matWorld : packoffset(c0);
-	matrix g_matView : packoffset(c4);
-	matrix g_matProj : packoffset(c8);
-	float4 Color0 : packoffset(c12);
-	float TimerX : packoffset(c13.x); // Timer.x, Timer.y, Timer.z, Timer.w	
+	// 1개의 레지스터(x,y,z,w)
+	matrix   g_matWorld : packoffset(c0);
+	matrix   g_matView : packoffset(c4);
+	matrix   g_matProj : packoffset(c8);
+	float4   Color0 : packoffset(c12);
+	float    TimerX : packoffset(c13.x); // Timer.x, Timer.y, Timer.z, Timer.w	
 };
 
 VS_OUTPUT VS(VS_INPUT v)
@@ -36,13 +36,12 @@ VS_OUTPUT VS(VS_INPUT v)
 	pOut.t = v.t;
 	float fDot = max(0, dot(pOut.n, -Color0.xyz));
 	pOut.c = float4(fDot, fDot, fDot, 1);
-
 	return pOut;
 }
 
-Texture2D g_txColor : register(t0);
-Texture2D g_txMask : register(t1);
-SamplerState g_Sample : register(s0);
+Texture2D		g_txColor : register(t0);
+Texture2D		g_txMask : register(t1);
+SamplerState	g_Sample : register(s0);
 
 float4 PS(VS_OUTPUT input) : SV_TARGET
 {
@@ -54,7 +53,6 @@ float4 PS(VS_OUTPUT input) : SV_TARGET
 	// 소스알파(0) = 마스크이미지의 흰색부분은   투명된다.
 	final = final * input.c;
 	//final.a = 1.0f;	
-
 	return final;
 }
 
@@ -63,6 +61,5 @@ float4 PSAlphaBlend(VS_OUTPUT input) : SV_TARGET
 	float4 color = g_txColor.Sample(g_Sample, input.t);
 	float4 final = color * input.c;
 	final.a = color.a;
-
 	return final;
 }

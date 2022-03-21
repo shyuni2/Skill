@@ -10,7 +10,7 @@ class Core : public Device
 public:
 	Timer m_GameTimer;
 	WriteFont m_dxWrite;
-	
+	bool m_bWireFrame = false;
 private:
 	bool CoreInit();	
 	bool CoreFrame();
