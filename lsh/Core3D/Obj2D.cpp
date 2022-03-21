@@ -146,10 +146,10 @@ void Obj2D::ConvertIndex(std::vector<SimpleVertex>& list, std::vector<SimpleVert
 }
 bool Obj2D::SetVertexData()
 {
-	ConvertIndex(m_vPos, m_fWidth, m_fHeight, m_VertexList);	
+	ConvertIndex(m_vPos, m_fWidth, m_fHeight, m_VertexList2D);
 	return true;
 }
-bool    Obj2D::SetIndexData()
+bool Obj2D::SetIndexData()
 {
 	m_IndexList.clear();
 	m_IndexList.push_back(0); m_IndexList.push_back(1); m_IndexList.push_back(2);

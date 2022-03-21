@@ -9,6 +9,14 @@ struct SimpleVertex
 	Vector2 v;
 	Vector2 t;
 };
+
+struct Vertex
+{
+	Vector3 p; // 위치
+	Vector3 n; // 노말
+	Vector4 c; // 컬러
+	Vector2 t; // 텍셀
+};
 enum CollisionType
 {
 	Block = 0,
@@ -39,6 +47,9 @@ struct Index
 
 struct ConstantData
 {
+	Matrix  matWorld;
+	Matrix  matView;
+	Matrix  matProj;
 	Vector4 Color;
 	Vector4 Timer;
 };
@@ -46,9 +57,9 @@ struct ConstantData
 class BaseObj
 {
 public:
-	std::wstring   m_csName;
-public:
 	BaseObj* m_pParent = nullptr;
+	std::wstring   m_csName;
+public:	
 	bool m_bDead;
 	int m_iCollisionID;
 	int m_iSelectID;
@@ -98,7 +109,7 @@ public:
 	D3D11_TEXTURE2D_DESC m_TextureDesc;
 public:
 	std::vector<SimpleVertex> m_InitScreenList;
-	std::vector<SimpleVertex> m_VertexList;
+	std::vector<Vertex> m_VertexList;
 	ID3D11Buffer* m_pVertexBuffer = nullptr;
 	
 	std::vector<DWORD> m_IndexList;

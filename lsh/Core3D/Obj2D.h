@@ -4,6 +4,7 @@
 class Obj2D : public DxObj
 {
 public:
+	vector<SimpleVertex> m_VertexList2D;
 	RECT m_rtSource;
 	RECT m_rtDraw;	
 	Vector4	m_vColor;
@@ -25,11 +26,12 @@ public:
 	virtual void ConvertIndex(Vector2 center, float fWidth, float fHeight, std::vector<SimpleVertex>& retList);
 	virtual void ConvertIndex(std::vector<SimpleVertex>& list, std::vector<SimpleVertex>& retList);
 public:
+	bool Load(ID3D11Device* pd3dDevice, std::wstring filename) { return true; };
+	virtual void  UpdateData() {};
+public:
 	virtual bool SetVertexData() override;
 	virtual bool SetIndexData() override;
 	virtual bool Frame() override;
-	bool Load(ID3D11Device* pd3dDevice, std::wstring filename) { return true; };
-	virtual void  UpdateData() {};
 public:
 	Obj2D();
 	virtual ~Obj2D();

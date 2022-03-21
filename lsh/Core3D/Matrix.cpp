@@ -142,8 +142,8 @@ Matrix Matrix::PerspectiveFovLH(float fNearPlane, float fFarPlane, float fovy, f
 
 	Q = fFarPlane / (fFarPlane - fNearPlane);
 
-	TMatrix ret;
-	memset(this, 0, sizeof(TMatrix));
+	Matrix ret;
+	memset(this, 0, sizeof(Matrix));
 
 	_11 = w;
 	_22 = h;

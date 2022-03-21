@@ -83,6 +83,19 @@ Vector3 Vector3::operator ^ (Vector3 const& v)
 {
 	return Vector3((y * v.z - z * v.y), (z * v.x - x * v.z), (x * v.y - y * v.x));
 }
+void Vector3::operator += (const Vector3& v)
+{
+	x += v.x;
+	y += v.y;
+	z += v.z;
+}
+void Vector3::operator -= (const Vector3& v)
+{
+	x -= v.x;
+	y -= v.y;
+	z -= v.z;
+}
+
 
 Vector3 Vector3::Normal()
 {

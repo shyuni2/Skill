@@ -17,10 +17,15 @@ public:
 	Vector3(float x, float y, float z);
 	Vector3(const Vector3& v);
 public:
-	Vector3 operator + (const Vector3& v);
-	Vector3 operator - (const Vector3& v);
-	Vector3 operator * (float fValue);
-	Vector3 operator / (float fValue);
+	Vector3 operator + (const Vector3& v); // µ¡¼À
+	Vector3 operator - (const Vector3& v); // »¬¼À
+	Vector3 operator * (float fValue); // °ö¼À
+	Vector3 operator / (float fValue); // ³ª´°¼À 
+	float operator | (Vector3 const& v); // ³»Àû
+	Vector3 operator ^ (Vector3 const& v); // ¿ÜÀû
+	void operator += (const Vector3& v);
+	void operator -= (const Vector3& v);
+public:
 	bool operator == (const Vector3& v);
 	bool operator != (const Vector3& v);
 public:// Á¤±ÔÈ­

@@ -47,6 +47,9 @@ struct Index
 
 struct ConstantData
 {
+	Matrix  matWorld;
+	Matrix  matView;
+	Matrix  matProj;
 	Vector4 Color;
 	Vector4 Timer;
 };
@@ -63,7 +66,6 @@ public:
 	float m_fSpeed;
 	Vector2	m_vPos;
 	Vector2	m_vDirection;
-	float m_fSpeed;
 	float m_fWidth;
 	float m_fHeight;
 	Rect m_rtCollision;
@@ -107,7 +109,7 @@ public:
 	D3D11_TEXTURE2D_DESC m_TextureDesc;
 public:
 	std::vector<SimpleVertex> m_InitScreenList;
-	std::vector<SimpleVertex> m_VertexList;
+	std::vector<Vertex> m_VertexList;
 	ID3D11Buffer* m_pVertexBuffer = nullptr;
 	
 	std::vector<DWORD> m_IndexList;

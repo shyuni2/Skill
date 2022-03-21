@@ -23,6 +23,8 @@ public:
 	Vector3 operator / (float fValue); // ³ª´°¼À 
 	float operator | (Vector3 const& v); // ³»Àû
 	Vector3 operator ^ (Vector3 const& v); // ¿ÜÀû
+	void operator += (const Vector3& v);
+	void operator -= (const Vector3& v);
 public:
 	bool operator == (const Vector3& v);
 	bool operator != (const Vector3& v);
