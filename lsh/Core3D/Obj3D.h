@@ -9,6 +9,10 @@ public:
 	Vector4 m_vColor;
 	Matrix m_matWorld;
 public:
+	Vector3 m_vLight;
+	Vector3 m_vUp;
+	Vector3 m_vLook;
+public:
 	float m_fAlpha = 0.0f;
 	bool m_bFadeIn = false;
 	bool m_bFadeOut = false;

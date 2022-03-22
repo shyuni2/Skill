@@ -1,10 +1,85 @@
 #include "Map.h"
 #include "WICTextureLoader.h"
+
+float Map::GetHeight(float fPosX, float fPosZ)
+{
+	// fPos, fPosZ의 위치에 해당하는 높이맵 셀 찾기
+	// m_iNumCols와 m_iNumRows는 가로, 세로 실제 크기값
+	float fCellX = (float)(m_iNumCellCols * m_fCellDistance / 2.0f + fPosX);
+	float fCellZ = (float)(m_iNumCellCols * m_fCellDistance / 2.0f + fPosZ);
+	
+	// 셀의 크기로 나누어 0 ~ 1 단위의 값으로 바꿔 높이맵 배열에 접근
+	fCellX /= (float)m_fCellDistance;
+	fCellZ /= (float)m_fCellDistance;
+
+	// fCellX, fCellZ 값보다 작거나 같은 최대정수 (소수부분 잘라냄)
+	float fVertexCol = ::floorf(fCellX);
+	float fVertexRow = ::floorf(fCellZ);
+
+	// 높이맵 범위를 벗어나면 강제로 초기화
+	if (fVertexCol < 0.0f)
+	{
+		fVertexCol = 0.0f;
+	}
+	if (fVertexRow < 0.0f)
+	{
+		fVertexRow = 0.0f;
+	}
+	if ((float)(m_iNumCols - 2) < fVertexCol)
+	{
+		fVertexCol = (float)(m_iNumCols - 2);
+	}
+	if ((float)(m_iNumRows - 2) < fVertexCol)
+	{
+		fVertexRow = (float)(m_iNumRows - 2);
+	}
+
+	// 계산된 셀의 플랜을 구성하는 4개 정점의 높이값을 찾는다
+	//  A   B
+	//  *---*
+	//  | / |
+	//  *---*  
+	//  C   D
+	float A = GetHeightMap((int)fVertexRow, (int)fVertexCol);
+	float B = GetHeightMap((int)fVertexRow, (int)fVertexCol + 1);
+	float C = GetHeightMap((int)fVertexRow + 1, (int)fVertexCol);
+	float D = GetHeightMap((int)fVertexRow + 1, (int)fVertexCol + 1);
+
+	// A정점의 위치에서 떨어진값 (변위값)을 계산
+	float fDeltaX = fCellX - fVertexCol;
+	float fDeltaZ = fCellZ - fVertexRow;
+	// 보간작업을 위한 페이스를 찾는다
+	float fHeight = 0.0f;
+	// 윗 페이스를 기준으로 보간한다
+	if (fDeltaZ < (1.0f - fDeltaX)) // ABC
+	{
+		float uy = B - A; // A -> B
+		float vy = C - A; // A -> C 
+		// 두 정점의 높이값의 차이를 비교하여 델타X의 값에 따라 보간값을 찾는다
+		fHeight = A + Lerp(0.0f, uy, fDeltaX) + Lerp(0.0f, vy, fDeltaZ);
+	}
+	// 아래페이스를 기준으로 보간
+	else // DCB
+	{
+		float uy = C - D; // A -> B
+		float vy = B - D; // A -> C 
+		// 두 정점의 높이값의 차이를 비교하여 델타X의 값에 따라 보간값을 찾는다
+		fHeight = D + Lerp(0.0f, uy, 1.0f - fDeltaX) + Lerp(0.0f, vy, 1.0f - fDeltaZ);
+	}
+	return fHeight;
+}
+float Map::GetHeightMap(int row, int col)
+{
+	return m_VertexList[row * m_iNumRows + col].p.y;
+}
+float Map::Lerp(float fStart, float fEnd, float fTangent)
+{
+	return fStart - (fStart * fTangent) + (fEnd * fTangent);
+}
+
 bool Map::Frame()
 {
-	Vector3 vLight(cosf(g_fGameTimer)*100.0f, 
-		            100, 
-					sinf(g_fGameTimer) * 100.0f);
+	Vector3 vLight(cosf(g_fGameTimer) * 100.0f, 100, sinf(g_fGameTimer) * 100.0f);
 
 	vLight = vLight.Normal() * -1.0f;
 	m_ConstantList.Color.x = vLight.x;
@@ -19,15 +94,8 @@ bool Map::CreateHeightMap(const TCHAR* strHeightMapTex)
 	ID3D11ShaderResourceView* pSRV = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11Resource> pTexture;
 	size_t maxsize = 0;
-	if (FAILED(hr = CreateWICTextureFromFileEx(m_pd3dDevice,
-		strHeightMapTex,
-		maxsize,
-		D3D11_USAGE_STAGING,
-		0,
-		D3D11_CPU_ACCESS_WRITE | D3D11_CPU_ACCESS_READ,
-		0,
-		DirectX::WIC_LOADER_DEFAULT,
-		pTexture.GetAddressOf(), nullptr)))
+	if (FAILED(hr = CreateWICTextureFromFileEx(m_pd3dDevice, strHeightMapTex, maxsize, D3D11_USAGE_STAGING, 0, D3D11_CPU_ACCESS_WRITE | D3D11_CPU_ACCESS_READ, 0, 
+												DirectX::WIC_LOADER_DEFAULT, pTexture.GetAddressOf(), nullptr)))
 	{
 		return false;
 	}
@@ -69,20 +137,19 @@ bool Map::CreateHeightMap(const TCHAR* strHeightMapTex)
 	if(pTexture2D) pTexture2D->Release();
 	return true;
 }
-bool		Map::CreateMap(UINT width, UINT height,
-	float fDistance)
+bool Map::CreateMap(UINT width, UINT height, float fDistance)
 {
 	m_iNumCols = width;
 	m_iNumRows = height;
-	m_iCellDistance = fDistance;
+	m_fCellDistance = fDistance;
 	m_iNumVertices = m_iNumCols * m_iNumRows;
-	m_iNumCellCols = m_iNumCols-1;
-	m_iNumCellRows = m_iNumRows-1;
-	m_iNumFaces = m_iNumCellCols* m_iNumCellRows*2;
+	m_iNumCellCols = m_iNumCols - 1; // 가로셀은 정점 가로정점개수 - 1
+	m_iNumCellRows = m_iNumRows - 1; // 세로셀은 정점 세로정점개수 - 1
+	m_iNumFaces = m_iNumCellCols * m_iNumCellRows * 2;
 
 	return true;
 }
-bool		Map::SetVertexData()
+bool Map::SetVertexData()
 {
 	m_VertexList.resize(m_iNumVertices);	
 	float  hHalfCol = (m_iNumCols - 1) / 2.0f;
@@ -94,20 +161,17 @@ bool		Map::SetVertexData()
 		for (int iCol = 0; iCol < m_iNumCols; iCol++)
 		{
 			int index = iRow * m_iNumCols + iCol;
-			m_VertexList[index].p.x = (iCol- hHalfCol)* m_iCellDistance;
+			m_VertexList[index].p.x = (iCol- hHalfCol)* m_fCellDistance;
 			m_VertexList[index].p.y = m_fHeightList[index];
-			m_VertexList[index].p.z = -((iRow - hHalfRow)* m_iCellDistance);
+			m_VertexList[index].p.z = -((iRow - hHalfRow)* m_fCellDistance);
 			m_VertexList[index].n = Vector3(0, 1, 0);
-			m_VertexList[index].c = Vector4(randstep(0.0f, 1.0f), 
-				randstep(0.0f, 1.0f), 
-				randstep(0.0f, 1.0f), 1);
-			m_VertexList[index].t = 
-				Vector2(ftxOffetU*iCol, ftxOffetV * iRow);
+			m_VertexList[index].c = Vector4(randstep(0.0f, 1.0f), randstep(0.0f, 1.0f), randstep(0.0f, 1.0f), 1);
+			m_VertexList[index].t = Vector2(ftxOffetU * iCol, ftxOffetV * iRow);
 		}
 	}
 	return true;
 }
-bool		Map::SetIndexData()
+bool Map::SetIndexData()
 {
 	m_IndexList.resize(m_iNumFaces*3);
 	UINT iIndex = 0;
