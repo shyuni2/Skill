@@ -1,9 +1,21 @@
 #include "Map.h"
 #include "WICTextureLoader.h"
+bool Map::Frame()
+{
+	Vector3 vLight(cosf(g_fGameTimer)*100.0f, 
+		            100, 
+					sinf(g_fGameTimer) * 100.0f);
 
+	vLight = vLight.Normal() * -1.0f;
+	m_ConstantList.Color.x = vLight.x;
+	m_ConstantList.Color.y = vLight.y;
+	m_ConstantList.Color.z = vLight.z;
+	m_ConstantList.Color.w = 1.0f;
+	return true;
+}
 bool Map::CreateHeightMap(const TCHAR* strHeightMapTex)
 {
-	HRESULT hr;
+	HRESULT hr;	
 	ID3D11ShaderResourceView* pSRV = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11Resource> pTexture;
 	size_t maxsize = 0;
@@ -36,7 +48,7 @@ bool Map::CreateHeightMap(const TCHAR* strHeightMapTex)
 		if (SUCCEEDED(m_pContext->Map((ID3D11Resource*)pTexture2D, D3D11CalcSubresource(0, 0, 1), D3D11_MAP_READ, 0, &MappedFaceDest)))
 		{
 			UCHAR* pTexels = (UCHAR*)MappedFaceDest.pData;
-			Vertex v;
+			Vertex	v;
 			for (UINT row = 0; row < desc.Height; row++)
 			{
 				UINT rowStart = row * MappedFaceDest.RowPitch;
@@ -54,25 +66,25 @@ bool Map::CreateHeightMap(const TCHAR* strHeightMapTex)
 	m_iNumRows = desc.Height;
 	m_iNumCols = desc.Width;
 
-	if (pTexture2D) pTexture2D->Release();
-
+	if(pTexture2D) pTexture2D->Release();
 	return true;
 }
-bool Map::CreateMap(UINT iWidth, UINT iHeight, float fDistance)
+bool		Map::CreateMap(UINT width, UINT height,
+	float fDistance)
 {
-	m_iNumCols = iWidth;
-	m_iNumRows = iHeight;
+	m_iNumCols = width;
+	m_iNumRows = height;
 	m_iCellDistance = fDistance;
 	m_iNumVertices = m_iNumCols * m_iNumRows;
-	m_iNumCellCols = m_iNumCols - 1;
-	m_iNumCellRows = m_iNumRows - 1;
-	m_iNumFaces = m_iNumCellCols * m_iNumCellRows * 2;
+	m_iNumCellCols = m_iNumCols-1;
+	m_iNumCellRows = m_iNumRows-1;
+	m_iNumFaces = m_iNumCellCols* m_iNumCellRows*2;
 
 	return true;
 }
-bool Map::SetVertexData()
+bool		Map::SetVertexData()
 {
-	m_VertexList.resize(m_iNumVertices);
+	m_VertexList.resize(m_iNumVertices);	
 	float  hHalfCol = (m_iNumCols - 1) / 2.0f;
 	float  hHalfRow = (m_iNumRows - 1) / 2.0f;
 	float  ftxOffetU = 1.0f / (m_iNumCols - 1);
@@ -82,32 +94,35 @@ bool Map::SetVertexData()
 		for (int iCol = 0; iCol < m_iNumCols; iCol++)
 		{
 			int index = iRow * m_iNumCols + iCol;
-			m_VertexList[index].p.x = (iCol - hHalfCol) * m_iCellDistance;
-			m_VertexList[index].p.y = 0.0f;
-			m_VertexList[index].p.z = -((iRow - hHalfRow) * m_iCellDistance);
+			m_VertexList[index].p.x = (iCol- hHalfCol)* m_iCellDistance;
+			m_VertexList[index].p.y = m_fHeightList[index];
+			m_VertexList[index].p.z = -((iRow - hHalfRow)* m_iCellDistance);
 			m_VertexList[index].n = Vector3(0, 1, 0);
-			m_VertexList[index].c = Vector4(randstep(0.0f, 1.0f), randstep(0.0f, 1.0f), randstep(0.0f, 1.0f), 1);
-			m_VertexList[index].t = Vector2(ftxOffetU * iCol, ftxOffetV * iRow);
+			m_VertexList[index].c = Vector4(randstep(0.0f, 1.0f), 
+				randstep(0.0f, 1.0f), 
+				randstep(0.0f, 1.0f), 1);
+			m_VertexList[index].t = 
+				Vector2(ftxOffetU*iCol, ftxOffetV * iRow);
 		}
 	}
 	return true;
 }
-bool Map::SetIndexData()
+bool		Map::SetIndexData()
 {
-	m_IndexList.resize(m_iNumFaces * 3);
+	m_IndexList.resize(m_iNumFaces*3);
 	UINT iIndex = 0;
 	for (int iRow = 0; iRow < m_iNumCellRows; iRow++)
 	{
 		for (int iCol = 0; iCol < m_iNumCellCols; iCol++)
 		{
-			m_IndexList[iIndex + 0] = iRow * m_iNumCols + iCol;
-			m_IndexList[iIndex + 1] = (iRow * m_iNumCols + iCol) + 1;
-			m_IndexList[iIndex + 2] = (iRow + 1) * m_iNumCols + iCol;
+			m_IndexList[iIndex+0] = iRow * m_iNumCols + iCol;
+			m_IndexList[iIndex+1] = (iRow * m_iNumCols + iCol)+1;
+			m_IndexList[iIndex+2] = (iRow+1)* m_iNumCols + iCol;
 
 			m_IndexList[iIndex + 3] = m_IndexList[iIndex + 2];
 			m_IndexList[iIndex + 4] = m_IndexList[iIndex + 1];
-			m_IndexList[iIndex + 5] = m_IndexList[iIndex + 2] + 1;
-
+			m_IndexList[iIndex + 5] = m_IndexList[iIndex + 2]+1;
+			
 			iIndex += 6;
 		}
 	}
@@ -134,7 +149,7 @@ bool Map::SetIndexData()
 			m_VertexList[face.v2].n += face.vNomal;
 
 			float fDot = max(0.0f, vLight | face.vNomal);
-			m_VertexList[face.v0].c = Vector4(fDot, fDot, fDot, 1);
+			m_VertexList[face.v0].c = Vector4(fDot, fDot, fDot,1);
 			m_VertexList[face.v1].c = Vector4(fDot, fDot, fDot, 1);
 			m_VertexList[face.v2].c = Vector4(fDot, fDot, fDot, 1);
 			m_FaceList.push_back(face);
@@ -171,18 +186,6 @@ bool Map::SetIndexData()
 	}
 	return true;
 }
-bool Map::Frame()
-{
-	Vector3 vLight(cosf(g_fGameTimer) * 100.0f, 100, sinf(g_fGameTimer) * 100.0f);
-
-	vLight = vLight.Normal() * -1.0f;
-	m_ConstantList.Color.x = vLight.x;
-	m_ConstantList.Color.y = vLight.y;
-	m_ConstantList.Color.z = vLight.z;
-	m_ConstantList.Color.w = 1.0f;
-	return true;
-}
-
 Map::Map()
 {
 

@@ -24,7 +24,7 @@ cbuffer cb0 : register(b0)
 	float    TimerX : packoffset(c13.x); // Timer.x, Timer.y, Timer.z, Timer.w	
 };
 
-VS_OUTPUT VS(VS_INPUT v)
+VS_OUTPUT VS( VS_INPUT v)
 {
 	VS_OUTPUT pOut = (VS_OUTPUT)0;
 	float4 vLocal = float4(v.p.xyz, 1.0f);// float4(v.p.x, v.p.y, v.p.z, 1.0f);
@@ -35,10 +35,9 @@ VS_OUTPUT VS(VS_INPUT v)
 	pOut.n = v.n;
 	pOut.t = v.t;
 	float fDot = max(0, dot(pOut.n, -Color0.xyz));
-	pOut.c = float4(fDot, fDot, fDot, 1);
+	pOut.c = float4(fDot, fDot, fDot,1);
 	return pOut;
 }
-
 Texture2D		g_txColor : register(t0);
 Texture2D		g_txMask : register(t1);
 SamplerState	g_Sample : register(s0);
