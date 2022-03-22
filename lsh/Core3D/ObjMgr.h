@@ -19,14 +19,15 @@ public:
 	typedef std::map<int, SelectFunction>::iterator FuncionIterator;
 	std::map<int, SelectFunction> m_fnSelectExecute;
 public:
-	void  AddCollisionExecute(BaseObj* owner, CollisionFunction func);
-	void  DeleteCollisionExecute(BaseObj* owner);
-	void  AddSelectExecute(BaseObj* owner, CollisionFunction func);
-	void  DeleteSelectExecute(BaseObj* owner);
-	bool  Init();
-	bool  Frame();
-	bool  Release();
-	void  CallRecursive(BaseObj* pSrcObj, DWORD dwState);
+	void AddCollisionExecute(BaseObj* owner, CollisionFunction func);
+	void DeleteCollisionExecute(BaseObj* owner);
+	void AddSelectExecute(BaseObj* owner, CollisionFunction func);
+	void DeleteSelectExecute(BaseObj* owner);
+public:
+	bool Init();
+	bool Frame();
+	bool Release();
+	void CallRecursive(BaseObj* pSrcObj, DWORD dwState);
 private:
 	ObjMgr();
 public:

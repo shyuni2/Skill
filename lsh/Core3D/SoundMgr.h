@@ -21,7 +21,7 @@ public:
 	bool Frame();
 	bool Render();
 	bool Release();
-public:
+public:	 
 	void Play(bool bLoop= false);
 	void PlayEffect();
 	void Stop();
@@ -35,18 +35,19 @@ public:
 
 class SoundMgr : public Singleton<SoundMgr>
 {
-	int		m_iIndex;
+	int	m_iIndex;
 public:
 	friend class Singleton<SoundMgr>;
 	FMOD::System* m_pSystem = nullptr;
 	std::map<std::wstring, std::shared_ptr<Sound> >  m_list;
 public:
-	Sound*     Load(std::string filename);
-	Sound*		GetPtr(std::wstring key);
-	bool	Init();
-	bool	Frame();
-	bool	Render();
-	bool	Release();
+	Sound* Load(std::string filename);
+	Sound* GetPtr(std::wstring key);
+public:
+	bool Init();
+	bool Frame();
+	bool Render();
+	bool Release();
 private:
 	SoundMgr();
 public:

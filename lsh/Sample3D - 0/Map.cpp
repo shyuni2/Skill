@@ -5,7 +5,7 @@ bool Map::CreateHeightMap(const TCHAR* strHeightMapTex)
 {
 	HRESULT hr;
 	ID3D11ShaderResourceView* pSRV = nullptr;
-	ComPtr<ID3D11Resource> pTexture;
+	Microsoft::WRL::ComPtr<ID3D11Resource> pTexture;
 	size_t maxsize = 0;
 	if (FAILED(hr = CreateWICTextureFromFileEx(m_pd3dDevice,
 		strHeightMapTex,

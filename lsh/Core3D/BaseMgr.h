@@ -7,18 +7,18 @@ class BaseMgr : public Singleton<S>
 public:
 	friend class Singleton<BaseMgr>;
 public:
-	int m_iIndex;
+	int	m_iIndex;
 	ID3D11Device* m_pd3dDevice;
-	std::map<std::wstring, std::shared_ptr<T> > m_list;
+	std::map<std::wstring, std::shared_ptr<T> >  m_list;
 public:
 	std::wstring Splitpath(std::wstring path, std::wstring entry);
 	virtual void Set(ID3D11Device* pd3dDevice)
 	{
-		m_pd3dDevice = pd3dDevice; 
+		m_pd3dDevice = pd3dDevice;
 	}
 	virtual T* Load(std::wstring filename);
 	T* GetPtr(std::wstring key);
-public:	 
+public:
 	bool Init();
 	bool Frame();
 	bool Render();
@@ -28,8 +28,8 @@ public:
 public:
 	~BaseMgr();
 };
-template<class T, class S>
 
+template<class T, class S>
 std::wstring BaseMgr<T, S>::Splitpath(std::wstring path, std::wstring entry)
 {
 	TCHAR szFileName[MAX_PATH] = { 0, };
@@ -102,7 +102,6 @@ bool BaseMgr<T, S>::Release()
 	m_list.clear();
 	return true;
 }
-
 template<class T, class S>
 BaseMgr<T, S>::BaseMgr()
 {

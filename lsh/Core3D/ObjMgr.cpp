@@ -84,6 +84,7 @@ bool ObjMgr::Frame()
 	for (auto src : m_SelectList)
 	{
 		BaseObj* pObjSrc = (BaseObj*)src.second;
+		//if (pObjSrc->m_dwSelectType == SelectType::Select_Ignore) continue;
 		DWORD dwState = SelectState::DEFAULT;
 
 		if (pObjSrc->m_dwSelectType != SelectType::Select_Ignore &&
@@ -129,7 +130,7 @@ bool ObjMgr::Frame()
 	}	
 	return true;
 }
-bool  ObjMgr::Release()
+bool ObjMgr::Release()
 {
 	m_ObjectList.clear();
 	m_SelectList.clear();

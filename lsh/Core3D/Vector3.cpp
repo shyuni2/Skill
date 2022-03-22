@@ -16,7 +16,6 @@ Vector3::Vector3(const Vector3& v)
 	y = v.y;
 	z = v.z;
 }
-
 Vector3 Vector3::operator + (const Vector3& v)
 {
 	Vector3 ret;
@@ -76,13 +75,15 @@ bool Vector3::operator != (const Vector3& v)
 	}
 	return true;
 }
-float Vector3::operator | (Vector3 const& v)
+
+Vector3 Vector3::Normal()
 {
-	return (x * v.x) + (y * v.y) + (z * v.z);
-}
-Vector3 Vector3::operator ^ (Vector3 const& v)
-{
-	return Vector3((y * v.z - z * v.y), (z * v.x - x * v.z), (x * v.y - y * v.x));
+	Vector3 ret;
+	float length = 1.0f / Length();
+	ret.x = x * length;
+	ret.y = y * length;
+	ret.z = z * length;
+	return ret;
 }
 void Vector3::operator += (const Vector3& v)
 {
@@ -95,17 +96,6 @@ void Vector3::operator -= (const Vector3& v)
 	x -= v.x;
 	y -= v.y;
 	z -= v.z;
-}
-
-
-Vector3 Vector3::Normal()
-{
-	Vector3 ret;
-	float length = 1.0f / Length();
-	ret.x = x * length;
-	ret.y = y * length;
-	ret.z = z * length;
-	return ret;
 }
 Vector3 Vector3::Normalize()
 {
@@ -124,9 +114,20 @@ Vector3 Normalize(Vector3& v)
 	ret.z = v.z * length;
 	return ret;
 }
-
+// Å©±â
 float Vector3::Length()
 {
 	float ret = x * x + y * y + z*z;
 	return sqrt(ret);
+}
+
+float Vector3::operator | (Vector3 const& v)
+{
+	return (x * v.x) + (y * v.y) + (z * v.z);
+}
+Vector3 Vector3::operator ^ (Vector3 const& v)
+{
+	return Vector3((y*v.z - z*v.y),
+					(z*v.x - x*v.z), 
+					(x*v.y - y*v.x) );
 }

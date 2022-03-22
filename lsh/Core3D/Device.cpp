@@ -1,19 +1,86 @@
 #include "Device.h"
 
+bool Device::CreateDetphStencilView()
+{
+	HRESULT hr;
+	Microsoft::WRL::ComPtr<ID3D11Texture2D> pDSTexture = nullptr;
+	D3D11_TEXTURE2D_DESC DescDepth;
+	DescDepth.Width = m_SwapChainDesc.BufferDesc.Width;
+	DescDepth.Height = m_SwapChainDesc.BufferDesc.Height;
+	DescDepth.MipLevels = 1;
+	DescDepth.ArraySize = 1;
+	DescDepth.Format = DXGI_FORMAT_R24G8_TYPELESS;
+	DescDepth.SampleDesc.Count = 1;
+	DescDepth.SampleDesc.Quality = 0;
+	DescDepth.Usage = D3D11_USAGE_DEFAULT;
+
+	// πÈ πˆ∆€ ±Ì¿Ã π◊ Ω∫≈ŸΩ« πˆ∆€ ª˝º∫
+	DescDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	if (DescDepth.Format == DXGI_FORMAT_R24G8_TYPELESS || DescDepth.Format == DXGI_FORMAT_D32_FLOAT)
+	{
+		// ±Ì¿Ã∏  ¿¸øÎ ±Ì¿Ã∏  ª˝º∫
+		DescDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE;
+	}
+
+	DescDepth.CPUAccessFlags = 0;
+	DescDepth.MiscFlags = 0;
+	if (FAILED(hr = m_pd3dDevice->CreateTexture2D(&DescDepth, NULL, &pDSTexture)))
+	{
+		return false;
+	}
+
+	///// Ω¶¿Ã¥ı ∏Æº“Ω∫ ª˝º∫ : ±Ì¿Ã ∏  Ω¶µµøÏø°º≠ ªÁøÎ///
+	D3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc;
+	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+	ZeroMemory(&dsvDesc, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
+	ZeroMemory(&srvDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
+
+	switch (DescDepth.Format)
+	{
+	case DXGI_FORMAT_R32_TYPELESS:
+	{
+		dsvDesc.Format = DXGI_FORMAT_D32_FLOAT;
+		srvDesc.Format = DXGI_FORMAT_R32_FLOAT;
+	}break;
+	case DXGI_FORMAT_R24G8_TYPELESS:
+	{
+		dsvDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+		srvDesc.Format = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
+	}break;
+	}
+	if (srvDesc.Format == DXGI_FORMAT_R32_FLOAT || srvDesc.Format == DXGI_FORMAT_R24_UNORM_X8_TYPELESS)
+	{
+		srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Texture2D.MipLevels = 1;
+		if (FAILED(hr = m_pd3dDevice->CreateShaderResourceView(pDSTexture.Get(), &srvDesc, &m_pDsvSRV)))
+		{
+			return false;
+		}
+	}
+
+	dsvDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	if (FAILED(hr = m_pd3dDevice->CreateDepthStencilView(pDSTexture.Get(), &dsvDesc, &m_pDepthStencilView)))
+	{
+		return false;
+	}
+	//m_pDepthStencilView->GetDesc(&m_DepthStencilDesc);
+	return true;
+}
+
 HRESULT Device::InitDeivice()
 {
 	HRESULT hr = S_OK; 
 	CreateDevice();
 	CreateRenderTargetView();
-	CreateDepthStencilView();
+	CreateDetphStencilView();
 	SetViewport();
 	return hr;
 }
 bool Device::CreateDevice()
 {
-	UINT Flags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
+	UINT Flags = D3D11_CREATE_DEVICE_BGRA_SUPPORT; //D2DWIRETE ø¨µø « ºˆ
 #ifdef _DEBUG
-	Flags |= D3D11_CREATE_DEVICE_DEBUG;	//D2DWIRETE ø¨µø « ºˆ
+	Flags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 	D3D_FEATURE_LEVEL fl[]
 	{
@@ -40,12 +107,11 @@ bool Device::CreateDevice()
 	}	
 	DXGI_SWAP_CHAIN_DESC scd;
 	m_pSwapChain->GetDesc(&scd);
-
 	return true;
 }
 bool Device::CreateRenderTargetView()
 {
-	ComPtr<ID3D11Texture2D> backBuffer = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11Texture2D> backBuffer = nullptr;
 	m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBuffer);
 	m_pd3dDevice->CreateRenderTargetView(backBuffer.Get(), NULL, m_pRenderTargetView.GetAddressOf());
 
@@ -53,77 +119,14 @@ bool Device::CreateRenderTargetView()
 
 	D3D11_RENDER_TARGET_VIEW_DESC rtvd;
 	m_pRenderTargetView->GetDesc(&rtvd);
-
-	return true;
-}
-bool Device::CreateDepthStencilView()
-{
-	HRESULT hr;
-	Microsoft::WRL::ComPtr<ID3D11Texture2D> pDSTexture = nullptr;
-	D3D11_TEXTURE2D_DESC DescDepth;
-	DescDepth.Width = m_SwapChainDesc.BufferDesc.Width;
-	DescDepth.Height = m_SwapChainDesc.BufferDesc.Height;
-	DescDepth.MipLevels = 1;
-	DescDepth.ArraySize = 1;
-	DescDepth.Format = DXGI_FORMAT_R24G8_TYPELESS;
-	DescDepth.SampleDesc.Count = 1;
-	DescDepth.SampleDesc.Quality = 0;
-	DescDepth.Usage = D3D11_USAGE_DEFAULT;
-		
-	DescDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL; // πÈ πˆ∆€ ±Ì¿Ã π◊ Ω∫≈ŸΩ« πˆ∆€ ª˝º∫
-	if (DescDepth.Format == DXGI_FORMAT_R24G8_TYPELESS || DescDepth.Format == DXGI_FORMAT_D32_FLOAT)
-	{
-		DescDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE; // ±Ì¿Ã∏  ¿¸øÎ ±Ì¿Ã∏  ª˝º∫
-	}
-
-	DescDepth.CPUAccessFlags = 0;
-	DescDepth.MiscFlags = 0;
-	if (FAILED(hr = m_pd3dDevice->CreateTexture2D(&DescDepth, NULL, &pDSTexture)))
-	{
-		return false;
-	}
-
-	// Ω¶¿Ã¥ı ∏Æº“Ω∫ ª˝º∫ : ±Ì¿Ã ∏  Ω¶µµøÏø°º≠ ªÁøÎ
-	D3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc;
-	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
-	ZeroMemory(&dsvDesc, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
-	ZeroMemory(&srvDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
-
-	switch (DescDepth.Format)
-	{
-	case DXGI_FORMAT_R32_TYPELESS:
-	{
-		dsvDesc.Format = DXGI_FORMAT_D32_FLOAT;
-		srvDesc.Format = DXGI_FORMAT_R32_FLOAT;
-	}break;
-	case DXGI_FORMAT_R24G8_TYPELESS:
-	{
-		dsvDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-		srvDesc.Format = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
-	}break;
-	}
-
-	if (srvDesc.Format == DXGI_FORMAT_R32_FLOAT || srvDesc.Format == DXGI_FORMAT_R24_UNORM_X8_TYPELESS)
-	{
-		srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-		srvDesc.Texture2D.MipLevels = 1;
-		if (FAILED(hr = m_pd3dDevice->CreateShaderResourceView(pDSTexture.Get(), &srvDesc, &m_pDsvSRV)))
-		{
-			return false;
-		}
-	}
-
-	dsvDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-	if (FAILED(hr = m_pd3dDevice->CreateDepthStencilView(pDSTexture.Get(), &dsvDesc, &m_pDepthStencilView)))
-	{
-		return false;
-	}
-	//m_pDepthStencilView->GetDesc(&m_DepthStencilDesc);
 	return true;
 }
 bool Device::SetViewport()
 {	
 	// ∫‰∆˜∆Æ ºº∆√
+	//DXGI_SWAP_CHAIN_DESC swapDesc;
+	//m_pSwapChain->GetDesc(&swapDesc);
+
 	m_ViewPort.TopLeftX = 0;
 	m_ViewPort.TopLeftY = 0;
 	m_ViewPort.Width = m_SwapChainDesc.BufferDesc.Width;
@@ -148,7 +151,6 @@ void Device::ResizeDevice(UINT iWidth, UINT iHeight)
 }
 bool Device::CleapupDevice()
 {
-	// Comptr Ω·º≠ «“« ø‰ æ¯¿Ω
 	////if (m_pd3dDevice)m_pd3dDevice->Release();	// µπŸ¿ÃΩ∫ ∞¥√º
 	//if (m_pImmediateContext)m_pImmediateContext->Release();// ¥Ÿ∫Ò¿ÃΩ∫ ƒ¡≈ÿΩ∫∆Æ ∞¥√º
 	//if (m_pSwapChain)m_pSwapChain->Release();	// Ω∫ø“√º¿Œ ∞¥√º
@@ -167,6 +169,4 @@ Device::Device()
 	m_pRenderTargetView = nullptr;
 }
 Device::~Device()
-{
-
-}
+{}

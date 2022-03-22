@@ -1,12 +1,12 @@
 #include "SoundMgr.h"
 
-void Sound::Set(FMOD::System* pSystem, std::wstring name, int iIndex)
+void	 Sound::Set(FMOD::System* pSystem, std::wstring name, int iIndex)
 {
 	m_pSystem = pSystem;
 	m_csName = name;
 	m_iIndex = iIndex;
 }
-void Sound::Play(bool bLoop)
+void     Sound::Play(bool bLoop)
 {
 	bool bPlay = false;
 	if (m_pChannel != nullptr)
@@ -15,38 +15,37 @@ void Sound::Play(bool bLoop)
 	}
 	if (bPlay == false)
 	{
-		FMOD_RESULT	ret = m_pSystem->playSound(m_pSound, nullptr, false, &m_pChannel); // 채널은 플레이 되는 사운드의 제어를 담당
+		// 채널은 플레이 되는 사운드의 제어를 담당.
+		FMOD_RESULT	ret = m_pSystem->playSound(
+			m_pSound, nullptr, false, &m_pChannel);
 		if (ret == FMOD_OK) 
 		{
-			if (bLoop)
-			{
+			//m_pChannel->setVolume(0.5f);
+			if(bLoop)
 				m_pChannel->setMode(FMOD_LOOP_NORMAL);
-			}				
 			else
-			{
 				m_pChannel->setMode(FMOD_LOOP_OFF);
-			}				
 		}
 	}
 }
-void Sound::PlayEffect()
+void     Sound::PlayEffect()
 {
 	FMOD::Channel* pChannel=nullptr;
-
-	FMOD_RESULT	ret = m_pSystem->playSound(m_pSound, nullptr, false, &pChannel); // 채널은 플레이 되는 사운드의 제어를 담당.
+	// 채널은 플레이 되는 사운드의 제어를 담당.
+	FMOD_RESULT	ret = m_pSystem->playSound(
+		m_pSound, nullptr, false, &pChannel);
 	if (ret == FMOD_OK)
 	{
-
 	}
 }
-void Sound::Stop()
+void     Sound::Stop()
 {
 	if (m_pChannel != nullptr)
 	{
 		m_pChannel->stop();
 	}
 }
-void Sound::Paused()
+void     Sound::Paused()
 {
 	bool bPlay = false;
 	m_pChannel->isPlaying(&bPlay);
@@ -57,7 +56,7 @@ void Sound::Paused()
 		m_pChannel->setPaused(!paused);
 	}
 }
-void Sound::VolumeUp(float fVolume)
+void     Sound::VolumeUp(float fVolume)
 {
 	if (m_pChannel != nullptr)
 	{
@@ -69,7 +68,7 @@ void Sound::VolumeUp(float fVolume)
 		m_pChannel->setVolume(m_fVolume);
 	}
 }
-void Sound::VolumeDown(float fVolume)
+void     Sound::VolumeDown(float fVolume)
 {
 	if (m_pChannel != nullptr)
 	{
@@ -82,11 +81,11 @@ void Sound::VolumeDown(float fVolume)
 	}
 }
 
-bool Sound::Init()
+bool	Sound::Init()
 {
 	return true;
 }
-bool Sound::Frame()
+bool	Sound::Frame()
 {
 	if (m_pSound ==nullptr || m_pChannel==nullptr) return true;
 
@@ -95,15 +94,22 @@ bool Sound::Frame()
 	m_pSound->getLength(&size, FMOD_TIMEUNIT_MS);
 	m_pChannel->getPosition(&ms, FMOD_TIMEUNIT_MS);
 
-	_stprintf_s(m_szBuffer, _T("전체시간[%02d:%02d:%02d]:경과시간[%02d:%02d:%02d]"), size / 1000 / 60, size / 1000 % 60, size / 10 % 60, ms / 1000 / 60, ms / 1000 % 60, ms / 10 % 60);
+	_stprintf_s(m_szBuffer,
+		_T("전체시간[%02d:%02d:%02d]:경과시간[%02d:%02d:%02d]"),
+		size / 1000 / 60,
+		size / 1000 % 60,
+		size / 10 % 60,
+		ms / 1000 / 60,
+		ms / 1000 % 60,
+		ms / 10 % 60);
 	
 	return true;
 }
-bool Sound::Render()
+bool	Sound::Render()
 {
 	return true;
 }
-bool Sound::Release()
+bool	Sound::Release()
 {
 	if (m_pSound)
 	{
@@ -112,7 +118,6 @@ bool Sound::Release()
 	}
 	return true;
 }
-
 Sound::Sound()
 {
 
@@ -122,6 +127,12 @@ Sound::~Sound()
 
 }
 
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="filename"></param>
+/// <returns></returns>
 Sound* SoundMgr::GetPtr(std::wstring key)
 {
 	auto iter = m_list.find(key);
@@ -153,7 +164,9 @@ Sound* SoundMgr::Load(std::string filename)
 	}
 
 	std::shared_ptr<Sound> pSound = std::make_shared<Sound>();
-	FMOD_RESULT ret = m_pSystem->createSound(filename.c_str(), FMOD_DEFAULT, 0, &pSound->m_pSound); 
+	FMOD_RESULT ret = m_pSystem->createSound(filename.c_str(),
+		FMOD_DEFAULT, 0,
+		&pSound->m_pSound);		
 
 	if (ret != FMOD_OK)
 	{
@@ -165,23 +178,23 @@ Sound* SoundMgr::Load(std::string filename)
 	m_iIndex++;
 	return pSound.get();
 }
-bool SoundMgr::Init()
+bool	SoundMgr::Init()
 {
 	FMOD_RESULT ret;
 	ret = FMOD::System_Create(&m_pSystem);
 	ret = m_pSystem->init(32, FMOD_INIT_NORMAL, 0);
 	return true;
 }
-bool SoundMgr::Frame()
+bool	SoundMgr::Frame()
 {
 	m_pSystem->update();
 	return true;
 }
-bool SoundMgr::Render()
+bool	SoundMgr::Render()
 {
 	return true;
 }
-bool SoundMgr::Release()
+bool	SoundMgr::Release()
 {
 	for (auto data : m_list)
 	{

@@ -68,7 +68,6 @@ bool Collision::IntersectRect(Rect rt1, Rect rt2, Rect* pRect)
 	}
 	return false;
 }
-
 // 0 :  떨어져 있다.
 // 1 :  안에 있다.
 // 2 :  걸쳐 있다.
@@ -130,7 +129,7 @@ Box Collision::UnionBox(Box rt1, Box rt2)
 	rt.vMiddle = (rt.vMin + rt.vMax) / 2.0f;
 	return rt;
 }
-bool   Collision::IntersectBox(Box rt1, Box rt2, Box* pRect)
+bool Collision::IntersectBox(Box rt1, Box rt2, Box* pRect)
 {
 	Box rt;
 	Box rtUnion = UnionBox(rt1, rt2);
@@ -153,11 +152,10 @@ bool   Collision::IntersectBox(Box rt1, Box rt2, Box* pRect)
 	}
 	return false;
 }
-
 // 0 :  떨어져 있다.
 // 1 :  안에 있다.
 // 2 :  걸쳐 있다.
-CollisionResult   Collision::BoxToBox(Box rt1, Box rt2)
+CollisionResult Collision::BoxToBox(Box rt1, Box rt2)
 {
 	Box rtInterction;
 	int iRet = IntersectBox(rt1, rt2, &rtInterction);

@@ -11,8 +11,8 @@ bool Input::Init()
 	ZeroMemory(&m_dwKeyState, sizeof(DWORD) * 256 );
 	return true;
 }
-bool Input::Frame() 
-{
+bool	Input::Frame() 
+{	
 	GetCursorPos(&m_ptMouse); //화면(스크린)좌표계
 	ScreenToClient(g_hWnd, &m_ptMouse); //클라이언트(윈도우)좌표계
 	g_ptMouse = m_ptMouse;
@@ -33,7 +33,8 @@ bool Input::Frame()
 		}
 		else
 		{
-			if (m_dwKeyState[iKey] == KEY_PUSH || m_dwKeyState[iKey] == KEY_HOLD)
+			if (m_dwKeyState[iKey] == KEY_PUSH ||
+				m_dwKeyState[iKey] == KEY_HOLD)
 			{
 				m_dwKeyState[iKey] = KEY_UP;
 			}
@@ -44,7 +45,6 @@ bool Input::Frame()
 		}
 	}
 
-	// 마우스 버튼 VK_LBUTTON,  VK_RBUTTON, VK_MBUTTON,
 	m_dwMouseState[0] = m_dwKeyState[VK_LBUTTON];
 	m_dwMouseState[1] = m_dwKeyState[VK_RBUTTON];
 	m_dwMouseState[2] = m_dwKeyState[VK_MBUTTON];
@@ -52,14 +52,12 @@ bool Input::Frame()
 }
 bool Input::Render() 
 {
-	
 	return true;
 }
-bool Input::Release()
+bool Input::Release() 
 {
 	return true;
 }
-
 Input::Input()
 {
 

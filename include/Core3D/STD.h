@@ -18,9 +18,6 @@
 #include <DirectXPackedVector.h>
 #include <DirectXCollision.h>
 
-using namespace std;
-using namespace Microsoft::WRL;
-
 #pragma comment	(lib, "d3d11.lib")
 #ifdef _DEBUG
 #pragma comment	(lib, "Core3D_d.lib")
@@ -29,11 +26,14 @@ using namespace Microsoft::WRL;
 #endif
 #pragma comment	(lib, "ws2_32.lib")
 
-extern RECT		g_rtClient;
-extern HWND		g_hWnd;
-extern float	g_fSecPerFrame;
-extern float	g_fGameTimer;
-extern POINT	g_ptMouse;
+//using namespace std;
+//using namespace Microsoft::WRL;
+
+extern RECT	g_rtClient;
+extern HWND	g_hWnd;
+extern float g_fSecPerFrame;
+extern float g_fGameTimer;
+extern POINT g_ptMouse;
 
 static std::wstring to_mw(const std::string& _src)
 {
@@ -81,17 +81,18 @@ static void MemoryReporting()
 #endif
 }
 
-#define BASIS_EPSILON		((FLOAT)  0.001f)
-#define BASIS_PI			((FLOAT)  3.141592654f)
-#define DegreeToRadian( degree ) ((degree) * (TBASIS_PI / 180.0f))
-#define RadianToDegree( radian ) ((radian) * (180.0f / TBASIS_PI))
-#define MAKECOLOR_ARGB(a, r, g, b)			(((a)&0xff)<<24)|(((r)&0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff)
+#define BASIS_EPSILON ((FLOAT)  0.001f)
+#define BASIS_PI ((FLOAT)  3.141592654f)
+#define DegreeToRadian( degree ) ((degree) * (BASIS_PI / 180.0f))
+#define RadianToDegree( radian ) ((radian) * (180.0f / BASIS_PI))
+#define MAKECOLOR_ARGB(a, r, g, b) (((a)&0xff)<<24)|(((r)&0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff)
 #define IS_IN_RANGE(value,r0,r1) (( ((r0) <= (value)) && ((value) <= (r1)) ) ? 1 : 0)
 
 #define randf(x) (x*rand()/(float)RAND_MAX)
 #define randf2(x,off) (off+x*rand()/(float)RAND_MAX)
 #define randstep(fMin,fMax) (fMin+((float)fMax-(float)fMin)*rand()/(float)RAND_MAX)
 #define clamp(x,MinX,MaxX) if (x>MaxX) x=MaxX; else if (x<MinX) x=MinX;
+
 
 #define GAME_START int WINAPI wWinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow){ Sample core;   
 #define GAME_WIN(s,x,y) if (core.SetWinClass(hInstance) == FALSE) return 1; if (core.SetWindow(L#s, x, y) == FALSE) return 1; core.GameRun(); return 1;}

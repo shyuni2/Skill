@@ -18,7 +18,6 @@ struct Float4
 		float v[4];
 	};
 };
-
 class Vector2 : public Float2
 {
 public:
@@ -30,17 +29,17 @@ public:
 	Vector2 operator - (const Vector2& v);
 	Vector2 operator * (float fValue);
 	Vector2 operator / (float fValue);
-	bool operator == (const Vector2& v);
-	bool operator != (const Vector2& v);
 	Vector2 operator += (const Vector2& v);
 	Vector2 operator -= (const Vector2& v);
-public:// 정규화
+	bool operator == (const Vector2& v);
+	bool operator != (const Vector2& v);
+	// 정규화
 	Vector2 Normalize();
 	Vector2 Normal();
 	friend Vector2 Normalize(Vector2& v);
-public:
+	
 	float Length(); // 크기
-	float Distance(Vector2& v); // 거리
+	float Distance(Vector2& v); //거리
 };
 
 class Vector4 : public Float4

@@ -14,11 +14,10 @@ bool WriteFont::Init()
 		hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), (IUnknown**)(&m_pWriteFactory));
 		if (SUCCEEDED(hr))
 		{
-			hr = m_pWriteFactory->CreateTextFormat(L"±¼¸²", NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 15, L"ko-kr", &m_pd2dTextFormat);
-			hr = m_pWriteFactory->CreateTextFormat(L"Imprint MT Shadow", NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 15, L"en-us", &m_pd2dMTShadowTF);
+			hr = m_pWriteFactory->CreateTextFormat(L"±Ã¼­", NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 20, L"ko-kr", &m_pd2dTextFormat);
+			hr = m_pWriteFactory->CreateTextFormat(L"Imprint MT Shadow", NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 50, L"en-us", &m_pd2dMTShadowTF);
 		}
 	}
-
 	if (SUCCEEDED(hr))
 	{
 		return true;
@@ -28,6 +27,7 @@ bool WriteFont::Init()
 bool WriteFont::SetRenderTarget(IDXGISurface1* pSurface)
 {
 	UINT dpi = GetDpiForWindow(g_hWnd);
+
 	D2D1_RENDER_TARGET_PROPERTIES rtp;
 	ZeroMemory(&rtp, sizeof(D2D1_RENDER_TARGET_PROPERTIES));
 	rtp.type = D2D1_RENDER_TARGET_TYPE_DEFAULT;
@@ -41,9 +41,7 @@ bool WriteFont::SetRenderTarget(IDXGISurface1* pSurface)
 	{
 		return false;
 	}
-
-	if (FAILED(m_pd2dRT->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black),
-		&m_pd2dColorBrush)))
+	if (FAILED(m_pd2dRT->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), &m_pd2dColorBrush)))
 	{
 		return false;
 	}
@@ -70,7 +68,8 @@ void WriteFont::Draw(std::wstring msg, RECT rt, D2D1::ColorF color, IDWriteTextF
 	else
 	{
 		m_pd2dRT->DrawText(msg.c_str(), msg.size(), tf, &fRT, m_pd2dColorBrush);
-	}			
+	}
+			
 	m_pd2dRT->EndDraw();
 }
 bool WriteFont::Render() 

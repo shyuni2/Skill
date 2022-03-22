@@ -12,7 +12,6 @@ public:
 	BOOL SetWinClass(HINSTANCE hInstance);
 	BOOL SetWindow(const WCHAR* szTitle = L"Sample", int iWidth = 800, int iHeight = 600);
 	bool WinRun();
-public:
 	virtual LRESULT MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	virtual void ResizeDevice(UINT iWidth, UINT iHeight);
 public:

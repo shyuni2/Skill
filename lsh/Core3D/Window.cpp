@@ -17,7 +17,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     }break;
     case WM_DESTROY:
     {
-        PostQuitMessage(0);
+        PostQuitMessage(0);// WM_QUIT
     }break;
     default:
         return DefWindowProc(hWnd, msg, wParam, lParam);
@@ -26,27 +26,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 }
 void Window::ResizeDevice(UINT iWidth, UINT iHeight)
 {
+
 }
-LRESULT Window::MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+LRESULT  Window::MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     return 0;
 }
 BOOL Window::SetWinClass(HINSTANCE hInstance)
 {
     m_hInstance = hInstance;
-    // 1. 윈도우 클래스 등록 & 허가
+    // 1. 윈도우 클래스 등록, 허가
     WNDCLASSW wc;
     ZeroMemory(&wc, sizeof(WNDCLASSW));
     wc.style = CS_HREDRAW | CS_VREDRAW;
     wc.lpfnWndProc = WndProc;
     wc.hInstance = hInstance;
-    wc.lpszClassName = L"lsh";
+    wc.lpszClassName = L"Sample";
     wc.hbrBackground = (HBRUSH)GetStockObject(GRAY_BRUSH);
     if (RegisterClass(&wc) == false)
     {
         return FALSE;
     }
-
     return TRUE;
 }
 
@@ -55,7 +55,7 @@ BOOL Window::SetWindow(const WCHAR* szTitle, int iClientWidth, int iClientHeight
     RECT rt = { 0,0, iClientWidth , iClientHeight };
     AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, FALSE);
     // 2. 윈도우 생성
-    m_hWnd = CreateWindow(L"lsh", szTitle, WS_OVERLAPPEDWINDOW, 0, 0, 1920, 1080, NULL, NULL, m_hInstance, NULL);
+    m_hWnd = CreateWindow(L"Sample", szTitle, WS_OVERLAPPEDWINDOW, 0, 0, rt.right - rt.left, rt.bottom - rt.top, NULL, NULL, m_hInstance, NULL);
     if (m_hWnd == NULL)
     {
         return FALSE;

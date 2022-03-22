@@ -10,8 +10,7 @@ class WriteFont
 {
 public:
 	ID2D1Factory* m_pd2dFactory = nullptr;
-	IDWriteFactory*	m_pWriteFactory = nullptr;
-
+	IDWriteFactory* m_pWriteFactory = nullptr;
 	ID2D1RenderTarget* m_pd2dRT = nullptr;
 	IDWriteTextFormat* m_pd2dTextFormat = nullptr;
 	IDWriteTextFormat* m_pd2dMTShadowTF = nullptr;

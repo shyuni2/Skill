@@ -7,12 +7,12 @@
 class Texture
 {
 public:
-	int m_iIndex;
+	int	m_iIndex;
 	std::wstring m_csName;
 	std::wstring m_szMsg;
 	TCHAR m_szBuffer[256];
-	ComPtr<ID3D11Texture2D> m_pTexture;
-	ComPtr<ID3D11ShaderResourceView> m_pSRV;
+	Microsoft::WRL::ComPtr<ID3D11Texture2D> m_pTexture;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pSRV;
 	D3D11_TEXTURE2D_DESC m_TextureDesc;
 public:
 	bool Init();
@@ -27,8 +27,8 @@ public:
 
 class TextureMgr : public BaseMgr<Texture, TextureMgr>					
 {
-private:
 	friend class Singleton<TextureMgr>;
+private:
 	TextureMgr() {};
 public:
 	~TextureMgr() {};

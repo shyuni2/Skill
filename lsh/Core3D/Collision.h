@@ -43,7 +43,6 @@ struct Rect2D
 		this->size.y = h;
 	}
 };
-
 // È­¸éÁÂÇ¥°è+Áß¾ÓÀÌ ¿øÁ¡
 struct Rect
 {
@@ -80,7 +79,6 @@ struct Rect
 		this->size.y = h;
 	}
 };
-
 struct Box
 {
 	Vector3 vMin;
@@ -125,7 +123,6 @@ struct Sphere
 		fRadius = 3.0f;
 	}
 };
-
 class Collision
 {
 public:

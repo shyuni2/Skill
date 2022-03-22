@@ -14,7 +14,6 @@ Vector2::Vector2(const Vector2& v)
 	x = v.x;
 	y = v.y;
 }
-
 Vector2 Vector2::operator + (const Vector2& v)
 {
 	Vector2 ret;
@@ -102,12 +101,13 @@ Vector2 Normalize( Vector2& v)
 	ret.y = v.y * length;
 	return ret;
 }
-
+// 크기
 float Vector2::Length()
 {
 	float ret = x * x + y * y;
 	return sqrt(ret);
 }
+// 두벡터의 거리 반환
 float Vector2::Distance(Vector2& v)
 {
 	float fDist = (*this - v).Length();

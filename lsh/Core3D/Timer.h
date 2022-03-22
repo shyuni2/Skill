@@ -10,8 +10,8 @@ public:
 	float m_fTimer;
 	DWORD m_dwBeforeTime;
 public:
-	float   m_fFPSTimer = 0.0f;	
-	int		m_iFPSCounter = 0;
+	float m_fFPSTimer = 0.0f;	
+	int	m_iFPSCounter = 0;
 public:
 	bool Init();
 	bool Frame();

@@ -21,11 +21,12 @@ public:
 		return theSingle;
 	}
 public:
+	DWORD GetKey(DWORD dwKey);
+public:
 	bool Init();
 	bool Frame();
 	bool Render();
 	bool Release();
-	DWORD GetKey(DWORD dwKey);
 private:
 	 Input();
 public:

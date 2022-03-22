@@ -35,6 +35,9 @@ bool DxObj::SetIndexData()
 bool DxObj::SetConstantData()
 {
 	ZeroMemory(&m_ConstantList, sizeof(ConstantData));
+	m_ConstantList.matWorld = Matrix();
+	m_ConstantList.matView = Matrix();
+	m_ConstantList.matProj = Matrix();
 	m_ConstantList.Color.x = 0.0f;
 	m_ConstantList.Color.y = 1.0f;
 	m_ConstantList.Color.z = 0.0f;
@@ -62,7 +65,7 @@ bool DxObj::CreateVertexBuffer()
 	//gpu메모리에 버퍼 할당(원하는 할당 크기)
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(D3D11_BUFFER_DESC));
-	bd.ByteWidth = sizeof(SimpleVertex) * m_VertexList.size();
+	bd.ByteWidth = sizeof(Vertex) * m_VertexList.size();
 	bd.Usage = D3D11_USAGE_DEFAULT;
 	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
@@ -119,12 +122,15 @@ bool DxObj::CreateConstantBuffer()
 }
 bool DxObj::CreateInputLayout()
 {
+
 	// 정점쉐이더의 결과를 통해서 정점레이아웃을 생성한다.	
 	// 정점버퍼의 각 정점의 어떤 성분을 정점쉐이더에 전달할 거냐
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
-		{"POSITION",0, DXGI_FORMAT_R32G32_FLOAT, 0,0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{"TEXCOORD",0, DXGI_FORMAT_R32G32_FLOAT, 0,8,  D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{"POSITION",0, DXGI_FORMAT_R32G32B32_FLOAT, 0,0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{"NORMAL",0, DXGI_FORMAT_R32G32B32_FLOAT, 0,12,  D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{"COLOR",0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0,24,  D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{"TEXCOORD",0, DXGI_FORMAT_R32G32_FLOAT, 0,40,  D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	UINT NumElements = sizeof(layout) / sizeof(layout[0]);
 	HRESULT hr = m_pd3dDevice->CreateInputLayout(layout, NumElements, m_pVShader->m_pVSCodeResult->GetBufferPointer(), m_pVShader->m_pVSCodeResult->GetBufferSize(), &m_pVertexLayout);
@@ -166,11 +172,13 @@ bool DxObj::Create(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pContext, cons
 	{
 		return false;
 	}
-	if (szShaderFileName != nullptr && !CreateVertexShader(szShaderFileName))
+	if (szShaderFileName!= nullptr && 
+		!CreateVertexShader(szShaderFileName))
 	{
 		return false;
 	}
-	if (szShaderFileName != nullptr && !CreatePixelShader(szShaderFileName))
+	if (szShaderFileName != nullptr &&
+		!CreatePixelShader(szShaderFileName))
 	{
 		return false;
 	}
@@ -181,24 +189,11 @@ bool DxObj::Create(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pContext, cons
 	return true;
 }
 bool DxObj::Init()
-{
+{	
 	return true;
 }
 bool DxObj::Frame()
 {
-	return true;
-}
-bool DxObj::PreRender()
-{
-	if (m_pColorTex != nullptr)
-	{
-		m_pContext->PSSetShaderResources(0, 1, m_pColorTex->m_pSRV.GetAddressOf());
-	}		
-	if (m_pMaskTex != nullptr)
-	{
-		m_pContext->PSSetShaderResources(1, 1, m_pMaskTex->m_pSRV.GetAddressOf());
-	}
-		
 	return true;
 }
 bool DxObj::Render()
@@ -228,8 +223,7 @@ bool DxObj::Render()
 		m_pContext->OMSetBlendState(DxState::m_AlphaBlendDisable, 0, -1);
 	}
 
-	m_pContext->IASetInputLayout(m_pVertexLayout);
-
+	m_pContext->IASetInputLayout(m_pVertexLayout);	
 
 	UINT StartSlot;
 	UINT NumBuffers;
@@ -243,7 +237,21 @@ bool DxObj::Render()
 
 	m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	PostRender();
+	PostRender();	
+	return true;
+}
+bool DxObj::PreRender()
+{
+	if (m_pColorTex != nullptr)
+	{
+		m_pContext->PSSetShaderResources(0, 1, m_pColorTex->m_pSRV.GetAddressOf());
+	}
+		
+	if (m_pMaskTex != nullptr)
+	{
+		m_pContext->PSSetShaderResources(1, 1, m_pMaskTex->m_pSRV.GetAddressOf());
+	}
+		
 	return true;
 }
 bool DxObj::PostRender()
@@ -271,7 +279,6 @@ bool DxObj::Release()
 	m_pVertexLayout = nullptr;
 	return true;
 }
-
 DxObj::DxObj()
 {
 	m_fSpeed = 0.0001f;

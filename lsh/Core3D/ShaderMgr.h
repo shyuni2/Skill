@@ -1,16 +1,15 @@
 #pragma once
 #include "BaseMgr.h"
 #include <d3dcompiler.h>
-
 class Shader
 {
 public:
-	int m_iIndex;
+	int	m_iIndex;
 	std::wstring m_csName;
 	std::wstring m_szMsg;
 	TCHAR m_szBuffer[256];
 	ID3D11VertexShader* m_pVertexShader = nullptr;
-	ID3D11PixelShader*  m_pPixelShader = nullptr;
+	ID3D11PixelShader* m_pPixelShader = nullptr;
 	ID3DBlob* m_pVSCodeResult = nullptr;
 	ID3DBlob* m_pErrorMsgs = nullptr;
 	ID3DBlob* m_pPSCodeResult = nullptr;
@@ -39,5 +38,4 @@ private:
 public:
 	~ShaderMgr();
 };
-
 #define I_Shader ShaderMgr::Get()

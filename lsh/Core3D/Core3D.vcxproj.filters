@@ -1,142 +1,142 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Base">
-      <UniqueIdentifier>{a5024b15-60f6-4e65-be0a-eebdd0027940}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math">
-      <UniqueIdentifier>{34509274-334e-4f55-8038-4cf05db4bce0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mgr">
-      <UniqueIdentifier>{2b8836b4-7766-4d63-9e92-d143095b4397}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Obj">
-      <UniqueIdentifier>{03fa6526-c0e0-4f5a-8999-df169736bb67}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="WriteFont.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Device.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="DxObj.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="DxState.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Core.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseMgr.cpp">
-      <Filter>Mgr</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectMgr.cpp">
-      <Filter>Mgr</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderMgr.cpp">
-      <Filter>Mgr</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundMgr.cpp">
-      <Filter>Mgr</Filter>
-    </ClCompile>
-    <ClCompile Include="TexturerMgr.cpp">
-      <Filter>Mgr</Filter>
-    </ClCompile>
     <ClCompile Include="Obj2D.cpp">
-      <Filter>Obj</Filter>
+      <Filter>obj</Filter>
     </ClCompile>
     <ClCompile Include="Obj3D.cpp">
-      <Filter>Obj</Filter>
+      <Filter>obj</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Base</Filter>
+    <ClCompile Include="ObjMgr.cpp">
+      <Filter>mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderMgr.cpp">
+      <Filter>mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundMgr.cpp">
+      <Filter>mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturerMgr.cpp">
+      <Filter>mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseMgr.cpp">
+      <Filter>mgr</Filter>
     </ClCompile>
     <ClCompile Include="Matrix.cpp">
-      <Filter>Math</Filter>
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Device.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="DxObj.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="DxState.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="WriteFont.cpp">
+      <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="STD.h" />
-    <ClInclude Include="Vector2.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Core.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Device.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="DxObj.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="DxState.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="WriteFont.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseMgr.h">
-      <Filter>Mgr</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjMgr.h">
-      <Filter>Mgr</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderMgr.h">
-      <Filter>Mgr</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundMgr.h">
-      <Filter>Mgr</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureMgr.h">
-      <Filter>Mgr</Filter>
-    </ClInclude>
     <ClInclude Include="Obj2D.h">
-      <Filter>Obj</Filter>
+      <Filter>obj</Filter>
     </ClInclude>
     <ClInclude Include="Obj3D.h">
-      <Filter>Obj</Filter>
+      <Filter>obj</Filter>
     </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="ObjMgr.h">
+      <Filter>mgr</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderMgr.h">
+      <Filter>mgr</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundMgr.h">
+      <Filter>mgr</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureMgr.h">
+      <Filter>mgr</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseMgr.h">
+      <Filter>mgr</Filter>
     </ClInclude>
     <ClInclude Include="Matrix.h">
-      <Filter>Math</Filter>
+      <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Device.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="DxObj.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="DxState.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="WriteFont.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="STD.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="mgr">
+      <UniqueIdentifier>{bfeba18c-9ee7-42c2-81df-bf5c9e9e916a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math">
+      <UniqueIdentifier>{b049c4ca-3248-4edf-bac7-ba6d22455864}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="obj">
+      <UniqueIdentifier>{555b2f1c-d59f-4958-9ba1-f956cb94178e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{05e25f70-8d5b-4532-a290-7c57a62e6ba4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

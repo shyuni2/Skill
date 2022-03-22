@@ -19,8 +19,8 @@ bool Timer::Frame()
     
     m_fTimer += m_fSecondPerFrame;
 
-    g_fSecPerFrame  = m_fSecondPerFrame;
-    g_fGameTimer    = m_fTimer;
+    g_fSecPerFrame = m_fSecondPerFrame;
+    g_fGameTimer = m_fTimer;
 
     m_fFPSTimer += m_fSecondPerFrame;
     if (m_fFPSTimer >= 1.0f)
