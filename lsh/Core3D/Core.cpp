@@ -61,6 +61,8 @@ bool Core::CoreRender()
 	m_pImmediateContext->OMSetRenderTargets(1, m_pRenderTargetView.GetAddressOf(), m_pDepthStencilView.Get());
 
 	m_pImmediateContext->PSSetSamplers(0, 1, &DxState::m_pSSLinear);	
+	m_pImmediateContext->PSSetSamplers(1, 1, &DxState::m_pSSPoint);
+
 	m_pImmediateContext->OMSetDepthStencilState(DxState::g_pDSSDepthEnable, 0x00);
 	if (m_bWireFrame)
 	{

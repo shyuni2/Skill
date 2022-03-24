@@ -42,18 +42,15 @@ bool BoxObj::SetVertexData()
 	m_VertexList[index].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = Vector2(1.0f, 0.0f);
 
-
 	m_VertexList[++index].p = Vector3(-1.0f, -1.0f, -1.0f);
 	m_VertexList[index].n = Vector3(0.0f, 0.0f, -1.0f);
 	m_VertexList[index].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = Vector2(0.0f, 1.0f);
 
-
 	m_VertexList[++index].p = Vector3(1.0f, -1.0f, -1.0f);
 	m_VertexList[index].n = Vector3(0.0f, 0.0f, -1.0f);
 	m_VertexList[index].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = Vector2(1.0f, 1.0f);
-
 
 	// +X plane
 	m_VertexList[++index].p = Vector3(1.0f, 1.0f, -1.0f);
@@ -66,12 +63,10 @@ bool BoxObj::SetVertexData()
 	m_VertexList[index].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = Vector2(1.0f, 0.0f);
 
-
 	m_VertexList[++index].p = Vector3(1.0f, -1.0f, -1.0f);
 	m_VertexList[index].n = Vector3(1.0f, 0.0f, 0.0f);
 	m_VertexList[index].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = Vector2(0.0f, 1.0f);
-
 
 	m_VertexList[++index].p = Vector3(1.0f, -1.0f, 1.0f);
 	m_VertexList[index].n = Vector3(1.0f, 0.0f, 0.0f);
@@ -89,12 +84,10 @@ bool BoxObj::SetVertexData()
 	m_VertexList[index].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = Vector2(1.0f, 0.0f);
 
-
 	m_VertexList[++index].p = Vector3(-1.0f, -1.0f, 1.0f);
 	m_VertexList[index].n = Vector3(-1.0f, 0.0f, 0.0f);
 	m_VertexList[index].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = Vector2(0.0f, 1.0f);
-
 
 	m_VertexList[++index].p = Vector3(-1.0f, -1.0f, -1.0f);
 	m_VertexList[index].n = Vector3(-1.0f, 0.0f, 0.0f);
@@ -112,12 +105,10 @@ bool BoxObj::SetVertexData()
 	m_VertexList[index].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = Vector2(1.0f, 0.0f);
 
-
 	m_VertexList[++index].p = Vector3(-1.0f, -1.0f, 1.0f);
 	m_VertexList[index].n = Vector3(0.0f, -1.0f, 0.0f);
 	m_VertexList[index].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = Vector2(0.0f, 1.0f);
-
 
 	m_VertexList[++index].p = Vector3(1.0f, -1.0f, 1.0f);
 	m_VertexList[index].n = Vector3(0.0f, -1.0f, 0.0f);
@@ -135,17 +126,18 @@ bool BoxObj::SetVertexData()
 	m_VertexList[index].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = Vector2(1.0f, 0.0f);
 
-
 	m_VertexList[++index].p = Vector3(-1.0f, 1.0f, -1.0f);
 	m_VertexList[index].n = Vector3(0.0f, 1.0f, 0.0f);
 	m_VertexList[index].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = Vector2(0.0f, 1.0f);
 
-
 	m_VertexList[++index].p = Vector3(1.0f, 1.0f, -1.0f);
 	m_VertexList[index].n = Vector3(0.0f, 1.0f, 0.0f);
 	m_VertexList[index].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = Vector2(1.0f, 1.0f);
+
+	m_pTexCube = I_Texture.Load(L"..\\..\\data\\sky\\LobbyCube.dds");
+
 	return true;
 }
 bool BoxObj::SetIndexData()
@@ -173,6 +165,7 @@ bool BoxObj::PostRender()
 	}
 	else
 	{
+		m_pContext->PSSetShaderResources(3, 1, m_pTexCube->m_pSRV.GetAddressOf());
 		m_pContext->DrawIndexed(m_IndexList.size(), 0, 0);
 	}
 		

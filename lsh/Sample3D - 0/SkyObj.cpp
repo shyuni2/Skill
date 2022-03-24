@@ -221,6 +221,15 @@ bool SkyObj::LoadTexture(const TCHAR* szColorFileName, const TCHAR* szMaskFileNa
 	m_pTexArray[4] = I_Texture.Load(L"..\\..\\data\\sky\\st00_cm_up.bmp");
 	m_pTexArray[5] = I_Texture.Load(L"..\\..\\data\\sky\\st00_cm_down.bmp");
 
+	m_pSRVArray[0] = m_pTexArray[0]->m_pSRV;
+	m_pSRVArray[1] = m_pTexArray[1]->m_pSRV;
+	m_pSRVArray[2] = m_pTexArray[2]->m_pSRV;
+	m_pSRVArray[3] = m_pTexArray[3]->m_pSRV;
+	m_pSRVArray[4] = m_pTexArray[4]->m_pSRV;
+	m_pSRVArray[5] = m_pTexArray[5]->m_pSRV;
+
+	m_pTexCube = I_Texture.Load(L"..\\..\\data\\sky\\skycubemap.dds");
+
 	m_TextureDesc = m_pTexArray[0]->m_TextureDesc;
 	return true;
 }
