@@ -15,6 +15,18 @@ struct Vertex
 	Vector3 n; // 노말
 	Vector4 c; // 컬러
 	Vector2 t; // 텍셀
+
+	Vertex(Vector3 p1, Vector3 n1, Vector4 c1, Vector2 t1)
+	{
+		p = p1;
+		n = n1;
+		c = c1;
+		t = t1;
+	}
+	Vertex()
+	{
+
+	}
 };
 
 enum CollisionType

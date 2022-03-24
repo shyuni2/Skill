@@ -8,9 +8,9 @@ public:
 	Vector3 m_vTarget;
 	Vector3 m_vDefaultUP;
 public:
-	Vector3 m_vLight;
-	Vector3 m_vUp;
-	Vector3 m_vLook;
+	Vector3 m_vLight; // x
+	Vector3 m_vUp; // y 
+	Vector3 m_vLook; // z
 public:
 	Matrix m_matWorld;
 	Matrix m_matView;

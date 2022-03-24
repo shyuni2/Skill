@@ -2,11 +2,16 @@
 
 ID3D11BlendState* DxState::m_AlphaBlend = nullptr;
 ID3D11BlendState* DxState::m_AlphaBlendDisable = nullptr;
-ID3D11SamplerState* DxState::m_pSamplerState = nullptr;
+
+ID3D11SamplerState* DxState::m_pSSLinear = nullptr;
+ID3D11SamplerState* DxState::m_pSSPoint = nullptr;
+
 ID3D11RasterizerState* DxState::g_pRSBackCullSolid =nullptr;
 ID3D11RasterizerState* DxState::g_pRSNoneCullSolid = nullptr;
+
 ID3D11RasterizerState* DxState::g_pRSBackCullWireFrame = nullptr;
 ID3D11RasterizerState* DxState::g_pRSNoneCullWireFrame = nullptr;
+
 ID3D11DepthStencilState* DxState::g_pDSSDepthEnable=nullptr;
 ID3D11DepthStencilState* DxState::g_pDSSDepthDisable = nullptr;
 
@@ -52,7 +57,9 @@ bool DxState::SetState(ID3D11Device* pd3dDevice)
 	sd.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
 	sd.MinLOD = FLT_MAX;
 	sd.MaxLOD = FLT_MIN;
-	hr = pd3dDevice->CreateSamplerState(&sd, &m_pSamplerState);
+	hr = pd3dDevice->CreateSamplerState(&sd, &m_pSSLinear);
+	sd.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+	hr = pd3dDevice->CreateSamplerState(&sd, &m_pSSPoint);
 
 	D3D11_RASTERIZER_DESC rsDesc;
 	ZeroMemory(&rsDesc, sizeof(rsDesc));
@@ -136,6 +143,8 @@ bool DxState::Release()
 	m_AlphaBlend = nullptr;
 	m_AlphaBlendDisable = nullptr;
 
-	if (m_pSamplerState)m_pSamplerState->Release();
+	if (m_pSSLinear)m_pSSLinear->Release();
+	if (m_pSSPoint)m_pSSPoint->Release();
+
 	return true;
 }

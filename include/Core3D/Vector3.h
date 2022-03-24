@@ -26,8 +26,8 @@ public:
 	bool operator == (const Vector3& v);
 	bool operator != (const Vector3& v);
 public:
-	void  operator += (const Vector3& v);
-	void  operator -= (const Vector3& v);
+	void operator += (const Vector3& v);
+	void operator -= (const Vector3& v);
 public: // ¡§±‘»≠
 	Vector3 Normalize();
 	Vector3 Normal();

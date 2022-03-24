@@ -31,13 +31,16 @@ VS_OUTPUT VS( VS_INPUT v)
 	float4 vWorld = mul(vLocal, g_matWorld);
 	float4 vView = mul(vWorld, g_matView);
 	float4 vProj = mul(vView, g_matProj);
+
 	pOut.p = vProj;
-	pOut.n = v.n;
+	float vNormal = mul(v.n, g_matWorld);
+	pOut.n = normalize(vNormal);
 	pOut.t = v.t;
-	float fDot = max(0, dot(pOut.n, -Color0.xyz));
+	float fDot = max(0.5f, dot(pOut.n, -Color0.xyz));
 	pOut.c = float4(fDot, fDot, fDot,1);
 	return pOut;
 }
+
 Texture2D		g_txColor : register(t0);
 Texture2D		g_txMask : register(t1);
 SamplerState	g_Sample : register(s0);

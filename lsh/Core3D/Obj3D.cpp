@@ -16,6 +16,17 @@ void		Obj3D::SetMatrix(Matrix* matWorld,
 	{
 		m_ConstantList.matProj = matProj->Transpose();
 	}
+
+	m_vLight.x = m_matWorld._11;
+	m_vLight.y = m_matWorld._12;
+	m_vLight.z = m_matWorld._13;
+	m_vUp.x = m_matWorld._21;
+	m_vUp.y = m_matWorld._22;
+	m_vUp.z = m_matWorld._23;
+	m_vLook.x = m_matWorld._31;
+	m_vLook.y = m_matWorld._32;
+	m_vLook.z = m_matWorld._33;
+
 }
 void		Obj3D::AddPosition(Vector3 vPos)
 {
@@ -77,11 +88,18 @@ bool	Obj3D::Frame()
 	if (m_bFadeIn)	FadeIn();
 	if (m_bFadeOut)	FadeOut();
 	m_ConstantList.Color = m_vColor;
-	m_ConstantList.Timer = Vector4(
-		g_fGameTimer,
-		0,
-		0,
-		1.0f);	
+	m_ConstantList.Timer = Vector4(g_fGameTimer, 0, 0, 1.0f);
+
+	m_vLight.x = 1;
+	m_vLight.y = 0;
+	m_vLight.z = 0;
+	m_vUp.x = 0;
+	m_vUp.y = 1;
+	m_vUp.z = 0;
+	m_vLook.x = 0;
+	m_vLook.y = 0;
+	m_vLook.z = 1;
+
 	return true;
 }
 Obj3D::Obj3D()

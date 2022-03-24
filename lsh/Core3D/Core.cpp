@@ -60,7 +60,7 @@ bool Core::CoreRender()
 	m_pImmediateContext->ClearDepthStencilView(m_pDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	m_pImmediateContext->OMSetRenderTargets(1, m_pRenderTargetView.GetAddressOf(), m_pDepthStencilView.Get());
 
-	m_pImmediateContext->PSSetSamplers(0, 1, &DxState::m_pSamplerState);	
+	m_pImmediateContext->PSSetSamplers(0, 1, &DxState::m_pSSLinear);	
 	m_pImmediateContext->OMSetDepthStencilState(DxState::g_pDSSDepthEnable, 0x00);
 	if (m_bWireFrame)
 	{

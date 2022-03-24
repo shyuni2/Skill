@@ -144,16 +144,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BoxObj.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="PlaneObj.h" />
+    <ClInclude Include="SkyObj.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BoxObj.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="PlaneObj.cpp" />
+    <ClCompile Include="SkyObj.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Box.hlsl">
@@ -164,6 +168,13 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="sky.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
