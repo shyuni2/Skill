@@ -35,9 +35,9 @@ bool DxObj::SetIndexData()
 bool DxObj::SetConstantData()
 {
 	ZeroMemory(&m_ConstantList, sizeof(ConstantData));
-	m_ConstantList.matWorld = Matrix();
-	m_ConstantList.matView = Matrix();
-	m_ConstantList.matProj = Matrix();
+	m_ConstantList.matWorld = Math::Matrix();
+	m_ConstantList.matView = Math::Matrix();
+	m_ConstantList.matProj = Math::Matrix();
 	m_ConstantList.Color.x = 0.0f;
 	m_ConstantList.Color.y = 1.0f;
 	m_ConstantList.Color.z = 0.0f;

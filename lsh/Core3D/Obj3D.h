@@ -4,14 +4,14 @@
 class Obj3D : public DxObj
 {
 public:
-	Vector3 m_vPos;
-	Vector3 m_vDirection;
-	Vector4 m_vColor;
-	Matrix m_matWorld;
+	Math::Vector3 m_vPos;
+	Math::Vector3 m_vDirection;
+	Math::Vector4 m_vColor;
+	Math::Matrix m_matWorld;
 public:
-	Vector3 m_vLight;
-	Vector3 m_vUp;
-	Vector3 m_vLook;
+	Math::Vector3 m_vLight;
+	Math::Vector3 m_vUp;
+	Math::Vector3 m_vLook;
 public:
 	float m_fAlpha = 0.0f;
 	bool m_bFadeIn = false;
@@ -19,12 +19,12 @@ public:
 	virtual void FadeIn();
 	virtual void FadeOut();
 public:
-	virtual void AddPosition(Vector3 vPos);
-	virtual void SetPosition(Vector3 vPos);	
+	virtual void AddPosition(Math::Vector3 vPos);
+	virtual void SetPosition(Math::Vector3 vPos);	
 public:			 
 	bool Load(ID3D11Device* pd3dDevice, std::wstring filename) { return true; };
 	virtual void  UpdateData() {}
-	virtual void SetMatrix(Matrix* matWorld, Matrix* matView, Matrix* matProj);
+	virtual void SetMatrix(Math::Matrix* matWorld, Math::Matrix* matView, Math::Matrix* matProj);
 public:
 	virtual bool SetVertexData() override;
 	virtual bool SetIndexData() override;

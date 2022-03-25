@@ -8,27 +8,27 @@ bool		PlaneObj::SetVertexData()
 	//  2        3
 	m_VertexList.resize(4);
 	// -Z plane
-	m_VertexList[0].p = Vector3(-1.0f, 1.0f, 0.0f);
-	m_VertexList[0].n = Vector3(0.0f, 0.0f, -1.0f);
-	m_VertexList[0].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-	m_VertexList[0].t = Vector2(0.0f, 0.0f);
+	m_VertexList[0].p = Math::Vector3(-1.0f, 1.0f, 0.0f);
+	m_VertexList[0].n = Math::Vector3(0.0f, 0.0f, -1.0f);
+	m_VertexList[0].c = Math::Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_VertexList[0].t = Math::Vector2(0.0f, 0.0f);
 
-	m_VertexList[1].p = Vector3(1.0f, 1.0f, 0.0f);
-	m_VertexList[1].n = Vector3(0.0f, 0.0f, -1.0f);
-	m_VertexList[1].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-	m_VertexList[1].t = Vector2(1.0f, 0.0f);
-
-
-	m_VertexList[2].p = Vector3(-1.0f, -1.0f, 0.0f);
-	m_VertexList[2].n = Vector3(0.0f, 0.0f, -1.0f);
-	m_VertexList[2].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-	m_VertexList[2].t = Vector2(0.0f, 1.0f);
+	m_VertexList[1].p = Math::Vector3(1.0f, 1.0f, 0.0f);
+	m_VertexList[1].n = Math::Vector3(0.0f, 0.0f, -1.0f);
+	m_VertexList[1].c = Math::Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_VertexList[1].t = Math::Vector2(1.0f, 0.0f);
 
 
-	m_VertexList[3].p = Vector3(1.0f, -1.0f, 0.0f);
-	m_VertexList[3].n = Vector3(0.0f, 0.0f, -1.0f);
-	m_VertexList[3].c = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-	m_VertexList[3].t = Vector2(1.0f, 1.0f);
+	m_VertexList[2].p = Math::Vector3(-1.0f, -1.0f, 0.0f);
+	m_VertexList[2].n = Math::Vector3(0.0f, 0.0f, -1.0f);
+	m_VertexList[2].c = Math::Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_VertexList[2].t = Math::Vector2(0.0f, 1.0f);
+
+
+	m_VertexList[3].p = Math::Vector3(1.0f, -1.0f, 0.0f);
+	m_VertexList[3].n = Math::Vector3(0.0f, 0.0f, -1.0f);
+	m_VertexList[3].c = Math::Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_VertexList[3].t = Math::Vector2(1.0f, 1.0f);
 	return true;
 }
 bool		PlaneObj::SetIndexData()

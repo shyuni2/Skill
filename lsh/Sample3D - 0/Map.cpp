@@ -79,7 +79,7 @@ float Map::Lerp(float fStart, float fEnd, float fTangent)
 
 bool Map::Frame()
 {
-	Vector3 vLight(cosf(g_fGameTimer) * 100.0f, 100, sinf(g_fGameTimer) * 100.0f);
+	Math::Vector3 vLight(cosf(g_fGameTimer) * 100.0f, 100, sinf(g_fGameTimer) * 100.0f);
 
 	vLight = vLight.Normal() * -1.0f;
 	m_ConstantList.Color.x = vLight.x;
@@ -164,9 +164,9 @@ bool Map::SetVertexData()
 			m_VertexList[index].p.x = (iCol- hHalfCol)* m_fCellDistance;
 			m_VertexList[index].p.y = m_fHeightList[index];
 			m_VertexList[index].p.z = -((iRow - hHalfRow)* m_fCellDistance);
-			m_VertexList[index].n = Vector3(0, 1, 0);
-			m_VertexList[index].c = Vector4(randstep(0.0f, 1.0f), randstep(0.0f, 1.0f), randstep(0.0f, 1.0f), 1);
-			m_VertexList[index].t = Vector2(ftxOffetU * iCol, ftxOffetV * iRow);
+			m_VertexList[index].n = Math::Vector3(0, 1, 0);
+			m_VertexList[index].c = Math::Vector4(randstep(0.0f, 1.0f), randstep(0.0f, 1.0f), randstep(0.0f, 1.0f), 1);
+			m_VertexList[index].t = Math::Vector2(ftxOffetU * iCol, ftxOffetV * iRow);
 		}
 	}
 	return true;
@@ -192,7 +192,7 @@ bool Map::SetIndexData()
 	}
 
 	iIndex = 0;
-	Vector3 vLight(100, 100, 0);
+	Math::Vector3 vLight(100, 100, 0);
 	vLight = vLight.Normal() * 1.0f;
 	for (int iRow = 0; iRow < m_iNumCellRows; iRow++)
 	{
@@ -203,9 +203,9 @@ bool Map::SetIndexData()
 			face.v0 = m_IndexList[iIndex + 0];
 			face.v1 = m_IndexList[iIndex + 1];
 			face.v2 = m_IndexList[iIndex + 2];
-			Vector3 vNormal;
-			Vector3 vE0 = (m_VertexList[face.v1].p - m_VertexList[face.v0].p).Normal();
-			Vector3 vE1 = (m_VertexList[face.v2].p - m_VertexList[face.v0].p).Normal();
+			Math::Vector3 vNormal;
+			Math::Vector3 vE0 = (m_VertexList[face.v1].p - m_VertexList[face.v0].p).Normal();
+			Math::Vector3 vE1 = (m_VertexList[face.v2].p - m_VertexList[face.v0].p).Normal();
 			face.vNomal = (vE0 ^ vE1).Normal();
 
 			m_VertexList[face.v0].n += face.vNomal;
@@ -213,9 +213,9 @@ bool Map::SetIndexData()
 			m_VertexList[face.v2].n += face.vNomal;
 
 			float fDot = max(0.0f, vLight | face.vNomal);
-			m_VertexList[face.v0].c = Vector4(fDot, fDot, fDot,1);
-			m_VertexList[face.v1].c = Vector4(fDot, fDot, fDot, 1);
-			m_VertexList[face.v2].c = Vector4(fDot, fDot, fDot, 1);
+			m_VertexList[face.v0].c = Math::Vector4(fDot, fDot, fDot,1);
+			m_VertexList[face.v1].c = Math::Vector4(fDot, fDot, fDot, 1);
+			m_VertexList[face.v2].c = Math::Vector4(fDot, fDot, fDot, 1);
 			m_FaceList.push_back(face);
 
 			// 1face
@@ -231,9 +231,9 @@ bool Map::SetIndexData()
 			m_VertexList[face.v2].n += face.vNomal;
 
 			fDot = max(0.0f, vLight | face.vNomal);
-			m_VertexList[face.v0].c = Vector4(fDot, fDot, fDot, 1);
-			m_VertexList[face.v1].c = Vector4(fDot, fDot, fDot, 1);
-			m_VertexList[face.v2].c = Vector4(fDot, fDot, fDot, 1);
+			m_VertexList[face.v0].c = Math::Vector4(fDot, fDot, fDot, 1);
+			m_VertexList[face.v1].c = Math::Vector4(fDot, fDot, fDot, 1);
+			m_VertexList[face.v2].c = Math::Vector4(fDot, fDot, fDot, 1);
 			m_FaceList.push_back(face);
 
 			iIndex += 6;
@@ -245,7 +245,7 @@ bool Map::SetIndexData()
 		{
 			m_VertexList[iRow * m_iNumCols + iCol].n.Normalize();
 			float fDot = max(0.0f, vLight | m_VertexList[iRow * m_iNumCols + iCol].n);
-			m_VertexList[iRow * m_iNumCols + iCol].c = Vector4(fDot, fDot, fDot, 1);
+			m_VertexList[iRow * m_iNumCols + iCol].c = Math::Vector4(fDot, fDot, fDot, 1);
 		}
 	}
 	return true;

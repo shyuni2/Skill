@@ -3,7 +3,7 @@
 struct Face
 {
 	UINT v0, v1, v2; 
-	Vector3 vNomal;
+	Math::Vector3 vNomal;
 };
 
 class Map : public Obj3D

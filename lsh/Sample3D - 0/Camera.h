@@ -4,17 +4,17 @@
 class Camera
 {
 public:
-	Vector3 m_vCamera;
-	Vector3 m_vTarget;
-	Vector3 m_vDefaultUP;
+	Math::Vector3 m_vCamera;
+	Math::Vector3 m_vTarget;
+	Math::Vector3 m_vDefaultUP;
 public:
-	Vector3 m_vLight; // x
-	Vector3 m_vUp; // y 
-	Vector3 m_vLook; // z
+	Math::Vector3 m_vLight; // x
+	Math::Vector3 m_vUp; // y 
+	Math::Vector3 m_vLook; // z
 public:
-	Matrix m_matWorld;
-	Matrix m_matView;
-	Matrix m_matProj;
+	Math::Matrix m_matWorld;
+	Math::Matrix m_matView;
+	Math::Matrix m_matProj;
 public:
 	virtual bool	Init();
 	virtual bool	Frame();

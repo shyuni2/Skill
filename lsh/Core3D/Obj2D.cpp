@@ -19,7 +19,7 @@ void Obj2D::UpdateRectDraw(RECT rt)
 	m_fWidth = rt.right;
 	m_fHeight = rt.bottom;
 }
-void		Obj2D::AddPosition(Vector2 vPos)
+void		Obj2D::AddPosition(Math::Vector2 vPos)
 {
 	// 현재위치
 	m_vPos += vPos;
@@ -31,34 +31,25 @@ void		Obj2D::AddPosition(Vector2 vPos)
 	SetIndexData();
 	if (m_pContext != nullptr)
 	{
-		m_pContext->UpdateSubresource(
-			m_pVertexBuffer, 0, NULL, &m_VertexList2D.at(0), 0, 0);
+		m_pContext->UpdateSubresource(m_pVertexBuffer, 0, NULL, &m_VertexList2D.at(0), 0, 0);
 	}
 }
 /// <summary>
 /// m_rtDraw, m_rtCollision 갱신된다.
 /// </summary>
 /// <param name="vPos"></param>
-void		Obj2D::SetPosition(Vector2 vPos)
+void Obj2D::SetPosition(Math::Vector2 vPos)
 {
 	m_vPos = vPos;	
-	/*SetRectDraw({
-		(LONG)(m_vPos.x - m_rtDraw.right / 2.0f),
-		(LONG)(m_vPos.y - m_rtDraw.bottom / 2.0f),
-		m_rtDraw.right,
-		m_rtDraw.bottom });*/
 	m_rtCollision = Rect(m_vPos, m_fWidth, m_fHeight);	
 	SetVertexData();
 	SetIndexData();
 	if (m_pContext != nullptr)
 	{
-		m_pContext->UpdateSubresource(
-			m_pVertexBuffer, 0, NULL, &m_VertexList2D.at(0), 0, 0);
+		m_pContext->UpdateSubresource(m_pVertexBuffer, 0, NULL, &m_VertexList2D.at(0), 0, 0);
 	}
 }
-void	Obj2D::Convert(
-	Vector2 center, float fWidth, float fHeight,
-	std::vector<SimpleVertex>& retList)
+void Obj2D::Convert(Math::Vector2 center, float fWidth, float fHeight, std::vector<SimpleVertex>& retList)
 {
 	// 0       1,4
 
@@ -78,9 +69,7 @@ void	Obj2D::Convert(
 	Convert(list, retList);
 
 }
-void	Obj2D::Convert(
-	std::vector<SimpleVertex>& list,
-	std::vector<SimpleVertex>& retList)
+void Obj2D::Convert(std::vector<SimpleVertex>& list, std::vector<SimpleVertex>& retList)
 {
 	retList.resize(list.size());
 	for (int i = 0; i < list.size(); i++)
@@ -96,8 +85,7 @@ void	Obj2D::Convert(
 	// 91,1, 42, 56 => 0 ~ 1
 	m_rtSource.left = 0; m_rtSource.right = 0;
 	m_rtSource.top = 0; m_rtSource.bottom = 0;
-	if (m_rtSource.left == 0 && m_rtSource.right == 0 &&
-		m_rtSource.top == 0 && m_rtSource.bottom == 0)
+	if (m_rtSource.left == 0 && m_rtSource.right == 0 && m_rtSource.top == 0 && m_rtSource.bottom == 0)
 	{
 		retList[0].t.x = 0.0f; retList[0].t.y = 0.0f; // v0
 		retList[1].t.x = 1.0f; retList[1].t.y = 0.0f; // v1
@@ -120,9 +108,7 @@ void	Obj2D::Convert(
 		retList[5].t.x = u + w; retList[5].t.y = v + h;
 	}
 }
-void	Obj2D::ConvertIndex(
-	Vector2 center, float fWidth, float fHeight,
-	std::vector<SimpleVertex>& retList)
+void Obj2D::ConvertIndex(Math::Vector2 center, float fWidth, float fHeight, std::vector<SimpleVertex>& retList)
 {
 	// 0       1
 
@@ -139,9 +125,7 @@ void	Obj2D::ConvertIndex(
 	ConvertIndex(list, retList);
 
 }
-void	Obj2D::ConvertIndex(
-	std::vector<SimpleVertex>& list,
-	std::vector<SimpleVertex>& retList)
+void Obj2D::ConvertIndex(std::vector<SimpleVertex>& list, std::vector<SimpleVertex>& retList)
 {
 	retList.resize(list.size());
 	for (int i = 0; i < list.size(); i++)
@@ -155,8 +139,7 @@ void	Obj2D::ConvertIndex(
 		retList[i].v.y = -1.0f * (retList[i].v.y * 2.0f - 1.0f);
 	}
 	// 91,1, 42, 56 => 0 ~ 1	
-	if (m_rtSource.left == 0 && m_rtSource.right == 0 &&
-		m_rtSource.top == 0 && m_rtSource.bottom == 0)
+	if (m_rtSource.left == 0 && m_rtSource.right == 0 && m_rtSource.top == 0 && m_rtSource.bottom == 0)
 	{
 		retList[0].t.x = 0.0f; retList[0].t.y = 0.0f; // v0
 		retList[1].t.x = 1.0f; retList[1].t.y = 0.0f; // v1
@@ -175,25 +158,19 @@ void	Obj2D::ConvertIndex(
 		retList[3].t.x = u + w; retList[3].t.y = v + h;
 	}
 }
-bool    Obj2D::SetVertexData()
+bool Obj2D::SetVertexData()
 {
 	ConvertIndex(m_vPos, m_fWidth, m_fHeight, m_VertexList2D);	
 	return true;
 }
-bool    Obj2D::SetIndexData()
+bool Obj2D::SetIndexData()
 {
 	m_IndexList.clear();
-	//// 0   1,4
-	//// 2,3  5
-	//DWORD indeces[] = {
-	//	0,1,2,
-	//	3,4,5,
-	//};
 	m_IndexList.push_back(0); m_IndexList.push_back(1); m_IndexList.push_back(2);
 	m_IndexList.push_back(2); m_IndexList.push_back(1); m_IndexList.push_back(3);
 	return true;
 }
-void    Obj2D::FadeIn()
+void Obj2D::FadeIn()
 {
 	m_fAlpha += g_fSecPerFrame * 0.5f;
 	m_fAlpha = min(m_fAlpha, 1.0f);
@@ -202,7 +179,7 @@ void    Obj2D::FadeIn()
 		m_bFadeIn = false;
 	}
 }
-void    Obj2D::FadeOut()
+void Obj2D::FadeOut()
 {
 	m_fAlpha = m_fAlpha - g_fSecPerFrame * 0.5f;
 	m_fAlpha = max(m_fAlpha, 0.0f);
@@ -211,24 +188,19 @@ void    Obj2D::FadeOut()
 		m_bFadeOut = false;
 	}
 }
-bool	Obj2D::Frame()
+bool Obj2D::Frame()
 {
 	if (m_bFadeIn)	FadeIn();
 	if (m_bFadeOut)	FadeOut();
 	m_ConstantList.Color = m_vColor;
-	m_ConstantList.Timer = Vector4(
-		g_fGameTimer,
-		0,
-		0,
-		1.0f);
-	m_pContext->UpdateSubresource(
-		m_pConstantBuffer, 0, NULL, &m_ConstantList, 0, 0);
+	m_ConstantList.Timer = Math::Vector4(g_fGameTimer, 0, 0, 1.0f);
+	m_pContext->UpdateSubresource(m_pConstantBuffer, 0, NULL, &m_ConstantList, 0, 0);
 	return true;
 }
 Obj2D::Obj2D()
 {
 	m_fAlpha = 1.0f;
-	m_vColor = Vector4(1, 1, 1, 1);
+	m_vColor = Math::Vector4(1, 1, 1, 1);
 	m_rtSource.left = 0; m_rtSource.right = 0;
 	m_rtSource.top  = 0; m_rtSource.bottom = 0;
 	m_rtDraw.left = 0; m_rtDraw.right = g_rtClient.right;

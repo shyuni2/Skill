@@ -34,14 +34,14 @@ bool Sample::Init()
 	m_PlayerObj.m_pColorTex = I_Texture.Load(L"../../data/charport.bmp");
 	m_PlayerObj.m_pVShader = pVShader;
 	m_PlayerObj.m_pPShader = pPShader;
-	m_PlayerObj.SetPosition(Vector3(0.0f, 1.0f, 0.0f));
+	m_PlayerObj.SetPosition(Math::Vector3(0.0f, 1.0f, 0.0f));
 	if (!m_PlayerObj.Create(m_pd3dDevice.Get(), m_pImmediateContext.Get()))
 	{
 		return false;
 	}
 
 	m_SkyObj.Init();
-	m_SkyObj.SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+	m_SkyObj.SetPosition(Math::Vector3(0.0f, 0.0f, 0.0f));
 	if (!m_SkyObj.Create(m_pd3dDevice.Get(), m_pImmediateContext.Get(), L"sky.hlsl", L"../../data/sky/xxx.bmp"))
 	{
 		return false;
@@ -78,8 +78,8 @@ bool Sample::Frame()
 	{
 		m_PlayerObj.m_vPos -= m_PlayerObj.m_vLook * g_fSecPerFrame * 10.0f;
 	}
-	Matrix matRotate;
-	Matrix matScale;
+	Math::Matrix matRotate;
+	Math::Matrix matScale;
 	static float fRadian = 0.0f;
 	fRadian += (Input::Get().m_ptDeltaMouse.x / (float)g_rtClient.right) * BASIS_PI;
 	matRotate.YRotate(fRadian);
@@ -104,7 +104,7 @@ bool Sample::Render()
 	m_SkyObj.m_matViewSky._41 = 0;
 	m_SkyObj.m_matViewSky._42 = 0;
 	m_SkyObj.m_matViewSky._43 = 0;
-	Matrix matRotation, matScale;
+	Math::Matrix matRotation, matScale;
 	matScale.Scale(3000.0f, 3000.0f, 3000.0f);
 	matRotation.YRotate(g_fGameTimer * 0.00f);
 	m_SkyObj.m_matWorld = matScale * matRotation;

@@ -6,17 +6,17 @@
 
 struct SimpleVertex
 {
-	Vector2 v;
-	Vector2 t;
+	Math::Vector2 v;
+	Math::Vector2 t;
 };
 struct Vertex
 {
-	Vector3 p; // 위치
-	Vector3 n; // 노말
-	Vector4 c; // 컬러
-	Vector2 t; // 텍셀
+	Math::Vector3 p; // 위치
+	Math::Vector3 n; // 노말
+	Math::Vector4 c; // 컬러
+	Math::Vector2 t; // 텍셀
 
-	Vertex(Vector3 p1, Vector3 n1, Vector4 c1, Vector2 t1)
+	Vertex(Math::Vector3 p1, Math::Vector3 n1, Math::Vector4 c1, Math::Vector2 t1)
 	{
 		p = p1;
 		n = n1;
@@ -106,11 +106,11 @@ struct Index
 
 struct ConstantData
 {
-	Matrix  matWorld;
-	Matrix  matView;
-	Matrix  matProj;
-	Vector4 Color;
-	Vector4 Timer;
+	Math::Matrix  matWorld;
+	Math::Matrix  matView;
+	Math::Matrix  matProj;
+	Math::Vector4 Color;
+	Math::Vector4 Timer;
 };
 
 class DxObj : public BaseObj
