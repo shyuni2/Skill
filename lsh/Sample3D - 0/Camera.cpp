@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "Input.h"
+#include "SimpleMath.h"
 
 bool Camera::Init()
 {
@@ -39,6 +40,10 @@ bool Camera::Frame()
 	m_vLook.y = m_matView._23;
 	m_vLook.z = m_matView._33;
 
+	return true;
+}
+bool Camera::Update(Math::Vector4 vValue)
+{
 	return true;
 }
 Camera::Camera()

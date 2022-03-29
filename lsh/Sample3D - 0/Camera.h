@@ -16,9 +16,11 @@ public:
 	Math::Matrix m_matView;
 	Math::Matrix m_matProj;
 public:
-	virtual bool	Init();
-	virtual bool	Frame();
+	virtual bool Init();
+	virtual bool Frame();
+	virtual bool Update(Math::Vector4 vValue);
+public:
 	Camera();
-	virtual ~Camera() {}
+	virtual ~Camera() {};
 };
 
