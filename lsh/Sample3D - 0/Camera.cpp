@@ -2,6 +2,8 @@
 #include "Input.h"
 #include "SimpleMath.h"
 
+using namespace DirectX::SimpleMath;
+
 bool Camera::Init()
 {
 	m_matView.CreateViewLook(m_vCamera, m_vTarget, m_vDefaultUP);
