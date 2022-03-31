@@ -19,7 +19,7 @@ void Obj2D::UpdateRectDraw(RECT rt)
 	m_fWidth = rt.right;
 	m_fHeight = rt.bottom;
 }
-void Obj2D::AddPosition(T::Vector2 vPos)
+void Obj2D::AddPosition(Math::Vector2 vPos)
 {
 	// 현재위치
 	m_vPos += vPos;
@@ -38,7 +38,7 @@ void Obj2D::AddPosition(T::Vector2 vPos)
 /// m_rtDraw, m_rtCollision 갱신된다.
 /// </summary>
 /// <param name="vPos"></param>
-void Obj2D::SetPosition(T::Vector2 vPos)
+void Obj2D::SetPosition(Math::Vector2 vPos)
 {
 	m_vPos = vPos;	
 	m_rtCollision = Rect(m_vPos, m_fWidth, m_fHeight);	
@@ -49,7 +49,7 @@ void Obj2D::SetPosition(T::Vector2 vPos)
 		m_pContext->UpdateSubresource(m_pVertexBuffer, 0, NULL, &m_VertexList2D.at(0), 0, 0);
 	}
 }
-void Obj2D::Convert(T::Vector2 center, float fWidth, float fHeight, std::vector<SimpleVertex>& retList)
+void Obj2D::Convert(Math::Vector2 center, float fWidth, float fHeight, std::vector<SimpleVertex>& retList)
 {
 	// 0       1,4
 
@@ -108,7 +108,7 @@ void Obj2D::Convert(std::vector<SimpleVertex>& list, std::vector<SimpleVertex>& 
 		retList[5].t.x = u + w; retList[5].t.y = v + h;
 	}
 }
-void Obj2D::ConvertIndex(T::Vector2 center, float fWidth, float fHeight, std::vector<SimpleVertex>& retList)
+void Obj2D::ConvertIndex(Math::Vector2 center, float fWidth, float fHeight, std::vector<SimpleVertex>& retList)
 {
 	// 0       1
 
@@ -193,14 +193,14 @@ bool Obj2D::Frame()
 	if (m_bFadeIn)	FadeIn();
 	if (m_bFadeOut)	FadeOut();
 	m_ConstantList.Color = m_vColor;
-	m_ConstantList.Timer = T::Vector4(g_fGameTimer, 0, 0, 1.0f);
+	m_ConstantList.Timer = Math::Vector4(g_fGameTimer, 0, 0, 1.0f);
 	m_pContext->UpdateSubresource(m_pConstantBuffer, 0, NULL, &m_ConstantList, 0, 0);
 	return true;
 }
 Obj2D::Obj2D()
 {
 	m_fAlpha = 1.0f;
-	m_vColor = T::Vector4(1, 1, 1, 1);
+	m_vColor = Math::Vector4(1, 1, 1, 1);
 	m_rtSource.left = 0; m_rtSource.right = 0;
 	m_rtSource.top  = 0; m_rtSource.bottom = 0;
 	m_rtDraw.left = 0; m_rtDraw.right = g_rtClient.right;

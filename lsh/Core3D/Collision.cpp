@@ -2,14 +2,14 @@
 
 bool Collision::SphereToPoint(Sphere sp, int x, int y, int z)
 {
-	float fDistance = (sp.vCenter - T::Vector3(x, y, z)).Length();
+	float fDistance = (sp.vCenter - Math::Vector3(x, y, z)).Length();
 	if (fDistance <= sp.fRadius)
 	{
 		return true;
 	}
 	return false;
 }
-bool Collision::SphereToPoint(Sphere sp, T::Vector3 v)
+bool Collision::SphereToPoint(Sphere sp, Math::Vector3 v)
 {
 	float fDistance = (sp.vCenter - v).Length();
 	if (fDistance <= sp.fRadius)
@@ -26,7 +26,7 @@ bool Collision::RectToPoint(Rect rt, int x, int y)
 	}
 	return false;
 }
-bool Collision::RectToPoint(Rect rt, T::Vector2 v)
+bool Collision::RectToPoint(Rect rt, Math::Vector2 v)
 {
 	if (rt.vMin.x <= v.x && rt.vMax.x >= v.x && rt.vMin.y <= v.y && rt.vMax.y >= v.y)
 	{
@@ -108,7 +108,7 @@ bool Collision::BoxToPoint(Box rt, int x, int y, int z)
 	}
 	return false;
 }
-bool Collision::BoxToPoint(Box rt, T::Vector3 v)
+bool Collision::BoxToPoint(Box rt, Math::Vector3 v)
 {
 	if (rt.vMin.x <= v.x && rt.vMax.x >= v.x && rt.vMin.y <= v.y && rt.vMax.y >= v.y && rt.vMin.z <= v.z && rt.vMax.z >= v.z)
 	{

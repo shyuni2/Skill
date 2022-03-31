@@ -18,7 +18,6 @@
 #include <DirectXCollision.h>
 
 #include "Collision.h"
-#include "Math.h"
 
 #pragma comment	(lib, "d3d11.lib")
 #ifdef _DEBUG

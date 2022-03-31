@@ -58,9 +58,6 @@
     <ClCompile Include="Matrix.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="Math.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
     <ClCompile Include="DxObj.cpp">
       <Filter>core</Filter>
     </ClCompile>
@@ -122,9 +119,6 @@
     </ClInclude>
     <ClInclude Include="STD.h" />
     <ClInclude Include="Matrix.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math.h">
       <Filter>math</Filter>
     </ClInclude>
     <ClInclude Include="DxObj.h">
