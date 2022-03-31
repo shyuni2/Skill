@@ -22,15 +22,6 @@
     <ClCompile Include="BaseMgr.cpp">
       <Filter>mgr</Filter>
     </ClCompile>
-    <ClCompile Include="Math::Matrix.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math::Vector2.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math::Vector3.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>core</Filter>
     </ClCompile>
@@ -38,9 +29,6 @@
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="Device.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="DxObj.cpp">
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="DxState.cpp">
@@ -59,6 +47,21 @@
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="WriteFont.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="DxObj.cpp">
       <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,9 +87,6 @@
     <ClInclude Include="BaseMgr.h">
       <Filter>mgr</Filter>
     </ClInclude>
-    <ClInclude Include="Math::Matrix.h">
-      <Filter>math</Filter>
-    </ClInclude>
     <ClInclude Include="Vector3.h">
       <Filter>math</Filter>
     </ClInclude>
@@ -100,9 +100,6 @@
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="Device.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="DxObj.h">
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="DxState.h">
@@ -124,6 +121,15 @@
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="STD.h" />
+    <ClInclude Include="Matrix.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="DxObj.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="mgr">

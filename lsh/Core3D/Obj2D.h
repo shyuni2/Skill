@@ -8,9 +8,9 @@ public:
 	RECT m_rtSource;
 	RECT m_rtDraw;	
 public:
-	Math::Vector4 m_vColor;
-	Math::Vector2 m_vPos;
-	Math::Vector2 m_vDirection;
+	T::Vector4 m_vColor;
+	T::Vector2 m_vPos;
+	T::Vector2 m_vDirection;
 public:
 	float m_fAlpha = 0.0f;
 	bool m_bFadeIn = false;
@@ -20,13 +20,13 @@ public:
 public:	
 	virtual void SetRectSouce(RECT rt);
 	virtual void SetRectDraw(RECT rt);
-	virtual void AddPosition(Math::Vector2 vPos);
-	virtual void SetPosition(Math::Vector2 vPos);		
+	virtual void AddPosition(T::Vector2 vPos);
+	virtual void SetPosition(T::Vector2 vPos);		
 	virtual void UpdateRectDraw(RECT rt);
 public:
-	virtual void Convert(Math::Vector2 center, float fWidth, float fHeight, std::vector<SimpleVertex>& retList);	// 화면좌표 위치를 중점으로 NDC 변환
+	virtual void Convert(T::Vector2 center, float fWidth, float fHeight, std::vector<SimpleVertex>& retList);	// 화면좌표 위치를 중점으로 NDC 변환
 	virtual void Convert(std::vector<SimpleVertex>& list, std::vector<SimpleVertex>& retList); // 화면좌표계를 NDC 변환
-	virtual void ConvertIndex(Math::Vector2 center, float fWidth, float fHeight, std::vector<SimpleVertex>& retList); // 화면좌표계를 NDC 변환
+	virtual void ConvertIndex(T::Vector2 center, float fWidth, float fHeight, std::vector<SimpleVertex>& retList); // 화면좌표계를 NDC 변환
 	virtual void ConvertIndex(std::vector<SimpleVertex>& list, std::vector<SimpleVertex>& retList); // 화면좌표계를 NDC 변환
 public:
 	bool Load(ID3D11Device* pd3dDevice, std::wstring filename) { return true; };

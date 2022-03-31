@@ -12,11 +12,13 @@
 #include <functional>
 #include <iostream>
 #include <atlconv.h> // A2W
-#include "Collision.h"
 #include <wrl.h> 
 #include <DirectXMath.h>
 #include <DirectXPackedVector.h>
 #include <DirectXCollision.h>
+
+#include "Collision.h"
+#include "Math.h"
 
 #pragma comment	(lib, "d3d11.lib")
 #ifdef _DEBUG
