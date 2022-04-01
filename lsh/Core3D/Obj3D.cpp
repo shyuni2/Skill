@@ -1,6 +1,6 @@
 #include "Obj3D.h"
 
-void Obj3D::SetMatrix(Math::Matrix* matWorld, Math::Matrix* matView, Math::Matrix* matProj)
+void Obj3D::SetMatrix(T::TMatrix* matWorld, T::TMatrix* matView, T::TMatrix* matProj)
 {
 	m_ConstantList.matWorld = m_matWorld.Transpose();
 	if (matWorld != nullptr)
@@ -26,21 +26,21 @@ void Obj3D::SetMatrix(Math::Matrix* matWorld, Math::Matrix* matView, Math::Matri
 	m_vLook.y = m_matWorld._32;
 	m_vLook.z = m_matWorld._33;
 	
-	Math::D3DXVec3Normalize(&m_vLight, &m_vLight);
-	Math::D3DXVec3Normalize(&m_vUp, &m_vUp);
-	Math::D3DXVec3Normalize(&m_vLook, &m_vLook);
+	T::D3DXVec3Normalize(&m_vLight, &m_vLight);
+	T::D3DXVec3Normalize(&m_vUp, &m_vUp);
+	T::D3DXVec3Normalize(&m_vLook, &m_vLook);
 
 	m_BoxCollision.vAxis[0] = m_vLight;
 	m_BoxCollision.vAxis[1] = m_vUp;
 	m_BoxCollision.vAxis[2] = m_vLook;
 
 	// GenAABB();
-	m_BoxCollision.vMin = Math::Vector3(100000, 100000, 100000);
-	m_BoxCollision.vMax = Math::Vector3(-100000, -100000, -100000);
+	m_BoxCollision.vMin = T::TVector3(100000, 100000, 100000);
+	m_BoxCollision.vMax = T::TVector3(-100000, -100000, -100000);
 	for (int iV = 0; iV < 8; iV++)
 	{
-		Math::Vector3 pos;
-		Math::D3DXVec3TransformCoord(&pos, &m_BoxCollision.vList[iV], &m_matWorld);
+		T::TVector3 pos;
+		T::D3DXVec3TransformCoord(&pos, &m_BoxCollision.vList[iV], &m_matWorld);
 		if (m_BoxCollision.vMin.x > pos.x)
 		{
 			m_BoxCollision.vMin.x = pos.x;
@@ -68,14 +68,14 @@ void Obj3D::SetMatrix(Math::Matrix* matWorld, Math::Matrix* matView, Math::Matri
 		}
 	}
 
-	Math::Vector3 vHalf = m_BoxCollision.vMax - m_BoxCollision.vCenter;
-	m_BoxCollision.size.x = fabs(Math::D3DXVec3Dot(&m_BoxCollision.vAxis[0], &vHalf));
-	m_BoxCollision.size.y = fabs(Math::D3DXVec3Dot(&m_BoxCollision.vAxis[1], &vHalf));
-	m_BoxCollision.size.z = fabs(Math::D3DXVec3Dot(&m_BoxCollision.vAxis[2], &vHalf));
+	T::TVector3 vHalf = m_BoxCollision.vMax - m_BoxCollision.vCenter;
+	m_BoxCollision.size.x = fabs(T::D3DXVec3Dot(&m_BoxCollision.vAxis[0], &vHalf));
+	m_BoxCollision.size.y = fabs(T::D3DXVec3Dot(&m_BoxCollision.vAxis[1], &vHalf));
+	m_BoxCollision.size.z = fabs(T::D3DXVec3Dot(&m_BoxCollision.vAxis[2], &vHalf));
 	m_BoxCollision.vCenter = (m_BoxCollision.vMin + m_BoxCollision.vMax);
 	m_BoxCollision.vCenter /= 2.0f;
 }
-void Obj3D::AddPosition(Math::Vector3 vPos)
+void Obj3D::AddPosition(T::TVector3 vPos)
 {
 	// 현재위치
 	m_vPos += vPos;
@@ -89,7 +89,7 @@ void Obj3D::AddPosition(Math::Vector3 vPos)
 		m_pContext->UpdateSubresource(m_pVertexBuffer, 0, NULL, &m_VertexList.at(0), 0, 0);
 	}
 }
-void Obj3D::SetPosition(Math::Vector3 vPos)
+void Obj3D::SetPosition(T::TVector3 vPos)
 {
 	m_vPos = vPos;
 	m_matWorld._41 = m_vPos.x;
@@ -130,28 +130,28 @@ bool Obj3D::Frame()
 	if (m_bFadeIn)	FadeIn();
 	if (m_bFadeOut)	FadeOut();
 	m_ConstantList.Color = m_vColor;
-	m_ConstantList.Timer = Math::Vector4(g_fGameTimer, 0, 0, 1.0f);
+	m_ConstantList.Timer = T::TVector4(g_fGameTimer, 0, 0, 1.0f);
 
 	m_BoxCollision.vCenter = m_vPos;
-	Math::Matrix matWorld = m_matWorld;
+	T::TMatrix matWorld = m_matWorld;
 	matWorld._41 = 0.0f; matWorld._42 = 0.0f; matWorld._43 = 0.0f;
-	m_BoxCollision.vAxis[0] = Math::Vector3(1, 0, 0);
-	m_BoxCollision.vAxis[1] = Math::Vector3(0, 1, 0);
-	m_BoxCollision.vAxis[2] = Math::Vector3(0, 0, 1);
+	m_BoxCollision.vAxis[0] = T::TVector3(1, 0, 0);
+	m_BoxCollision.vAxis[1] = T::TVector3(0, 1, 0);
+	m_BoxCollision.vAxis[2] = T::TVector3(0, 0, 1);
 
 	m_BoxCollision.size.x = 1.0f;
 	m_BoxCollision.size.y = 1.0f;
 	m_BoxCollision.size.z = 1.0f;
 
-	m_BoxCollision.vMin = Math::Vector3(-1.0f, -1.0f, -1.0f);
-	m_BoxCollision.vMax = Math::Vector3(1.0f, 1.0f, 1.0f);
+	m_BoxCollision.vMin = T::TVector3(-1.0f, -1.0f, -1.0f);
+	m_BoxCollision.vMax = T::TVector3(1.0f, 1.0f, 1.0f);
 	return true;
 }
 void Obj3D::GenAABB()
 {
 	// aabb 
-	m_BoxCollision.vMin = Math::Vector3(100000, 100000, 100000);
-	m_BoxCollision.vMax = Math::Vector3(-100000, -100000, -100000);
+	m_BoxCollision.vMin = T::TVector3(100000, 100000, 100000);
+	m_BoxCollision.vMax = T::TVector3(-100000, -100000, -100000);
 	for (int i = 0; i < m_VertexList.size(); i++)
 	{
 		if (m_BoxCollision.vMin.x > m_VertexList[i].p.x)
@@ -186,20 +186,20 @@ void Obj3D::GenAABB()
 
 	// 0     1
 	// 2     3
-	m_BoxCollision.vList[0] = Math::Vector3(m_BoxCollision.vMin.x, m_BoxCollision.vMax.y, m_BoxCollision.vMin.z);
-	m_BoxCollision.vList[1] = Math::Vector3(m_BoxCollision.vMax.x, m_BoxCollision.vMax.y, m_BoxCollision.vMin.z);
-	m_BoxCollision.vList[2] = Math::Vector3(m_BoxCollision.vMin.x, m_BoxCollision.vMin.y, m_BoxCollision.vMin.z);
-	m_BoxCollision.vList[3] = Math::Vector3(m_BoxCollision.vMax.x, m_BoxCollision.vMin.y, m_BoxCollision.vMin.z);
+	m_BoxCollision.vList[0] = T::TVector3(m_BoxCollision.vMin.x, m_BoxCollision.vMax.y, m_BoxCollision.vMin.z);
+	m_BoxCollision.vList[1] = T::TVector3(m_BoxCollision.vMax.x, m_BoxCollision.vMax.y, m_BoxCollision.vMin.z);
+	m_BoxCollision.vList[2] = T::TVector3(m_BoxCollision.vMin.x, m_BoxCollision.vMin.y, m_BoxCollision.vMin.z);
+	m_BoxCollision.vList[3] = T::TVector3(m_BoxCollision.vMax.x, m_BoxCollision.vMin.y, m_BoxCollision.vMin.z);
 
-	m_BoxCollision.vList[4] = Math::Vector3(m_BoxCollision.vMin.x, m_BoxCollision.vMax.y, m_BoxCollision.vMax.z);
-	m_BoxCollision.vList[5] = Math::Vector3(m_BoxCollision.vMax.x, m_BoxCollision.vMax.y, m_BoxCollision.vMax.z);
-	m_BoxCollision.vList[6] = Math::Vector3(m_BoxCollision.vMin.x, m_BoxCollision.vMin.y, m_BoxCollision.vMax.z);
-	m_BoxCollision.vList[7] = Math::Vector3(m_BoxCollision.vMax.x, m_BoxCollision.vMin.y, m_BoxCollision.vMax.z);
+	m_BoxCollision.vList[4] = T::TVector3(m_BoxCollision.vMin.x, m_BoxCollision.vMax.y, m_BoxCollision.vMax.z);
+	m_BoxCollision.vList[5] = T::TVector3(m_BoxCollision.vMax.x, m_BoxCollision.vMax.y, m_BoxCollision.vMax.z);
+	m_BoxCollision.vList[6] = T::TVector3(m_BoxCollision.vMin.x, m_BoxCollision.vMin.y, m_BoxCollision.vMax.z);
+	m_BoxCollision.vList[7] = T::TVector3(m_BoxCollision.vMax.x, m_BoxCollision.vMin.y, m_BoxCollision.vMax.z);
 }
 Obj3D::Obj3D()
 {
 	m_fAlpha = 1.0f;
-	m_vColor = Math::Vector4(1, 1, 1, 1);
+	m_vColor = T::TVector4(1, 1, 1, 1);
 
 	m_vLight.x = 1;
 	m_vLight.y = 0;
@@ -211,14 +211,14 @@ Obj3D::Obj3D()
 	m_vLook.y = 0;
 	m_vLook.z = 1;
 
-	m_BoxCollision.vAxis[0] = Math::Vector3(1, 0, 0);
-	m_BoxCollision.vAxis[1] = Math::Vector3(0, 1, 0);
-	m_BoxCollision.vAxis[2] = Math::Vector3(0, 0, 1);
+	m_BoxCollision.vAxis[0] = T::TVector3(1, 0, 0);
+	m_BoxCollision.vAxis[1] = T::TVector3(0, 1, 0);
+	m_BoxCollision.vAxis[2] = T::TVector3(0, 0, 1);
 	m_BoxCollision.size.x = 1.0f;
 	m_BoxCollision.size.y = 1.0f;
 	m_BoxCollision.size.z = 1.0f;
-	m_BoxCollision.vMin = Math::Vector3(-1.0f, -1.0f, -1.0f);
-	m_BoxCollision.vMax = Math::Vector3(1.0f, 1.0f, 1.0f);
+	m_BoxCollision.vMin = T::TVector3(-1.0f, -1.0f, -1.0f);
+	m_BoxCollision.vMax = T::TVector3(1.0f, 1.0f, 1.0f);
 }
 Obj3D::~Obj3D()
 {

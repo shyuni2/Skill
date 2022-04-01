@@ -1,5 +1,5 @@
 #pragma once
-#include "Matrix.h"
+#include "TMath.h"
 
 enum CollisionResult
 {
@@ -10,10 +10,10 @@ enum CollisionResult
 // È­¸éÁÂÇ¥°è+¿ÞÂÊ»ó´ÜÀÌ ¿øÁ¡
 struct Rect2D
 {
-	Math::Vector2 vMin;
-	Math::Vector2 vMax;
-	Math::Vector2 vCenter;
-	Math::Vector2 size;
+	T::TVector2 vMin;
+	T::TVector2 vMax;
+	T::TVector2 vCenter;
+	T::TVector2 size;
 	bool operator == (const Rect2D& v)
 	{
 		if (fabs((vMin - v.vMin).Length()) < 0.0001f)
@@ -26,7 +26,7 @@ struct Rect2D
 		return false;
 	}
 	Rect2D() {};
-	Rect2D(Math::Vector2 vMin, Math::Vector2 vMax)
+	Rect2D(T::TVector2 vMin, T::TVector2 vMax)
 	{
 		this->vMin = vMin;
 		this->vMax = vMax;
@@ -35,10 +35,10 @@ struct Rect2D
 		size.x = vMax.x - vMin.x;
 		size.y = vMax.y - vMin.y;
 	}
-	Rect2D(Math::Vector2 v, float w, float h)
+	Rect2D(T::TVector2 v, float w, float h)
 	{
 		this->vMin = v;
-		this->vMax = vMin + Math::Vector2(w, h);
+		this->vMax = vMin + T::TVector2(w, h);
 		vCenter = (vMax + vMin);
 		vCenter /= 2.0f;
 		this->size.x = w;
@@ -48,10 +48,10 @@ struct Rect2D
 // È­¸éÁÂÇ¥°è+Áß¾ÓÀÌ ¿øÁ¡
 struct Rect
 {
-	Math::Vector2 vMin;
-	Math::Vector2 vMax;
-	Math::Vector2 vCenter;
-	Math::Vector2 size;
+	T::TVector2 vMin;
+	T::TVector2 vMax;
+	T::TVector2 vCenter;
+	T::TVector2 size;
 	bool operator == (const Rect& v)
 	{
 		if (fabs((vMin - v.vMin).Length()) < 0.0001f)
@@ -64,7 +64,7 @@ struct Rect
 		return false;
 	}
 	Rect() {};
-	Rect(Math::Vector2 vMin, Math::Vector2 vMax)
+	Rect(T::TVector2 vMin, T::TVector2 vMax)
 	{
 		this->vMin = vMin;
 		this->vMax = vMax;
@@ -73,25 +73,25 @@ struct Rect
 		size.x = vMax.x - vMin.x;
 		size.y = vMax.y - vMin.y;
 	}
-	Rect(Math::Vector2 pos, float w, float h)
+	Rect(T::TVector2 pos, float w, float h)
 	{
 		vCenter = pos;
-		this->vMin = vCenter - Math::Vector2(w/2.0f, h/2.0f);
-		this->vMax = vCenter + Math::Vector2(w / 2.0f, h / 2.0f);		
+		this->vMin = vCenter - T::TVector2(w/2.0f, h/2.0f);
+		this->vMax = vCenter + T::TVector2(w / 2.0f, h / 2.0f);		
 		this->size.x = w;
 		this->size.y = h;
 	}
 };
 struct Box
 {
-	Math::Vector3 vList[8];
+	T::TVector3 vList[8];
 	//aabb
-	Math::Vector3 vMin;
-	Math::Vector3 vMax;
+	T::TVector3 vMin;
+	T::TVector3 vMax;
 	// obb
-	Math::Vector3 vCenter;
-	Math::Vector3 vAxis[3];
-	Math::Vector3 size;
+	T::TVector3 vCenter;
+	T::TVector3 vAxis[3];
+	T::TVector3 size;
 	bool operator == (const Box& v)
 	{
 		if (fabs((vMin - v.vMin).Length()) < 0.0001f)
@@ -104,7 +104,7 @@ struct Box
 		return false;
 	}
 	Box() {};
-	Box(Math::Vector3 vMin, Math::Vector3 vMax)
+	Box(T::TVector3 vMin, T::TVector3 vMax)
 	{
 		this->vMin = vMin;
 		this->vMax = vMax;
@@ -113,10 +113,10 @@ struct Box
 		size.x = vMax.x - vMin.x;
 		size.y = vMax.y - vMin.y;
 	}
-	Box(Math::Vector3 v, float w, float h, float q)
+	Box(T::TVector3 v, float w, float h, float q)
 	{
 		this->vMin = v;
-		this->vMax = vMin + Math::Vector3(w, h,q);
+		this->vMax = vMin + T::TVector3(w, h,q);
 		vCenter = (vMax + vMin);
 		vCenter /= 2.0f;
 		this->size.x = w;
@@ -125,7 +125,7 @@ struct Box
 };
 struct Sphere
 {
-	Math::Vector3 vCenter;
+	T::TVector3 vCenter;
 	float fRadius;
 	Sphere()
 	{
@@ -136,16 +136,16 @@ class Collision
 {
 public:
 	static bool SphereToPoint(Sphere rt, int x, int y, int z);
-	static bool SphereToPoint(Sphere rt, Math::Vector3 v);
+	static bool SphereToPoint(Sphere rt, T::TVector3 v);
 	static bool RectToPoint(Rect rt, int x, int y);
-	static bool RectToPoint(Rect rt, Math::Vector2 v);
+	static bool RectToPoint(Rect rt, T::TVector2 v);
 	static CollisionResult RectToRect(Rect,Rect);
 	static CollisionResult ToRect(Rect rt1, Rect rt2);
 	static Rect UnionRect(Rect rt1, Rect rt2);
 	static bool IntersectRect(Rect rt1, Rect rt2, Rect* rt);
 public:
 	static bool BoxToPoint(Box rt, int x, int y, int z);
-	static bool BoxToPoint(Box rt, Math::Vector3 v);
+	static bool BoxToPoint(Box rt, T::TVector3 v);
 	static CollisionResult BoxToBox(Box, Box);
 	static Box UnionBox(Box rt1, Box rt2);
 	static bool IntersectBox(Box rt1, Box rt2, Box* rt);

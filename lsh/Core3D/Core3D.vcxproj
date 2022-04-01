@@ -26,7 +26,7 @@
     <ClCompile Include="DxObj.cpp" />
     <ClCompile Include="DxState.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="TMatrix.cpp" />
     <ClCompile Include="Obj2D.cpp" />
     <ClCompile Include="Obj3D.cpp" />
     <ClCompile Include="ObjMgr.cpp" />
@@ -34,8 +34,9 @@
     <ClCompile Include="SoundMgr.cpp" />
     <ClCompile Include="TexturerMgr.cpp" />
     <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="Vector2.cpp" />
-    <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="TMath.cpp" />
+    <ClCompile Include="TVector2.cpp" />
+    <ClCompile Include="TVector3.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="WriteFont.cpp" />
@@ -48,7 +49,7 @@
     <ClInclude Include="DxObj.h" />
     <ClInclude Include="DxState.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="TMatrix.h" />
     <ClInclude Include="Obj2D.h" />
     <ClInclude Include="Obj3D.h" />
     <ClInclude Include="ObjMgr.h" />
@@ -57,8 +58,9 @@
     <ClInclude Include="STD.h" />
     <ClInclude Include="TextureMgr.h" />
     <ClInclude Include="Timer.h" />
-    <ClInclude Include="Vector2.h" />
-    <ClInclude Include="Vector3.h" />
+    <ClInclude Include="TMath.h" />
+    <ClInclude Include="TVector2.h" />
+    <ClInclude Include="TVector3.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="WriteFont.h" />

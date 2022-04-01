@@ -49,17 +49,20 @@
     <ClCompile Include="WriteFont.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="Vector3.cpp">
+    <ClCompile Include="TVector3.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2.cpp">
+    <ClCompile Include="TVector2.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="Matrix.cpp">
+    <ClCompile Include="TMatrix.cpp">
       <Filter>math</Filter>
     </ClCompile>
     <ClCompile Include="DxObj.cpp">
       <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="TMath.cpp">
+      <Filter>math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,10 +87,10 @@
     <ClInclude Include="BaseMgr.h">
       <Filter>mgr</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3.h">
+    <ClInclude Include="TVector3.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2.h">
+    <ClInclude Include="TVector2.h">
       <Filter>math</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
@@ -118,11 +121,14 @@
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="STD.h" />
-    <ClInclude Include="Matrix.h">
+    <ClInclude Include="TMatrix.h">
       <Filter>math</Filter>
     </ClInclude>
     <ClInclude Include="DxObj.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="TMath.h">
+      <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
