@@ -24,7 +24,6 @@ bool		PlaneObj::SetVertexData()
 	m_VertexList[2].c = Math::Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[2].t = Math::Vector2(0.0f, 1.0f);
 
-
 	m_VertexList[3].p = Math::Vector3(1.0f, -1.0f, 0.0f);
 	m_VertexList[3].n = Math::Vector3(0.0f, 0.0f, -1.0f);
 	m_VertexList[3].c = Math::Vector4(1.0f, 1.0f, 1.0f, 1.0f);

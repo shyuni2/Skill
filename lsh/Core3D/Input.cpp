@@ -11,6 +11,13 @@ bool Input::Init()
 	ZeroMemory(&m_dwKeyState, sizeof(DWORD) * 256 );
 	return true;
 }
+T::TVector2 Input::GetDelta()
+{
+	T::TVector2 ret;
+	m_fRadianY += (Input::Get().m_ptDeltaMouse.x / (float)g_rtClient.right) * BASIS_PI;
+	m_fRadianX += (Input::Get().m_ptDeltaMouse.y / (float)g_rtClient.bottom) * BASIS_PI;
+	return TVector2(m_fRadianX, m_fRadianY);
+}
 bool Input::Frame() 
 {	
 	POINT ptOffset = g_ptMouse; // 마우스 정보 저장

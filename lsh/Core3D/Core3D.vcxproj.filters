@@ -64,6 +64,30 @@
     <ClCompile Include="TMath.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>map</Filter>
+    </ClCompile>
+    <ClCompile Include="Quadtree.cpp">
+      <Filter>map</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxObj.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Frustum.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaneObj.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyObj.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Obj2D.h">
@@ -130,6 +154,30 @@
     <ClInclude Include="TMath.h">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxObj.h">
+      <Filter>camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Frustum.h">
+      <Filter>camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>camera</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaneObj.h">
+      <Filter>camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyObj.h">
+      <Filter>camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="mgr">
@@ -144,5 +192,25 @@
     <Filter Include="core">
       <UniqueIdentifier>{05e25f70-8d5b-4532-a290-7c57a62e6ba4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="camera">
+      <UniqueIdentifier>{ed47772f-5b11-48ae-b8b8-8e3746bd1999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{625f9c77-4a76-46ed-a552-6eb2b3895598}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="map">
+      <UniqueIdentifier>{16ceddbd-cdf7-48b0-9d6b-1f22c9e4b728}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Box.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="map.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="sky.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

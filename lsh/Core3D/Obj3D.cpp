@@ -147,6 +147,69 @@ bool Obj3D::Frame()
 	m_BoxCollision.vMax = T::TVector3(1.0f, 1.0f, 1.0f);
 	return true;
 }
+void		Obj3D::UpdateData()
+{
+	m_vLight.x = m_matWorld._11;
+	m_vLight.y = m_matWorld._12;
+	m_vLight.z = m_matWorld._13;
+	m_vUp.x = m_matWorld._21;
+	m_vUp.y = m_matWorld._22;
+	m_vUp.z = m_matWorld._23;
+	m_vLook.x = m_matWorld._31;
+	m_vLook.y = m_matWorld._32;
+	m_vLook.z = m_matWorld._33;
+
+	T::D3DXVec3Normalize(&m_vLight, &m_vLight);
+	T::D3DXVec3Normalize(&m_vUp, &m_vUp);
+	T::D3DXVec3Normalize(&m_vLook, &m_vLook);
+}
+void		Obj3D::UpdateCollision()
+{
+	m_BoxCollision.vAxis[0] = m_vLight;
+	m_BoxCollision.vAxis[1] = m_vUp;
+	m_BoxCollision.vAxis[2] = m_vLook;
+
+	// GenAABB();
+	m_BoxCollision.vMin = T::TVector3(100000, 100000, 100000);
+	m_BoxCollision.vMax = T::TVector3(-100000, -100000, -100000);
+	for (int iV = 0; iV < 8; iV++)
+	{
+		T::TVector3 pos;
+		T::D3DXVec3TransformCoord(&pos, &m_BoxCollision.vList[iV], &m_matWorld);
+		if (m_BoxCollision.vMin.x > pos.x)
+		{
+			m_BoxCollision.vMin.x = pos.x;
+		}
+		if (m_BoxCollision.vMin.y > pos.y)
+		{
+			m_BoxCollision.vMin.y = pos.y;
+		}
+		if (m_BoxCollision.vMin.z > pos.z)
+		{
+			m_BoxCollision.vMin.z = pos.z;
+		}
+
+		if (m_BoxCollision.vMax.x < pos.x)
+		{
+			m_BoxCollision.vMax.x = pos.x;
+		}
+		if (m_BoxCollision.vMax.y < pos.y)
+		{
+			m_BoxCollision.vMax.y = pos.y;
+		}
+		if (m_BoxCollision.vMax.z < pos.z)
+		{
+			m_BoxCollision.vMax.z = pos.z;
+		}
+	}
+
+	T::TVector3 vHalf = m_BoxCollision.vMax - m_BoxCollision.vCenter;
+	m_BoxCollision.size.x = fabs(T::D3DXVec3Dot(&m_BoxCollision.vAxis[0], &vHalf));
+	m_BoxCollision.size.y = fabs(T::D3DXVec3Dot(&m_BoxCollision.vAxis[1], &vHalf));
+	m_BoxCollision.size.z = fabs(T::D3DXVec3Dot(&m_BoxCollision.vAxis[2], &vHalf));
+	m_BoxCollision.vCenter = (m_BoxCollision.vMin + m_BoxCollision.vMax);
+	m_BoxCollision.vCenter /= 2.0f;
+}
 void Obj3D::GenAABB()
 {
 	// aabb 

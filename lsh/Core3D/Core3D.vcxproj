@@ -26,6 +26,10 @@
     <ClCompile Include="DxObj.cpp" />
     <ClCompile Include="DxState.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="BoxObj.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="TMatrix.cpp" />
     <ClCompile Include="Obj2D.cpp" />
     <ClCompile Include="Obj3D.cpp" />
@@ -35,6 +39,10 @@
     <ClCompile Include="TexturerMgr.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TMath.cpp" />
+    <ClCompile Include="Quadtree.cpp" />
+    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="PlaneObj.cpp" />
+    <ClCompile Include="SkyObj.cpp" />
     <ClCompile Include="TVector2.cpp" />
     <ClCompile Include="TVector3.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -49,6 +57,10 @@
     <ClInclude Include="DxObj.h" />
     <ClInclude Include="DxState.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="BoxObj.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Frustum.h" />
     <ClInclude Include="TMatrix.h" />
     <ClInclude Include="Obj2D.h" />
     <ClInclude Include="Obj3D.h" />
@@ -59,11 +71,26 @@
     <ClInclude Include="TextureMgr.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TMath.h" />
+    <ClInclude Include="Quadtree.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="PlaneObj.h" />
+    <ClInclude Include="SkyObj.h" />
     <ClInclude Include="TVector2.h" />
     <ClInclude Include="TVector3.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="WriteFont.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Box.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="map.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="sky.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -114,6 +114,12 @@ struct ConstantData
 	T::TVector4 Timer;
 };
 
+struct LightData
+{
+	T::TVector4 vLightDir;
+	T::TVector4 vLightPos;
+};
+
 class DxObj : public BaseObj
 {
 public:
@@ -132,6 +138,9 @@ public:
 public:
 	ConstantData m_ConstantList;
 	ID3D11Buffer* m_pConstantBuffer = nullptr;
+public:
+	LightData m_LightConstantList;
+	ID3D11Buffer* m_pLightConstantBuffer = nullptr;
 public:
 	ID3D11InputLayout* m_pVertexLayout = nullptr;
 	ID3D11Device* m_pd3dDevice = nullptr;
@@ -156,6 +165,7 @@ public:
 	virtual bool Frame();
 	virtual bool PreRender();
 	virtual bool Render();
+	virtual bool Draw();
 	virtual bool PostRender();
 	virtual bool Release();
 public:

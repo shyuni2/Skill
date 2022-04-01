@@ -12,6 +12,8 @@ enum KeyState
 class Input
 {
 public: 
+	float m_fRadianX = 0.0f;
+	float m_fRadianY = 0.0f;
 	DWORD m_dwKeyState[256]; 
 	POINT m_ptMouse;
 	DWORD m_dwMouseState[3];
@@ -31,6 +33,8 @@ public:
 	bool Frame();
 	bool Render();
 	bool Release();
+public:
+	T::TVector2 GetDelta();
 private:
 	 Input();
 public:

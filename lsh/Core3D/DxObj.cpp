@@ -38,14 +38,28 @@ bool DxObj::SetConstantData()
 	m_ConstantList.matWorld = T::TMatrix();
 	m_ConstantList.matView = T::TMatrix();
 	m_ConstantList.matProj = T::TMatrix();
+
 	m_ConstantList.Color.x = 0.0f;
 	m_ConstantList.Color.y = 1.0f;
 	m_ConstantList.Color.z = 0.0f;
 	m_ConstantList.Color.w = 1.0f;
+
 	m_ConstantList.Timer.x = 0.0f;
 	m_ConstantList.Timer.y = 1.0f;
 	m_ConstantList.Timer.z = 0.0f;
 	m_ConstantList.Timer.w = 0.0f;
+
+	ZeroMemory(&m_LightConstantList, sizeof(LightData));
+	m_LightConstantList.vLightDir.x = 0.0f;
+	m_LightConstantList.vLightDir.y = 1.0f;
+	m_LightConstantList.vLightDir.z = 0.0f;
+	m_LightConstantList.vLightDir.w = 1.0f;
+
+	m_LightConstantList.vLightPos.x = 0.0f;
+	m_LightConstantList.vLightPos.y = 1.0f;
+	m_LightConstantList.vLightPos.z = 0.0f;
+	m_LightConstantList.vLightPos.w = 0.0f;
+
 	return true;
 }
 bool DxObj::CreateVertexShader(const TCHAR* szFile)
@@ -252,6 +266,54 @@ bool DxObj::PreRender()
 		m_pContext->PSSetShaderResources(1, 1, m_pMaskTex->m_pSRV.GetAddressOf());
 	}
 		
+	return true;
+}
+bool DxObj::Draw()
+{
+	m_pContext->UpdateSubresource(m_pConstantBuffer, 0, NULL, &m_ConstantList, 0, 0);
+	m_pContext->UpdateSubresource(m_pLightConstantBuffer, 0, NULL, &m_LightConstantList, 0, 0);
+
+	m_pContext->GSSetShader(nullptr, NULL, 0);
+	m_pContext->HSSetShader(nullptr, NULL, 0);
+	m_pContext->DSSetShader(nullptr, NULL, 0);
+	if (m_pVShader != nullptr)
+	{
+		m_pContext->VSSetShader(m_pVShader->m_pVertexShader, NULL, 0);
+	}
+	if (m_pPShader != nullptr)
+	{
+		m_pContext->PSSetShader(m_pPShader->m_pPixelShader, NULL, 0);
+	}
+
+	if (m_bAlphaBlend)
+	{
+		m_pContext->OMSetBlendState(DxState::m_AlphaBlend, 0, -1);
+	}
+	else
+	{
+		m_pContext->OMSetBlendState(DxState::m_AlphaBlendDisable, 0, -1);
+	}
+
+	m_pContext->IASetInputLayout(m_pVertexLayout);
+
+
+	UINT StartSlot;
+	UINT NumBuffers;
+	UINT Strides = sizeof(Vertex);
+	UINT Offsets = 0;
+
+	m_pContext->IASetVertexBuffers(0, 1, &m_pVertexBuffer, &Strides, &Offsets);
+	m_pContext->IASetIndexBuffer(m_pIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	m_pContext->VSSetConstantBuffers(0, 1, &m_pConstantBuffer);
+	m_pContext->PSSetConstantBuffers(0, 1, &m_pConstantBuffer);
+	m_pContext->VSSetConstantBuffers(1, 1, &m_pLightConstantBuffer);
+	m_pContext->PSSetConstantBuffers(1, 1, &m_pLightConstantBuffer);
+
+	m_pContext->IASetPrimitiveTopology(
+		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
+		//D3D_PRIMITIVE_TOPOLOGY_POINTLIST
+		//D3D_PRIMITIVE_TOPOLOGY_LINELIST
+	);
 	return true;
 }
 bool DxObj::PostRender()
