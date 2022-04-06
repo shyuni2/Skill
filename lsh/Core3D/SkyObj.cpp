@@ -1,7 +1,6 @@
 #include "SkyObj.h"
 
-void		SkyObj::SetMatrix(T::TMatrix* matWorld,
-	T::TMatrix* matView, T::TMatrix* matProj)
+void SkyObj::SetMatrix(T::TMatrix* matWorld, T::TMatrix* matView, T::TMatrix* matProj)
 {
 	m_ConstantList.matWorld = m_matWorld.Transpose();
 	if (matWorld != nullptr)
@@ -24,8 +23,7 @@ void		SkyObj::SetMatrix(T::TMatrix* matWorld,
 	UpdateData();
 	UpdateCollision();
 }
-bool		SkyObj::LoadTexture(const TCHAR* szColorFileName,
-								 const TCHAR* szMaskFileName)
+bool SkyObj::LoadTexture(const TCHAR* szColorFileName, const TCHAR* szMaskFileName)
 {
 
 	m_pTexArray[0] = I_Texture.Load(L"..\\..\\data\\sky\\st00_cm_front.bmp" );
@@ -47,7 +45,7 @@ bool		SkyObj::LoadTexture(const TCHAR* szColorFileName,
 	m_TextureDesc = m_pTexArray[0]->m_TextureDesc;
 	return true;
 }
-bool		SkyObj::SetVertexData()
+bool SkyObj::SetVertexData()
 {
 	// Local Coord
 	// Box
@@ -102,7 +100,7 @@ bool		SkyObj::SetVertexData()
 	GenAABB();
 	return true;
 }
-bool		SkyObj::SetIndexData()
+bool SkyObj::SetIndexData()
 {
 	m_IndexList.resize(36);
 	int iIndex = 0;
@@ -115,7 +113,7 @@ bool		SkyObj::SetIndexData()
 
 	return true;
 }
-bool		SkyObj::Render()
+bool SkyObj::Render()
 {
 	PreRender();
 	m_pContext->RSSetState(DxState::g_pRSNoneCullSolid);
@@ -125,7 +123,7 @@ bool		SkyObj::Render()
 	PostRender();
 	return true;
 }
-bool	SkyObj::PostRender()
+bool SkyObj::PostRender()
 {
 	//// 1¹ø
 	//for (int iTex = 0; iTex < 6; iTex++)
