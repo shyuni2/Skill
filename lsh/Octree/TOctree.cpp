@@ -1,9 +1,9 @@
-#include "TQuadtree.h"
+#include "Quadtree.h"
 
 // 노드 만들기
-TNode* TQuadtree::CreateNode(TNode* pParent, float x, float y, float w, float h)
+Node* Quadtree::CreateNode(Node* pParent, float x, float y, float w, float h)
 {
-	TNode* pNode = new TNode(x, y, w, h);
+	Node* pNode = new Node(x, y, w, h);
 	if (pParent != nullptr)
 	{
 		pNode->m_iDepth = pParent->m_iDepth + 1;
@@ -12,7 +12,7 @@ TNode* TQuadtree::CreateNode(TNode* pParent, float x, float y, float w, float h)
 }
 
 // 트리 초기화
-void TQuadtree::Init(int iWidth, int iHeight, int iMaxDepth)
+void Quadtree::Init(int iWidth, int iHeight, int iMaxDepth)
 {
 	m_iMaxDepth = iMaxDepth;
 	m_iWidth = iWidth;
@@ -22,7 +22,7 @@ void TQuadtree::Init(int iWidth, int iHeight, int iMaxDepth)
 }
 
 // 트리 만들기
-void TQuadtree::BuildTree(TNode* pParent)
+void Quadtree::BuildTree(Node* pParent)
 {
 	// 깊이가 최대깊이일때 리턴
 	if (pParent->m_iDepth == m_iMaxDepth) return;
@@ -42,9 +42,9 @@ void TQuadtree::BuildTree(TNode* pParent)
 }
 
 // 객체 추가
-bool TQuadtree::AddObject(TObject* obj)
+bool Quadtree::AddObject(TObject* obj)
 {
-	TNode* pFindNode = FindNode(m_pRootNode, obj->m_rt);
+	Node* pFindNode = FindNode(m_pRootNode, obj->m_rt);
 	if (pFindNode != nullptr)
 	{
 		pFindNode->AddObject(obj);
@@ -53,7 +53,7 @@ bool TQuadtree::AddObject(TObject* obj)
 	return false;
 }
 
-TNode* TQuadtree::FindNode(TNode* pNode, int x, int y)
+Node* Quadtree::FindNode(Node* pNode, int x, int y)
 {
 	do {
 		// iNode가 0부터 시작, iNode가 하나씩 추가되면서 iNode가 4이하일때까지 
@@ -80,7 +80,7 @@ TNode* TQuadtree::FindNode(TNode* pNode, int x, int y)
 	return pNode;
 }
 
-TNode* TQuadtree::FindNode(TNode* pNode, TRect rt)
+Node* Quadtree::FindNode(Node* pNode, TRect rt)
 {
 	do {
 		for (int iNode = 0; iNode < 4; iNode++)
@@ -106,7 +106,7 @@ TNode* TQuadtree::FindNode(TNode* pNode, TRect rt)
 }
 
 // 객체리스트 출력
-void TQuadtree::PrintObjectList(TNode* pNode)
+void Quadtree::PrintObjectList(Node* pNode)
 {
 	if (pNode == nullptr) return;
 	for (std::list<TObject*>::iterator iter = pNode->m_ObjectList.begin();

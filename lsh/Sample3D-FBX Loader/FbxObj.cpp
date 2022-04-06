@@ -28,7 +28,7 @@ bool FbxObj::CreateVertexBuffer()
 	{
 		if (m_pSubVertexList[iMtrl].size() <= 0) continue;
 
-		D3D11_BUFFER_DESC bd; //gpu메모리에 버퍼 할당(원하는 할당 크기)
+		D3D11_BUFFER_DESC bd;
 		ZeroMemory(&bd, sizeof(D3D11_BUFFER_DESC));
 		bd.ByteWidth = sizeof(Vertex) * m_pSubVertexList[iMtrl].size();
 		bd.Usage = D3D11_USAGE_DEFAULT;

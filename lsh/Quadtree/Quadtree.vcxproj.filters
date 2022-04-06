@@ -18,10 +18,10 @@
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="TQuadtree.cpp">
+    <ClCompile Include="Quadtree.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="TNode.cpp">
+    <ClCompile Include="Node.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="TObject.cpp">
@@ -35,10 +35,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TQuadtree.h">
+    <ClInclude Include="Quadtree.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="TNode.h">
+    <ClInclude Include="Node.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="TObject.h">

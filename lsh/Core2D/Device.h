@@ -4,10 +4,10 @@
 class Device : public Window
 {
 public:
-	ComPtr<ID3D11Device> m_pd3dDevice;
-	ComPtr<ID3D11DeviceContext> m_pImmediateContext;
-	ComPtr<IDXGISwapChain> m_pSwapChain;
-	ComPtr<ID3D11RenderTargetView> m_pRenderTargetView;
+	Microsoft::WRL::ComPtr<ID3D11Device> m_pd3dDevice;
+	Microsoft::WRL::ComPtr<ID3D11DeviceContext> m_pImmediateContext;
+	Microsoft::WRL::ComPtr<IDXGISwapChain> m_pSwapChain;
+	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_pRenderTargetView;
 	D3D_FEATURE_LEVEL m_FeatureLevel;
 	DXGI_SWAP_CHAIN_DESC m_SwapChainDesc;	
 	D3D11_VIEWPORT m_ViewPort;

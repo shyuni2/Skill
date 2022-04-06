@@ -1,13 +1,13 @@
-#include "TNode.h"
+#include "Node.h"
 
-void TNode::AddObject(TObject* obj) // 객체 추가
+void Node::AddObject(TObject* obj) // 객체 추가
 {
 	// 객체 리스트 푸시백 할때 객체 동적할당
 	// list의 push_back은 뒷쪽으로 객체를 삽입
 	m_ObjectList.push_back(obj);
 }
 
-TNode::TNode() // 생성자
+Node::Node() // 생성자
 {
 	// 생성될때 깊이 0 부모, 자식 모두 NULL
 	m_pParent = nullptr;
@@ -28,7 +28,7 @@ TNode::TNode() // 생성자
 	m_ObjectList.clear();
 }
 
-TNode::TNode(float x, float y, float w, float h) : TNode()
+Node::Node(float x, float y, float w, float h) : Node()
 {
 	m_rt.vMin.x = x;
 	m_rt.vMin.y = y;
@@ -48,7 +48,7 @@ TNode::TNode(float x, float y, float w, float h) : TNode()
 	pChild[3] = nullptr;
 }
 
-TNode::~TNode() // 동적할당 해제
+Node::~Node() // 동적할당 해제
 {
 	delete pChild[0];
 	delete pChild[1];

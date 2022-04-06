@@ -1,5 +1,5 @@
-#include "TSkyObj.h"
-bool		TSkyObj::LoadTexture(const TCHAR* szColorFileName,
+#include "SkyObj.h"
+bool		SkyObj::LoadTexture(const TCHAR* szColorFileName,
 								 const TCHAR* szMaskFileName)
 {
 
@@ -22,7 +22,7 @@ bool		TSkyObj::LoadTexture(const TCHAR* szColorFileName,
 	m_TextureDesc = m_pTexArray[0]->m_TextureDesc;
 	return true;
 }
-bool		TSkyObj::SetVertexData()
+bool		SkyObj::SetVertexData()
 {
 	// Local Coord
 	// Box
@@ -77,7 +77,7 @@ bool		TSkyObj::SetVertexData()
 	GenAABB();
 	return true;
 }
-bool		TSkyObj::SetIndexData()
+bool		SkyObj::SetIndexData()
 {
 	m_IndexList.resize(36);
 	int iIndex = 0;
@@ -90,7 +90,7 @@ bool		TSkyObj::SetIndexData()
 
 	return true;
 }
-bool	TSkyObj::PostRender()
+bool	SkyObj::PostRender()
 {
 	//// 1¹ø
 	//for (int iTex = 0; iTex < 6; iTex++)
@@ -109,11 +109,11 @@ bool	TSkyObj::PostRender()
 	m_pContext->DrawIndexed(36, 0, 0); 
 	return true;
 }
-TSkyObj::TSkyObj()
+SkyObj::SkyObj()
 {
 
 }
-TSkyObj::~TSkyObj()
+SkyObj::~SkyObj()
 {
 
 }

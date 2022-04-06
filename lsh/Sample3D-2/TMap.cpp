@@ -1,10 +1,10 @@
-#include "TMap.h"
+#include "Map.h"
 #include "WICTextureLoader.h"
-float TMap::GetHeightmap(int row, int col)
+float Map::GetHeightmap(int row, int col)
 {
 	return m_VertexList[row * m_iNumRows + col].p.y;
 }
-float TMap::GetHeight(float fPosX, float fPosZ)
+float Map::GetHeight(float fPosX, float fPosZ)
 {
 	// fPosX/fPosZ의 위치에 해당하는 높이맵셀을 찾는다.
 	// m_iNumCols와m_iNumRows은 가로/세로의 실제 크기값임.
@@ -60,11 +60,11 @@ float TMap::GetHeight(float fPosX, float fPosZ)
 	}
 	return fHeight;
 }
-float TMap::Lerp(float fStart, float fEnd, float fTangent)
+float Map::Lerp(float fStart, float fEnd, float fTangent)
 {
 	return fStart - (fStart * fTangent) + (fEnd * fTangent);
 }
-bool TMap::Frame()
+bool Map::Frame()
 {
 	T::TVector3 vLight(cosf(g_fGameTimer)*100.0f, 
 		            100, 
@@ -78,11 +78,11 @@ bool TMap::Frame()
 	m_ConstantList.Color.w = 1.0f;
 	return true;
 }
-bool TMap::CreateHeightMap(const TCHAR* strHeightMapTex)
+bool Map::CreateHeightMap(const TCHAR* strHeightMapTex)
 {
 	HRESULT hr;	
 	ID3D11ShaderResourceView* pSRV = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11Resource> pTexture;
+	Microsoft::WRL::Microsoft::WRL::ComPtr<ID3D11Resource> pTexture;
 	size_t maxsize = 0;
 	if (FAILED(hr = CreateWICTextureFromFileEx(m_pd3dDevice,
 		strHeightMapTex,
@@ -134,7 +134,7 @@ bool TMap::CreateHeightMap(const TCHAR* strHeightMapTex)
 	if(pTexture2D) pTexture2D->Release();
 	return true;
 }
-bool		TMap::CreateMap(UINT width, UINT height,
+bool		Map::CreateMap(UINT width, UINT height,
 	float fDistance)
 {
 	m_iNumCols = width;
@@ -147,7 +147,7 @@ bool		TMap::CreateMap(UINT width, UINT height,
 
 	return true;
 }
-bool		TMap::SetVertexData()
+bool		Map::SetVertexData()
 {
 	m_VertexList.resize(m_iNumVertices);	
 	float  hHalfCol = (m_iNumCols - 1) / 2.0f;
@@ -172,7 +172,7 @@ bool		TMap::SetVertexData()
 	}
 	return true;
 }
-bool		TMap::SetIndexData()
+bool		Map::SetIndexData()
 {
 	m_IndexList.resize(m_iNumFaces*3);
 	UINT iIndex = 0;
@@ -201,7 +201,7 @@ bool		TMap::SetIndexData()
 		for (int iCol = 0; iCol < m_iNumCellCols; iCol++)
 		{
 			// 0face
-			TFace face;
+			Face face;
 			face.v0 = m_IndexList[iIndex + 0];
 			face.v1 = m_IndexList[iIndex + 1];
 			face.v2 = m_IndexList[iIndex + 2];
@@ -262,11 +262,11 @@ bool		TMap::SetIndexData()
 	}
 	return true;
 }
-TMap::TMap()
+Map::Map()
 {
 
 }
-TMap::~TMap()
+Map::~Map()
 {
 
 }

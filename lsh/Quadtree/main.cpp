@@ -1,7 +1,7 @@
-#include "TQuadtree.h"
+#include "Quadtree.h"
 void main()
 {
-	TQuadtree tree;
+	Quadtree tree;
 	tree.Init(100, 100, 2);
 	for (int iObj = 0; iObj < 10; iObj++)
 	{

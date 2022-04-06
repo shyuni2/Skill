@@ -1,6 +1,6 @@
 #pragma once
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
-#include "TStd.h" // 전에 만들었던 라이브러리 연결
+#include "STD.h" // 전에 만들었던 라이브러리 연결
 #include "TPacket.h"
 
 using namespace std;

@@ -1,73 +1,25 @@
 #define  _CRT_SECURE_NO_WARNINGS
 #include "FbxLoader.h"
 
-TMatrix FbxLoader::DxConvertMatrix(TMatrix m)
+bool FbxLoader::Load(std::string filename)
 {
-	TMatrix mat;
-	mat._11 = m._11; mat._12 = m._13; mat._13 = m._12;
-	mat._21 = m._31; mat._22 = m._33; mat._23 = m._32;
-	mat._31 = m._21; mat._32 = m._23; mat._33 = m._22;
-	mat._41 = m._41; mat._42 = m._43; mat._43 = m._42;
-	mat._14 = mat._24 = mat._34 = 0.0f;
-	mat._44 = 1.0f;
-	return mat;
-}
-TMatrix FbxLoader::ConvertMatrix(FbxMatrix& m)
-{
-	TMatrix mat;
-	float* pMatArray = reinterpret_cast<float*>(&mat);
-	double* pSrcArray = reinterpret_cast<double*>(&m);
-	for (int i = 0; i < 16; i++)
+	bool bRet = m_pFbxImporter->Initialize(filename.c_str());
+	bRet = m_pFbxImporter->Import(m_pFbxScene);
+	m_pRootNode = m_pFbxScene->GetRootNode();
+	PreProcess(m_pRootNode, nullptr);
+	ParseAnimation();
+	for (int iObj = 0; iObj < m_DrawList.size(); iObj++)
 	{
-		pMatArray[i] = pSrcArray[i];
+		ParseMesh(m_DrawList[iObj]);
 	}
-	return mat;
+	return true;
 }
-TMatrix FbxLoader::ConvertAMatrix(FbxAMatrix& m)
+void FbxLoader::PreProcess(FbxNode* node, FbxObj* fbxParent) 
 {
-	TMatrix mat;
-	float* pMatArray = reinterpret_cast<float*>(&mat);
-	double* pSrcArray = reinterpret_cast<double*>(&m);
-	for (int i = 0; i < 16; i++)
-	{
-		pMatArray[i] = pSrcArray[i];
-	}
-	return mat;
-}
-void FbxLoader::ParseAnimation()
-{
-	FbxTime::SetGlobalTimeMode(FbxTime::eFrames30);
-	FbxAnimStack* stack = m_pFbxScene->GetSrcObject<FbxAnimStack>(0);
-	FbxString TakeName = stack->GetName();
-	FbxTakeInfo* TakeInfo = m_pFbxScene->GetTakeInfo(TakeName);
-	FbxTimeSpan LocalTimeSpan = TakeInfo->mLocalTimeSpan;
-	FbxTime start = LocalTimeSpan.GetStart();
-	FbxTime end = LocalTimeSpan.GetStop();
-	FbxTime Duration = LocalTimeSpan.GetDuration();
+	/*
+	* 모든 노드를 다 돌고나서 메쉬데이터가 있으면 draw해주는 기능
+	*/
 
-	FbxTime::EMode TimeMode = FbxTime::GetGlobalTimeMode();
-	FbxLongLong s = start.GetFrameCount(TimeMode);
-	FbxLongLong n = end.GetFrameCount(TimeMode);
-
-	// 1초에 30 frame 
-	// 1Frame = 160 Tick
-	// 50 Frame 
-	FbxTime time;
-	Track tTrack;
-	for (FbxLongLong t = s; t <= n; t++)
-	{
-		time.SetFrame(t, TimeMode);
-		for (int iObj = 0; iObj < m_TreeList.size(); iObj++)
-		{
-			FbxAMatrix matGlobal = m_TreeList[iObj]->m_pFbxNode->EvaluateGlobalTransform(time);
-			tTrack.iFrame = t;
-			tTrack.matTrack = DxConvertMatrix(ConvertAMatrix(matGlobal));
-			m_TreeList[iObj]->m_AnimTrack.push_back(tTrack);
-		}
-	}
-}
-void FbxLoader::PreProcess(FbxNode* node, FbxObj* fbxParent)
-{
 	FbxObj* fbx = nullptr;
 	if (node != nullptr)
 	{
@@ -91,27 +43,14 @@ void FbxLoader::PreProcess(FbxNode* node, FbxObj* fbxParent)
 		PreProcess(child, fbx);
 	}
 }
-bool FbxLoader::Load(std::string filename)
-{
-	bool bRet = m_pFbxImporter->Initialize(filename.c_str());
-	bRet = m_pFbxImporter->Import(m_pFbxScene);
-	m_pRootNode = m_pFbxScene->GetRootNode();
-	PreProcess(m_pRootNode, nullptr);
-	ParseAnimation();
-	for (int iObj = 0; iObj < m_DrawList.size(); iObj++)
-	{
-		ParseMesh(m_DrawList[iObj]);
-	}
-	return true;
-}
 void FbxLoader::ParseMesh(FbxObj* pObject)
 {
 	FbxMesh* pFbxMesh = pObject->m_pFbxNode->GetMesh();
-	// 기하행렬(초기 정점 위치를 변환할 때 사용)
-	FbxAMatrix geom;
+	FbxAMatrix geom; // 기하행렬(초기 정점 위치를 변환할 때 사용)
 	FbxVector4 trans = pObject->m_pFbxNode->GetGeometricTranslation(FbxNode::eSourcePivot);
 	FbxVector4 rot = pObject->m_pFbxNode->GetGeometricRotation(FbxNode::eSourcePivot);
 	FbxVector4 scale = pObject->m_pFbxNode->GetGeometricScaling(FbxNode::eSourcePivot);
+
 	geom.SetT(trans);
 	geom.SetR(rot);
 	geom.SetS(scale);
@@ -120,7 +59,7 @@ void FbxLoader::ParseMesh(FbxObj* pObject)
 	normalMatrix = normalMatrix.Inverse();
 	normalMatrix = normalMatrix.Transpose();
 
-	// 레이어 ( 1번에 랜더링, 여러번에 걸쳐서 랜더링 개념)
+	// 레이어 (1번에 랜더링, 여러번에 걸쳐서 랜더링 개념)
 	std::vector<FbxLayerElementUV*> VertexUVSet;
 	std::vector<FbxLayerElementVertexColor*> VertexColorSet;
 	std::vector<FbxLayerElementMaterial*> MaterialSet;
@@ -190,9 +129,12 @@ void FbxLoader::ParseMesh(FbxObj* pObject)
 		}
 		for (int iFace = 0; iFace < iNumFace; iFace++)
 		{
-			// 1  2
-			// 0  3
-			// (max)021,032 ->  (dx)012, 023
+			/*
+			좌표계 변환
+			1  2
+			0  3
+			(max)021,032 ->  (dx)012, 023
+			*/
 			int VertexIndex[3] = { 0, iFace + 2, iFace + 1 };
 
 			int CornerIndex[3];
@@ -202,7 +144,11 @@ void FbxLoader::ParseMesh(FbxObj* pObject)
 			for (int iIndex = 0; iIndex < 3; iIndex++)
 			{
 				Vertex tVertex;
-				// Max(x,z,y) ->(dx)x,y,z    
+
+				/*
+				좌표계 변환
+				Max(x,z,y) ->(dx)x,y,z    
+				*/
 				FbxVector4 v = pVertexPositions[CornerIndex[iIndex]];
 				v = geom.MultT(v);
 				tVertex.p.x = v.mData[0];
@@ -218,12 +164,7 @@ void FbxLoader::ParseMesh(FbxObj* pObject)
 				{
 					FbxLayerElementUV* pUVSet = VertexUVSet[0];
 					FbxVector2 uv;
-					ReadTextureCoord(
-						pFbxMesh,
-						pUVSet,
-						CornerIndex[iIndex],
-						u[iIndex],
-						uv);
+					ReadTextureCoord(pFbxMesh, pUVSet, CornerIndex[iIndex], u[iIndex], uv);
 					tVertex.t.x = uv.mData[0];
 					tVertex.t.y = 1.0f - uv.mData[1];
 				}
@@ -231,11 +172,7 @@ void FbxLoader::ParseMesh(FbxObj* pObject)
 				FbxColor color = FbxColor(1, 1, 1, 1);
 				if (VertexColorSet.size() > 0)
 				{
-					color = ReadColor(pFbxMesh,
-						VertexColorSet.size(),
-						VertexColorSet[0],
-						CornerIndex[iIndex],
-						iBasePolyIndex + VertexIndex[iIndex]);
+					color = ReadColor(pFbxMesh, VertexColorSet.size(), VertexColorSet[0], CornerIndex[iIndex], iBasePolyIndex + VertexIndex[iIndex]);
 				}
 				tVertex.c.x = color.mRed;
 				tVertex.c.y = color.mGreen;
@@ -243,9 +180,7 @@ void FbxLoader::ParseMesh(FbxObj* pObject)
 				tVertex.c.w = 1;
 
 
-				FbxVector4 normal = ReadNormal(pFbxMesh,
-					CornerIndex[iIndex],
-					iBasePolyIndex + VertexIndex[iIndex]);
+				FbxVector4 normal = ReadNormal(pFbxMesh, CornerIndex[iIndex], iBasePolyIndex + VertexIndex[iIndex]);
 				normal = normalMatrix.MultT(normal);
 				tVertex.n.x = normal.mData[0]; // x
 				tVertex.n.y = normal.mData[2]; // z
@@ -255,11 +190,76 @@ void FbxLoader::ParseMesh(FbxObj* pObject)
 				pObject->m_pSubVertexList[iSubMtrl].push_back(tVertex);
 			}
 		}
-
 		iBasePolyIndex += iPolySize;
 	}
-
 }
+
+TMatrix FbxLoader::DxConvertMatrix(TMatrix m)
+{
+	TMatrix mat;
+	mat._11 = m._11; mat._12 = m._13; mat._13 = m._12;
+	mat._21 = m._31; mat._22 = m._33; mat._23 = m._32;
+	mat._31 = m._21; mat._32 = m._23; mat._33 = m._22;
+	mat._41 = m._41; mat._42 = m._43; mat._43 = m._42;
+	mat._14 = mat._24 = mat._34 = 0.0f;
+	mat._44 = 1.0f;
+	return mat;
+}
+TMatrix FbxLoader::ConvertMatrix(FbxMatrix& m)
+{
+	TMatrix mat;
+	float* pMatArray = reinterpret_cast<float*>(&mat);
+	double* pSrcArray = reinterpret_cast<double*>(&m);
+	for (int i = 0; i < 16; i++)
+	{
+		pMatArray[i] = pSrcArray[i];
+	}
+	return mat;
+}
+TMatrix FbxLoader::ConvertAMatrix(FbxAMatrix& m)
+{
+	TMatrix mat;
+	float* pMatArray = reinterpret_cast<float*>(&mat);
+	double* pSrcArray = reinterpret_cast<double*>(&m);
+	for (int i = 0; i < 16; i++)
+	{
+		pMatArray[i] = pSrcArray[i];
+	}
+	return mat;
+}
+void FbxLoader::ParseAnimation()
+{
+	FbxTime::SetGlobalTimeMode(FbxTime::eFrames30);
+	FbxAnimStack* stack = m_pFbxScene->GetSrcObject<FbxAnimStack>(0);
+	FbxString TakeName = stack->GetName();
+	FbxTakeInfo* TakeInfo = m_pFbxScene->GetTakeInfo(TakeName);
+	FbxTimeSpan LocalTimeSpan = TakeInfo->mLocalTimeSpan;
+	FbxTime start = LocalTimeSpan.GetStart();
+	FbxTime end = LocalTimeSpan.GetStop();
+	FbxTime Duration = LocalTimeSpan.GetDuration();
+
+	FbxTime::EMode TimeMode = FbxTime::GetGlobalTimeMode();
+	FbxLongLong s = start.GetFrameCount(TimeMode);
+	FbxLongLong n = end.GetFrameCount(TimeMode);
+
+	// 1초에 30 frame 
+	// 1Frame = 160 Tick
+	// 50 Frame 
+	FbxTime time;
+	Track tTrack;
+	for (FbxLongLong t = s; t <= n; t++)
+	{
+		time.SetFrame(t, TimeMode);
+		for (int iObj = 0; iObj < m_TreeList.size(); iObj++)
+		{
+			FbxAMatrix matGlobal = m_TreeList[iObj]->m_pFbxNode->EvaluateGlobalTransform(time);
+			tTrack.iFrame = t;
+			tTrack.matTrack = DxConvertMatrix(ConvertAMatrix(matGlobal));
+			m_TreeList[iObj]->m_AnimTrack.push_back(tTrack);
+		}
+	}
+}
+
 bool FbxLoader::Init()
 {
 	m_pFbxManager = FbxManager::Create();

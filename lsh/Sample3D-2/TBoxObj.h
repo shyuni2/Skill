@@ -1,7 +1,7 @@
 #pragma once
 #include "Obj3D.h"
 
-class TBoxObj : public Obj3D
+class BoxObj : public Obj3D
 {
 public:
 	Texture* m_pTexCube;
@@ -9,7 +9,7 @@ public:
 	virtual bool		SetIndexData();
 	bool	PostRender();
 public:
-	TBoxObj();
-	virtual ~TBoxObj();
+	BoxObj();
+	virtual ~BoxObj();
 };
 

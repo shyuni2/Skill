@@ -1,18 +1,18 @@
 #pragma once
 #include "Core.h"
-#include "TPlaneObj.h"
-#include "TCamera.h"
-#include "TMap.h"
-#include "TSkyObj.h"
-#include "TBoxObj.h"
+#include "PlaneObj.h"
+#include "Camera.h"
+#include "Map.h"
+#include "SkyObj.h"
+#include "BoxObj.h"
 class Sample : public Core
 {
-	TCamera		    m_Camera;
-	TCamera			m_CameraTopView;
-	TMap			m_MapObj;
-	TBoxObj			m_PlayerObj;
-	std::vector<TBoxObj> m_ObjList;
-	TSkyObj			m_SkyObj;
+	Camera		    m_Camera;
+	Camera			m_CameraTopView;
+	Map			m_MapObj;
+	BoxObj			m_PlayerObj;
+	std::vector<BoxObj> m_ObjList;
+	SkyObj			m_SkyObj;
 public:
 	virtual void	CreateResizeDevice(UINT iWidth, UINT iHeight) override;
 	virtual void	DeleteResizeDevice(UINT iWidth, UINT iHeight) override;

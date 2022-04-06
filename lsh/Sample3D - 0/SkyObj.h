@@ -7,7 +7,7 @@ public:
 	Math::Matrix m_matViewSky;
 	Texture* m_pTexArray[6];
 	Texture* m_pTexCube;
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pSRVArray[6];
+	Microsoft::WRL::Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pSRVArray[6];
 public:
 	bool PostRender();
 public:

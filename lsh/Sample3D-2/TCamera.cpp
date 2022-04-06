@@ -1,8 +1,8 @@
-#include "TCamera.h"
+#include "Camera.h"
 #include "Input.h"
 
 
-void TCamera::CreateViewMatrix(T::TVector3 p,
+void Camera::CreateViewMatrix(T::TVector3 p,
 	T::TVector3 t, 
 	T::TVector3 u )
 {
@@ -12,16 +12,16 @@ void TCamera::CreateViewMatrix(T::TVector3 p,
 	T::D3DXMatrixLookAtLH(&m_matView, &m_vCamera, &m_vTarget, &m_vUp);	
 	UpdateVector();
 }
-void TCamera::CreateProjMatrix(float fovy, float Aspect, float zn, float zf)
+void Camera::CreateProjMatrix(float fovy, float Aspect, float zn, float zf)
 {
 	T::D3DXMatrixPerspectiveFovLH(&m_matProj,
 		fovy,
 		Aspect,
 		zn, zf);
 }
-bool TCamera::Init()
+bool Camera::Init()
 {
-	TFrustum::Init();
+	Frustum::Init();
 	CreateViewMatrix(m_vCamera, m_vTarget, m_vUp);
 	CreateProjMatrix(XM_PI * 0.25f, 
 		(float)g_rtClient.right / (float)g_rtClient.bottom, 0.1f, 5000.0f);
@@ -29,7 +29,7 @@ bool TCamera::Init()
 	return true;
 }
 // vValue.x : pitch, y=yaw, z= roll, w =radius
-bool TCamera::Update(T::TVector4 vDirValue)
+bool Camera::Update(T::TVector4 vDirValue)
 {
 	T::TMatrix matRotation;
 	T::D3DXQuaternionRotationYawPitchRoll(&m_qRotation,
@@ -46,7 +46,7 @@ bool TCamera::Update(T::TVector4 vDirValue)
 
 	return UpdateVector();
 }
-bool TCamera::UpdateVector()
+bool Camera::UpdateVector()
 {
 	m_vRight.x = m_matView._11;
 	m_vRight.y = m_matView._21;
@@ -60,19 +60,19 @@ bool TCamera::UpdateVector()
 	CreateFrustum(m_matView, m_matProj);
 	return true;
 }
-void TCamera::MoveLook(float fValue)
+void Camera::MoveLook(float fValue)
 {
 	m_vCamera += m_vLook * fValue;
 }
-void TCamera::MoveSide(float fValue)
+void Camera::MoveSide(float fValue)
 {
 	m_vCamera += m_vRight * fValue;
 }
-void TCamera::MoveUp(float fValue)
+void Camera::MoveUp(float fValue)
 {
 	m_vCamera += m_vUp * fValue;
 }
-bool TCamera::Frame()
+bool Camera::Frame()
 {
 	/*if (Input::Get().GetKey(VK_LEFT))
 	{
@@ -93,7 +93,7 @@ bool TCamera::Frame()
 	T::D3DXMatrixLookAtLH(&m_matView, &m_vCamera, &m_vTarget, &m_vDefaultUp);
 	return UpdateVector();
 }
-TCamera::TCamera()
+Camera::Camera()
 {
 	m_vCamera.x = 0.0f;
 	m_vCamera.y = 0.0f;
