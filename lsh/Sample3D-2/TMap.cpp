@@ -82,7 +82,7 @@ bool TMap::CreateHeightMap(const TCHAR* strHeightMapTex)
 {
 	HRESULT hr;	
 	ID3D11ShaderResourceView* pSRV = nullptr;
-	ComPtr<ID3D11Resource> pTexture;
+	Microsoft::WRL::ComPtr<ID3D11Resource> pTexture;
 	size_t maxsize = 0;
 	if (FAILED(hr = CreateWICTextureFromFileEx(m_pd3dDevice,
 		strHeightMapTex,
@@ -113,7 +113,7 @@ bool TMap::CreateHeightMap(const TCHAR* strHeightMapTex)
 		if (SUCCEEDED(m_pContext->Map((ID3D11Resource*)pTexture2D, D3D11CalcSubresource(0, 0, 1), D3D11_MAP_READ, 0, &MappedFaceDest)))
 		{
 			UCHAR* pTexels = (UCHAR*)MappedFaceDest.pData;
-			TVertex	v;
+			Vertex	v;
 			for (UINT row = 0; row < desc.Height; row++)
 			{
 				UINT rowStart = row * MappedFaceDest.RowPitch;

@@ -15,6 +15,9 @@ ID3D11RasterizerState* DxState::g_pRSNoneCullWireFrame = nullptr;
 ID3D11DepthStencilState* DxState::g_pDSSDepthEnable=nullptr;
 ID3D11DepthStencilState* DxState::g_pDSSDepthDisable = nullptr;
 
+ID3D11DepthStencilState* g_pDSSDepthEnableWriteDisable = nullptr;
+ID3D11DepthStencilState* g_pDSSDepthDisableWriteDisable = nullptr;
+
 bool DxState::SetState(ID3D11Device* pd3dDevice)
 {
 	HRESULT hr;
@@ -125,26 +128,43 @@ bool DxState::SetState(ID3D11Device* pd3dDevice)
 	{
 		return hr;
 	}
-		
-	return true;
+	
+	dsDescDepth.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+	if (FAILED(hr = pd3dDevice->CreateDepthStencilState(&dsDescDepth, &g_pDSSDepthDisableWriteDisable)))
+	{
+		return hr;
+	}
+
+	dsDescDepth.DepthEnable = TRUE;
+	dsDescDepth.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+	if (FAILED(hr = pd3dDevice->CreateDepthStencilState(&dsDescDepth, &g_pDSSDepthEnableWriteDisable)))
+	{
+		return hr;
+	}
 }
 bool DxState::Release()
 {
 	if (g_pRSBackCullSolid) g_pRSBackCullSolid->Release();
 	if (g_pRSNoneCullSolid) g_pRSNoneCullSolid->Release();
+
 	if (g_pRSBackCullWireFrame) g_pRSBackCullWireFrame->Release();
 	if (g_pRSNoneCullWireFrame) g_pRSNoneCullWireFrame->Release();
 
 	if (g_pDSSDepthEnable) g_pDSSDepthEnable->Release();
 	if (g_pDSSDepthDisable) g_pDSSDepthDisable->Release();
 
+	if (g_pDSSDepthEnableWriteDisable) g_pDSSDepthEnableWriteDisable->Release();
+	if (g_pDSSDepthDisableWriteDisable) g_pDSSDepthDisableWriteDisable->Release();
+
 	if (m_AlphaBlend) m_AlphaBlend->Release();
 	if (m_AlphaBlendDisable) m_AlphaBlendDisable->Release();
+
 	m_AlphaBlend = nullptr;
 	m_AlphaBlendDisable = nullptr;
 
 	if (m_pSSLinear)m_pSSLinear->Release();
 	if (m_pSSPoint)m_pSSPoint->Release();
+	return true;
 
 	return true;
 }

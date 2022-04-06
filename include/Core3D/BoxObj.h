@@ -4,9 +4,10 @@ class BoxObj : public Obj3D
 {
 public:
 	Texture* m_pTexCube;
-	virtual bool		SetVertexData();
-	virtual bool		SetIndexData();
-	bool	PostRender();
+	bool PostRender();
+public:
+	virtual bool SetVertexData();
+	virtual bool SetIndexData();
 public:
 	BoxObj();
 	virtual ~BoxObj();

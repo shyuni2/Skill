@@ -1,5 +1,6 @@
 #include "BoxObj.h"
-bool		BoxObj::SetVertexData()
+
+bool BoxObj::SetVertexData()
 {
 	// Local Coord
 	// Box
@@ -14,14 +15,17 @@ bool		BoxObj::SetVertexData()
 	m_VertexList[index].n = T::TVector3(0.0f, 0.0f, 1.0f);
 	m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = T::TVector2(0.0f, 0.0f);
+
 	m_VertexList[++index].p = T::TVector3(-1.0f, 1.0f, 1.0f);
 	m_VertexList[index].n = T::TVector3(0.0f, 0.0f, 1.0f);
 	m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = T::TVector2(1.0f, 0.0f);
+
 	m_VertexList[++index].p = T::TVector3(1.0f, -1.0f, 1.0f);
 	m_VertexList[index].n = T::TVector3(0.0f, 0.0f, 1.0f);
 	m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = T::TVector2(0.0f, 1.0f);
+
 	m_VertexList[++index].p = T::TVector3(-1.0f, -1.0f, 1.0f);
 	m_VertexList[index].n = T::TVector3(0.0f, 0.0f, 1.0f);
 	m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -85,7 +89,6 @@ bool		BoxObj::SetVertexData()
 	m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_VertexList[index].t = T::TVector2(1.0f, 0.0f);
 
-
 	m_VertexList[++index].p = T::TVector3(-1.0f, -1.0f, 1.0f);
 	m_VertexList[index].n = T::TVector3(-1.0f, 0.0f, 0.0f);
 	m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -146,7 +149,7 @@ bool		BoxObj::SetVertexData()
 	GenAABB();
 	return true;
 }
-bool		BoxObj::SetIndexData()
+bool BoxObj::SetIndexData()
 {
 	m_IndexList.push_back(0); m_IndexList.push_back(1); m_IndexList.push_back(2);
 	m_IndexList.push_back(2); m_IndexList.push_back(1); m_IndexList.push_back(3);
@@ -163,7 +166,7 @@ bool		BoxObj::SetIndexData()
 
 	return true;
 }
-bool	BoxObj::PostRender()
+bool BoxObj::PostRender()
 {
 	if (m_IndexList.size() <= 0)
 		m_pContext->Draw(m_VertexList.size(), 0);

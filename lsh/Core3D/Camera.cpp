@@ -2,9 +2,7 @@
 #include "Input.h"
 
 
-void Camera::CreateViewMatrix(T::TVector3 p,
-	T::TVector3 t, 
-	T::TVector3 u )
+void Camera::CreateViewMatrix(T::TVector3 p, T::TVector3 t, T::TVector3 u)
 {
 	m_vCamera = p;
 	m_vTarget = t;
@@ -34,10 +32,7 @@ bool Camera::Init()
 bool Camera::Update(T::TVector4 vDirValue)
 {
 	T::TMatrix matRotation;
-	T::D3DXQuaternionRotationYawPitchRoll(&m_qRotation,
-		vDirValue.y,
-		vDirValue.x,
-		vDirValue.z);
+	T::D3DXQuaternionRotationYawPitchRoll(&m_qRotation, vDirValue.y, vDirValue.x, vDirValue.z);
 
 	m_vCamera += m_vLook * vDirValue.w;
 	m_fRadius += vDirValue.w;

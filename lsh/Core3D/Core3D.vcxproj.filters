@@ -22,9 +22,6 @@
     <ClCompile Include="BaseMgr.cpp">
       <Filter>mgr</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
     <ClCompile Include="Core.cpp">
       <Filter>core</Filter>
     </ClCompile>
@@ -58,9 +55,6 @@
     <ClCompile Include="TMatrix.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="DxObj.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
     <ClCompile Include="TMath.cpp">
       <Filter>math</Filter>
     </ClCompile>
@@ -87,6 +81,12 @@
     </ClCompile>
     <ClCompile Include="SkyObj.cpp">
       <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="DxObj.cpp">
+      <Filter>obj</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,9 +148,6 @@
     <ClInclude Include="TMatrix.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="DxObj.h">
-      <Filter>core</Filter>
-    </ClInclude>
     <ClInclude Include="TMath.h">
       <Filter>math</Filter>
     </ClInclude>
@@ -177,6 +174,9 @@
     </ClInclude>
     <ClInclude Include="SkyObj.h">
       <Filter>camera</Filter>
+    </ClInclude>
+    <ClInclude Include="DxObj.h">
+      <Filter>obj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

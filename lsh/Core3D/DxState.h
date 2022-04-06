@@ -15,8 +15,11 @@ public:
 	static ID3D11RasterizerState* g_pRSBackCullSolid;
 	static ID3D11RasterizerState* g_pRSNoneCullSolid;
 public:
-	static  ID3D11DepthStencilState* g_pDSSDepthEnable; // 가능
-	static  ID3D11DepthStencilState* g_pDSSDepthDisable; // 불가능
+	static ID3D11DepthStencilState* g_pDSSDepthEnable; // 가능
+	static ID3D11DepthStencilState* g_pDSSDepthDisable; // 불가능
+public:
+	static ID3D11DepthStencilState* g_pDSSDepthEnableWriteDisable;
+	static ID3D11DepthStencilState* g_pDSSDepthDisableWriteDisable;
 public:
 	static bool SetState(ID3D11Device* pd3dDevice);
 	static bool Release();
