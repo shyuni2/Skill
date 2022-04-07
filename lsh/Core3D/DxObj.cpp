@@ -132,6 +132,11 @@ bool DxObj::CreateConstantBuffer()
 	{
 		return false;
 	}
+	
+	if (FAILED(hr = m_pd3dDevice->CreateBuffer(&bd, &sd, &m_pLightConstantBuffer)))
+	{
+		return false;
+	}
 	return true;
 }
 bool DxObj::CreateInputLayout()

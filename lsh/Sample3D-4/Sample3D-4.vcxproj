@@ -161,6 +161,11 @@
   <ItemGroup>
     <ClInclude Include="Sample.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core3D\Core3D.vcxproj">
+      <Project>{98617ca6-fe41-4536-94f6-159046e15ad9}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
