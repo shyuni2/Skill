@@ -136,7 +136,6 @@ bool DxObj::CreateConstantBuffer()
 }
 bool DxObj::CreateInputLayout()
 {
-
 	// 정점쉐이더의 결과를 통해서 정점레이아웃을 생성한다.	
 	// 정점버퍼의 각 정점의 어떤 성분을 정점쉐이더에 전달할 거냐
 	D3D11_INPUT_ELEMENT_DESC layout[] =
@@ -239,8 +238,6 @@ bool DxObj::Render()
 
 	m_pContext->IASetInputLayout(m_pVertexLayout);	
 
-	UINT StartSlot;
-	UINT NumBuffers;
 	UINT Strides = sizeof(Vertex);
 	UINT Offsets = 0;
 
@@ -296,9 +293,6 @@ bool DxObj::Draw()
 
 	m_pContext->IASetInputLayout(m_pVertexLayout);
 
-
-	UINT StartSlot;
-	UINT NumBuffers;
 	UINT Strides = sizeof(Vertex);
 	UINT Offsets = 0;
 
@@ -309,11 +303,7 @@ bool DxObj::Draw()
 	m_pContext->VSSetConstantBuffers(1, 1, &m_pLightConstantBuffer);
 	m_pContext->PSSetConstantBuffers(1, 1, &m_pLightConstantBuffer);
 
-	m_pContext->IASetPrimitiveTopology(
-		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
-		//D3D_PRIMITIVE_TOPOLOGY_POINTLIST
-		//D3D_PRIMITIVE_TOPOLOGY_LINELIST
-	);
+	m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	return true;
 }
 bool DxObj::PostRender()

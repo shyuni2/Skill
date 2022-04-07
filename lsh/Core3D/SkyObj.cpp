@@ -137,8 +137,7 @@ bool SkyObj::PostRender()
 		m_pSRVArray[0].GetAddressOf());
 	m_pContext->DrawIndexed(36, 0, 0);*/
 	// 2¹ø
-	m_pContext->PSSetShaderResources(3, 1,
-		m_pTexCube->m_pSRV.GetAddressOf());
+	m_pContext->PSSetShaderResources(3, 1, m_pTexCube->m_pSRV.GetAddressOf());
 	m_pContext->DrawIndexed(36, 0, 0); 
 	return true;
 }

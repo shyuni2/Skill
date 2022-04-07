@@ -165,26 +165,19 @@ void    Sample::CreateMapObject()
 bool	Sample::Init()
 {	
 	Texture* pTex = I_Texture.Load(L"../../data/ui/main_start_nor.png");
-	Shader* pVShader = I_Shader.CreateVertexShader(
-		m_pd3dDevice.Get(), L"Box.hlsl", "VS");
-	Shader* pPShader = I_Shader.CreatePixelShader(
-		m_pd3dDevice.Get(), L"Box.hlsl", "PS");
+	Shader* pVShader = I_Shader.CreateVertexShader(m_pd3dDevice.Get(), L"Box.hlsl", "VS");
+	Shader* pPShader = I_Shader.CreatePixelShader(m_pd3dDevice.Get(), L"Box.hlsl", "PS");
 
-	m_CameraTopView.CreateViewMatrix(T::TVector3(0, 3000.0f, -1),
-									 T::TVector3(0, 0.0f, 0));
-	m_CameraTopView.CreateProjMatrix(XM_PI * 0.25f,
-		(float)g_rtClient.right / (float)g_rtClient.bottom, 1.0f, 10000.0f);
+	m_CameraTopView.CreateViewMatrix(T::TVector3(0, 3000.0f, -1), T::TVector3(0, 0.0f, 0));
+	m_CameraTopView.CreateProjMatrix(XM_PI * 0.25f, (float)g_rtClient.right / (float)g_rtClient.bottom, 1.0f, 10000.0f);
 
 	m_Camera.Init();
-	m_Camera.CreateViewMatrix(  T::TVector3(0, 500.0f, -100.0f),
-								T::TVector3(0, 0.0f, 0));
+	m_Camera.CreateViewMatrix(T::TVector3(0, 500.0f, -100.0f), T::TVector3(0, 0.0f, 0));
 	m_Camera.CreateProjMatrix(XM_PI * 0.25f,
 		(float)g_rtClient.right / (float)g_rtClient.bottom, 0.1f, 5000.0f);
 	m_Camera.m_pColorTex = I_Texture.Load(L"../../data/charport.bmp");
-	m_Camera.m_pVShader = I_Shader.CreateVertexShader(
-		m_pd3dDevice.Get(), L"Box.hlsl", "VSColor");;
-	m_Camera.m_pPShader = I_Shader.CreatePixelShader(
-		m_pd3dDevice.Get(), L"Box.hlsl", "PSColor");;
+	m_Camera.m_pVShader = I_Shader.CreateVertexShader(m_pd3dDevice.Get(), L"Box.hlsl", "VSColor");
+	m_Camera.m_pPShader = I_Shader.CreatePixelShader(m_pd3dDevice.Get(), L"Box.hlsl", "PSColor");
 	m_Camera.SetPosition(T::TVector3(0.0f, 1.0f, 0.0f));
 	if (!m_Camera.Create(m_pd3dDevice.Get(), m_pImmediateContext.Get()))
 	{
@@ -202,10 +195,7 @@ bool	Sample::Init()
 
 	m_SkyObj.Init();
 	m_SkyObj.SetPosition(T::TVector3(0.0f, 0.0f, 0.0f));
-	if (!m_SkyObj.Create(m_pd3dDevice.Get(),
-		m_pImmediateContext.Get(),
-		L"sky.hlsl",
-		L"../../data/sky/LobbyCube.dds"))
+	if (!m_SkyObj.Create(m_pd3dDevice.Get(), m_pImmediateContext.Get(), L"sky.hlsl", L"../../data/sky/LobbyCube.dds"))
 	{
 		return false;
 	}
@@ -216,10 +206,8 @@ bool	Sample::Init()
 	m_MapObj.CreateHeightMap(L"../../data/map/129.jpg");
 	Texture* pTexMap = I_Texture.Load(L"../../data/map/020.bmp");
 	m_MapObj.m_pColorTex = pTexMap;	
-	m_MapObj.m_pVShader = I_Shader.CreateVertexShader(
-		m_pd3dDevice.Get(), L"map.hlsl", "VS");;
-	m_MapObj.m_pPShader = I_Shader.CreatePixelShader(
-		m_pd3dDevice.Get(), L"map.hlsl", "PS");;
+	m_MapObj.m_pVShader = I_Shader.CreateVertexShader(m_pd3dDevice.Get(), L"map.hlsl", "VS");
+	m_MapObj.m_pPShader = I_Shader.CreatePixelShader(m_pd3dDevice.Get(), L"map.hlsl", "PS");
 	// Á¤Á¡°³¼ö ( 2n½Â+1)
 	m_MapObj.CreateMap(m_MapObj.m_iNumCols, m_MapObj.m_iNumRows, 20.0f);
 	if (!m_MapObj.Create(m_pd3dDevice.Get(),m_pImmediateContext.Get()))
@@ -236,7 +224,7 @@ bool	Sample::Init()
 	}	
 	return true;
 }
-bool	Sample::Frame()
+bool Sample::Frame()
 {	
 	T::TVector2 dir = Input::Get().GetDelta();
 	/*if (Input::Get().GetKey('A') || Input::Get().GetKey(VK_LEFT))
@@ -383,14 +371,9 @@ bool	Sample::Frame()
 					m_MapObj.m_VertexList[i0].c = T::TVector4(1, 0, 0, 1);
 					m_MapObj.m_VertexList[i1].c = T::TVector4(1, 0, 0, 1);
 					m_MapObj.m_VertexList[i2].c = T::TVector4(1, 0, 0, 1);
-					m_MapObj.m_pContext->UpdateSubresource(
-						m_MapObj.m_pVertexBuffer, 0, NULL,
-						&m_MapObj.m_VertexList.at(0), 0, 0);
+					m_MapObj.m_pContext->UpdateSubresource(m_MapObj.m_pVertexBuffer, 0, NULL, &m_MapObj.m_VertexList.at(0), 0, 0);
 
-					DisplayText("\n%10.4f, %10.4f, %10.4f ",
-						m_vIntersection.x,
-						m_vIntersection.y,
-						m_vIntersection.z);
+					DisplayText("\n%10.4f, %10.4f, %10.4f ", m_vIntersection.x, m_vIntersection.y, m_vIntersection.z);
 					m_vIntersectionList.push_back(m_vIntersection);
 				}
 			}
@@ -398,15 +381,19 @@ bool	Sample::Frame()
 	}
 	return true;
 }
-bool	Sample::Render()
+bool Sample::Render()
 {		
 	m_SkyObj.SetMatrix(NULL, &m_Camera.m_matView, &m_Camera.m_matProj);	
 	m_SkyObj.Render();
 
 	if (m_bWireFrame)
+	{
 		m_pImmediateContext->RSSetState(DxState::g_pRSBackCullWireFrame);
+	}		
 	else
+	{
 		m_pImmediateContext->RSSetState(DxState::g_pRSBackCullSolid);
+	}
 
 	m_pImmediateContext->PSSetSamplers(0, 1, &DxState::m_pSSLinear);
 	m_MapObj.SetMatrix(nullptr, &m_Camera.m_matView,&m_Camera.m_matProj);
@@ -422,47 +409,10 @@ bool	Sample::Render()
 	msg += std::to_wstring(m_GameTimer.m_fTimer);
 	m_dxWrite.Draw(msg, g_rtClient, D2D1::ColorF(0, 0, 1, 1));
 
-
-	//MiniMapRender();
 	return true;
 }
 
-bool    Sample::MiniMapRender()
-{
-	/*for (int iNode = 0; iNode < m_Quadtree.g_pDrawLeafNodes.size(); iNode++)
-	{
-			m_MapObj.SetMatrix(nullptr, &m_CameraTopView.m_matView,
-										&m_CameraTopView.m_matProj);
-			m_MapObj.m_ConstantList.Color = T::TVector4(0, 1, 0, 1);
-			m_MapObj.m_pContext->UpdateSubresource(
-				m_MapObj.m_pConstantBuffer, 0, NULL, &m_MapObj.m_ConstantList, 0, 0);
-
-			m_MapObj.m_pContext->IASetIndexBuffer(
-				m_Quadtree.g_pDrawLeafNodes[iNode]->m_pIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-			m_MapObj.m_pContext->DrawIndexed(m_Quadtree.g_pDrawLeafNodes[iNode]->m_IndexList.size(), 0, 0);
-			
-	}*/
-	for (auto obj : m_pObjList)
-	{
-		obj->pObject->SetMatrix(&obj->matWorld, &m_CameraTopView.m_matView,
-				&m_CameraTopView.m_matProj);
-		obj->pObject->m_ConstantList.Color = T::TVector4(0, 0, 0, 1);
-		obj->pObject->Render();
-	}
-	/*for (auto pObj : m_pObjList)
-	{
-		pObj->pObject->SetMatrix(&pObj->matWorld,  &m_Camera.m_matView,
-								&m_Camera.m_matProj);
-		if (m_Camera.ClassifyOBB(&pObj->box) == TRUE)
-		{
-			pObj->pObject->Render();
-		}
-	}*/
-	m_Camera.SetMatrix(nullptr, &m_CameraTopView.m_matView,	&m_CameraTopView.m_matProj);
-	m_Camera.Render();
-	return true;
-}
-bool	Sample::Release()
+bool Sample::Release()
 {
 	m_SkyObj.Release();
 	m_MapObj.Release();
@@ -490,7 +440,9 @@ Sample::Sample()
 
 }
 Sample::~Sample()
-{}
+{
+
+}
 
 
 RUN();
