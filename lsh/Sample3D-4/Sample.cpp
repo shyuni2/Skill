@@ -1,9 +1,7 @@
 #include "Sample.h"
+
 // 교점 계산
-bool Sample::GetIntersection(
-				T::TVector3 vStart, T::TVector3 vEnd, 
-				T::TVector3 v0, T::TVector3 v1, T::TVector3 v2,
-				T::TVector3 vNormal)
+bool Sample::GetIntersection(T::TVector3 vStart, T::TVector3 vEnd, T::TVector3 v0, T::TVector3 v1, T::TVector3 v2, T::TVector3 vNormal)
 {
 	T::TVector3 vDirection = vEnd - vStart;
 	T::TVector3 v0toStart = v0 - vStart;
@@ -18,8 +16,7 @@ bool Sample::GetIntersection(
 	return true;
 }
 // 영역에 점 포함 여부 테스트 
-bool    Sample::PointInPolygon(T::TVector3 vert, T::TVector3 faceNormal,
-	T::TVector3 v0, T::TVector3 v1, T::TVector3 v2)
+bool Sample::PointInPolygon(T::TVector3 vert, T::TVector3 faceNormal, T::TVector3 v0, T::TVector3 v1, T::TVector3 v2)
 {
 	T::TVector3 e0, e1, e2, iInter, vNormal;
 	e0 = v1 - v0;
@@ -45,10 +42,7 @@ bool    Sample::PointInPolygon(T::TVector3 vert, T::TVector3 faceNormal,
 	if (fDot < 0.0f) return false;
 	return true;
 };
-bool Sample::IntersectTriangle(
-	const TVector3& orig, const TVector3& dir,
-	TVector3& v0, TVector3& v1, TVector3& v2,
-	FLOAT* t, FLOAT* u, FLOAT* v)
+bool Sample::IntersectTriangle(const TVector3& orig, const TVector3& dir, TVector3& v0, TVector3& v1, TVector3& v2, FLOAT* t, FLOAT* u, FLOAT* v)
 {
 	// Find vectors for two edges sharing vert0
 	TVector3 edge1 = v1 - v0;
@@ -104,22 +98,20 @@ bool Sample::IntersectTriangle(
 	//this->vPickRayDir = dir;
 	return true;
 }
-void	Sample::CreateResizeDevice(UINT iWidth, UINT iHeight)
+void Sample::CreateResizeDevice(UINT iWidth, UINT iHeight)
 {
 	int k = 0;
 }
-void	Sample::DeleteResizeDevice(UINT iWidth, UINT iHeight)
+void Sample::DeleteResizeDevice(UINT iWidth, UINT iHeight)
 {
 	int k = 0;
 }
-void    Sample::CreateMapObject()
+void Sample::CreateMapObject()
 {
 	srand(time(NULL));
 	Texture* pTex = I_Texture.Load(L"../../data/ui/main_start_nor.png");
-	Shader* pVShader = I_Shader.CreateVertexShader(
-		m_pd3dDevice.Get(), L"Box.hlsl", "VS");
-	Shader* pPShader = I_Shader.CreatePixelShader(
-		m_pd3dDevice.Get(), L"Box.hlsl", "PS");
+	Shader* pVShader = I_Shader.CreateVertexShader(m_pd3dDevice.Get(), L"Box.hlsl", "VS");
+	Shader* pPShader = I_Shader.CreatePixelShader(m_pd3dDevice.Get(), L"Box.hlsl", "PS");
 
 	m_pBoxObj = new BoxObj;
 	m_pBoxObj->m_pColorTex = I_Texture.Load(L"../../data/KGCABK.bmp");
@@ -139,18 +131,10 @@ void    Sample::CreateMapObject()
 		{
 			pObj->box.vList[iv] = m_pBoxObj->m_BoxCollision.vList[iv];
 		}
-		pObj->vPos = T::TVector3(
-			randstep(m_MapObj.m_BoxCollision.vMin.x, m_MapObj.m_BoxCollision.vMax.x),
-			0.0f,
-			randstep(m_MapObj.m_BoxCollision.vMin.z, m_MapObj.m_BoxCollision.vMax.z));
+		pObj->vPos = T::TVector3(randstep(m_MapObj.m_BoxCollision.vMin.x, m_MapObj.m_BoxCollision.vMax.x), 0.0f, randstep(m_MapObj.m_BoxCollision.vMin.z, m_MapObj.m_BoxCollision.vMax.z));
 		
-		T::D3DXMatrixScaling(&matScale, randstep(10.0f, 100.0f),
-			randstep(10.0f, 100.0f),
-			randstep(10.0f, 100.0f));
-		T::D3DXMatrixRotationYawPitchRoll(&matRotateObj,
-			cosf(randstep(0.0f, 360.0f)) * XM_PI,
-			sinf(randstep(0.0f, 360.0f)) * XM_PI,
-			1.0f);
+		T::D3DXMatrixScaling(&matScale, randstep(10.0f, 100.0f), randstep(10.0f, 100.0f), randstep(10.0f, 100.0f));
+		T::D3DXMatrixRotationYawPitchRoll(&matRotateObj, cosf(randstep(0.0f, 360.0f)) * XM_PI, sinf(randstep(0.0f, 360.0f)) * XM_PI, 1.0f);
 		pObj->matWorld = matScale * matRotateObj;
 		pObj->vPos.y = m_MapObj.GetHeight(pObj->vPos.x, pObj->vPos.z);
 		pObj->matWorld._41 = pObj->vPos.x;
@@ -162,7 +146,7 @@ void    Sample::CreateMapObject()
 		m_pObjList.push_back(pObj);
 	}
 }
-bool	Sample::Init()
+bool Sample::Init()
 {	
 	Texture* pTex = I_Texture.Load(L"../../data/ui/main_start_nor.png");
 	Shader* pVShader = I_Shader.CreateVertexShader(m_pd3dDevice.Get(), L"Box.hlsl", "VS");
@@ -199,7 +183,6 @@ bool	Sample::Init()
 	{
 		return false;
 	}
-
 
 	m_MapObj.Init();
 	m_MapObj.SetDevice(m_pd3dDevice.Get(), m_pImmediateContext.Get());
@@ -253,9 +236,7 @@ bool Sample::Frame()
 	m_PlayerObj.SetPosition(m_PlayerObj.m_vPos);
 	m_Camera.m_vTarget = m_PlayerObj.m_vPos;
 	float y = m_MapObj.GetHeight(m_Camera.m_vCamera.x, m_Camera.m_vCamera.z);
-	/*m_Camera.m_vCamera = m_PlayerObj.m_vPos +
-						m_PlayerObj.m_vLook * -1.0f *5.0f +
-						m_PlayerObj.m_vUp * 5.0f;*/
+	//m_Camera.m_vCamera = m_PlayerObj.m_vPos + m_PlayerObj.m_vLook * -1.0f *5.0f + m_PlayerObj.m_vUp * 5.0f;
 
 	if (Input::Get().GetKey('A') || Input::Get().GetKey(VK_LEFT))
 	{
@@ -443,6 +424,5 @@ Sample::~Sample()
 {
 
 }
-
 
 RUN();
