@@ -164,13 +164,6 @@ bool Sample::Init()
 		return false;
 	}
 	
-	m_SkyObj.Init();
-	m_SkyObj.SetPosition(T::TVector3(0.0f, 0.0f, 0.0f));
-	if (!m_SkyObj.Create(m_pd3dDevice.Get(), m_pImmediateContext.Get(), L"sky.hlsl", L"../../data/sky/LobbyCube.dds"))
-	{
-		return false;
-	}
-
 	m_MapObj.Init();
 	m_MapObj.SetDevice(m_pd3dDevice.Get(), m_pImmediateContext.Get());
 	m_MapObj.CreateHeightMap(L"../../data/map/129.jpg");
@@ -205,29 +198,27 @@ bool Sample::Frame()
 
 	float y = m_MapObj.GetHeight(m_Camera.m_vCamera.x, m_Camera.m_vCamera.z);
 	
-
-	if (Input::Get().GetKey('A') || Input::Get().GetKey(VK_LEFT))
+	// 카메라 이동 방향키 
+	if (Input::Get().GetKey(VK_LEFT))
 	{
-		m_Camera.MoveSide(-g_fSecPerFrame * 100.0f);
+		m_Camera.MoveSide(-g_fSecPerFrame * 500.0f);
 	}
-	if (Input::Get().GetKey('D') || Input::Get().GetKey(VK_RIGHT))
+	if (Input::Get().GetKey(VK_RIGHT))
 	{
-		m_Camera.MoveSide(g_fSecPerFrame * 100.0f);
+		m_Camera.MoveSide(g_fSecPerFrame * 500.0f);
 	}
-	//m_Camera.MoveLook(10.0f);
-	if (Input::Get().GetKey('W') )
+	if (Input::Get().GetKey(VK_UP))
 	{
-		m_Camera.MoveLook(g_fSecPerFrame * 100.0f);
+		m_Camera.MoveLook(g_fSecPerFrame * 500.0f);
 	}
-	if (Input::Get().GetKey('S') || Input::Get().GetKey(VK_DOWN))
+	if (Input::Get().GetKey(VK_DOWN))
 	{
-		m_Camera.MoveLook(-g_fSecPerFrame * 100.0f);
+		m_Camera.MoveLook(-g_fSecPerFrame * 500.0f);
 	}
 	
 	m_Camera.Update(T::TVector4(-dir.x, -dir.y,0,0));
 	m_MapObj.Frame();
 	m_Quadtree.Update(&m_Camera);
-	//m_PlayerObj.Frame();
 
 	// 마우스피킹
 	if (Input::Get().m_dwMouseState[1] == KEY_HOLD)
@@ -332,9 +323,6 @@ bool Sample::Frame()
 }
 bool Sample::Render()
 {		
-	m_SkyObj.SetMatrix(NULL, &m_Camera.m_matView, &m_Camera.m_matProj);	
-	m_SkyObj.Render();
-
 	if (m_bWireFrame)
 	{
 		m_pImmediateContext->RSSetState(DxState::g_pRSBackCullWireFrame);
@@ -346,12 +334,11 @@ bool Sample::Render()
 
 	m_pImmediateContext->PSSetSamplers(0, 1, &DxState::m_pSSLinear);
 	m_MapObj.SetMatrix(nullptr, &m_Camera.m_matView,&m_Camera.m_matProj);
-	//m_MapObj.Render();	
 	m_Quadtree.Render();	
 
-	std::wstring msg = L"FPS:";
+	std::wstring msg = L"FPS :";
 	msg += std::to_wstring(m_GameTimer.m_iFPS);
-	msg += L"  GT:";
+	msg += L", Play Time :";
 	msg += std::to_wstring(m_GameTimer.m_fTimer);
 	m_dxWrite.Draw(msg, g_rtClient, D2D1::ColorF(0, 0, 1, 1));
 
@@ -360,7 +347,6 @@ bool Sample::Render()
 
 bool Sample::Release()
 {
-	m_SkyObj.Release();
 	m_MapObj.Release();
 	m_Camera.Release();
 

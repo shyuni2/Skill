@@ -14,8 +14,8 @@ bool WriteFont::Init()
 		hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), (IUnknown**)(&m_pWriteFactory));
 		if (SUCCEEDED(hr))
 		{
-			hr = m_pWriteFactory->CreateTextFormat(L"±Ã¼­", NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 20, L"ko-kr", &m_pd2dTextFormat);
-			hr = m_pWriteFactory->CreateTextFormat(L"Imprint MT Shadow", NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 50, L"en-us", &m_pd2dMTShadowTF);
+			hr = m_pWriteFactory->CreateTextFormat(L"±¼¸²", NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 15, L"ko-kr", &m_pd2dTextFormat);
+			hr = m_pWriteFactory->CreateTextFormat(L"Imprint MT Shadow", NULL, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL, 15, L"en-us", &m_pd2dMTShadowTF);
 		}
 	}
 	if (SUCCEEDED(hr))

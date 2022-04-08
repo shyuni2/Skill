@@ -55,10 +55,11 @@ bool Core::GameRun()
 }
 bool Core::CoreFrame()
 {
-	if (Input::Get().GetKey('V')== KEY_PUSH)
+	if (Input::Get().GetKey('V') == KEY_PUSH) // 와이어 프레임 키 V
 	{
 		m_bWireFrame = !m_bWireFrame;
 	}
+
 	m_GameTimer.Frame();
 	Input::Get().Frame();
 	m_pMainCamera->Frame();
@@ -66,19 +67,20 @@ bool Core::CoreFrame()
 	I_Sound.Frame();
 	Frame();
 	m_dxWrite.Frame();
+
 	return true;
 }
 bool Core::CoreRender()
 {	
-	float color[4] = { 1, 0, 0,1.0f };
+	float color[4] = { 1, 1, 1, 1.0f }; // 윈도우 색 설정
+
 	m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView.Get(), color);
 	m_pImmediateContext->ClearDepthStencilView(m_pDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	m_pImmediateContext->OMSetRenderTargets(1, m_pRenderTargetView.GetAddressOf(), m_pDepthStencilView.Get());
-
 	m_pImmediateContext->PSSetSamplers(0, 1, &DxState::m_pSSLinear);	
 	m_pImmediateContext->PSSetSamplers(1, 1, &DxState::m_pSSPoint);
-
 	m_pImmediateContext->OMSetDepthStencilState(DxState::g_pDSSDepthEnable, 0x00);
+	
 	if (m_bWireFrame)
 	{
 		m_pImmediateContext->RSSetState(DxState::g_pRSBackCullWireFrame);
@@ -89,10 +91,8 @@ bool Core::CoreRender()
 	}
 	
 	Render(); // 백버퍼에 랜더링
-
 	m_GameTimer.Render();
 	Input::Get().Render();
-
 	m_dxWrite.Render();
 	m_pSwapChain->Present(0, 0);
 	return true;
@@ -111,7 +111,10 @@ bool Core::CoreRelease()
 }
 void Core::ResizeDevice(UINT iWidth, UINT iHeight)
 {
-	if (m_pd3dDevice == nullptr) return;
+	if (m_pd3dDevice == nullptr)
+	{ 
+		return;
+	}
 	DeleteResizeDevice(iWidth, iHeight);
 
 	m_dxWrite.DeleteDeviceResize();
@@ -120,6 +123,7 @@ void Core::ResizeDevice(UINT iWidth, UINT iHeight)
 	
 	IDXGISurface1* pSurface = nullptr;
 	HRESULT hr = m_pSwapChain->GetBuffer(0, __uuidof(IDXGISurface1), (void**)&pSurface);
+
 	if (SUCCEEDED(hr))
 	{
 		m_dxWrite.SetRenderTarget(pSurface);
