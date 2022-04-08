@@ -9,7 +9,7 @@ class ObjMgr : public Singleton< ObjMgr>
 private:
 	int m_iExcueteCollisionID;
 	int m_iExcueteSelectID;
-	std::map<int, BaseObj*> m_ObjectList;
+	std::map<int, BaseObj*> m_ObjList;
 	std::map<int, BaseObj*> m_SelectList;	
 public:
 	friend Singleton< ObjMgr>;

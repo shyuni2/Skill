@@ -67,7 +67,7 @@ int		Quadtree::GetLodType(Node* pNode)
 void		Quadtree::Update(Camera* pCamera)
 {
 	g_pDrawLeafNodes.clear();
-	m_ObjectList.clear();
+	m_ObjList.clear();
 	RenderTile(m_pRootNode);
 
 	// 전체 노드의 LOD레벨을 저장
@@ -94,7 +94,7 @@ void Quadtree::RenderTile(Node* pNode)
 		{
 			if (m_pCamera->ClassifyOBB(&obj->box) == TRUE)
 			{
-				m_ObjectList.push_back(obj);
+				m_ObjList.push_back(obj);
 			}
 		}
 		if( pNode->m_bLeaf == true)
@@ -139,7 +139,7 @@ bool		Quadtree::Render()
 	//	m_pMap->m_pContext->DrawIndexed(
 	//		g_pDrawLeafNodes[iNode]->m_IndexList[iLod].size(), 0, 0);*/
 	//}
-	for (auto obj : m_ObjectList)
+	for (auto obj : m_ObjList)
 	{
 		obj->pObject->SetMatrix(&obj->matWorld,
 			&m_pMap->m_matView,
@@ -406,7 +406,7 @@ bool Quadtree::AddObject(MapObj* obj)
 		pFindNode->AddObject(obj);
 		//if (pFindNode->m_bLeaf == false)
 		//{
-		//	m_ObjectList.push_back(obj);
+		//	m_ObjList.push_back(obj);
 		//}
 		return true;
 	}
@@ -419,7 +419,7 @@ void Quadtree::RenderObject(Node* pNode)
 	{
 		for (auto obj : pNode->m_StaticObjectList)
 		{
-			m_ObjectList.push_back(obj);
+			m_ObjList.push_back(obj);
 		}
 		for (int iNode = 0; iNode < pNode->m_pChild.size(); iNode++)
 		{

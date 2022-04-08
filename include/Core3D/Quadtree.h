@@ -17,7 +17,7 @@ public:
 	int		m_iLeafLOD = 1;
 	static  int g_iCount;
 public:
-	std::list<MapObj*> m_ObjectList;
+	std::list<MapObj*> m_ObjList;
 	std::vector<Node*> g_pDrawLeafNodes;
 	std::vector<Node*> g_pLeafNodes;
 	std::queue<Node*> g_Queue;	

@@ -4,16 +4,16 @@
 void ObjMgr::AddCollisionExecute(BaseObj* owner, CollisionFunction func)
 {
 	owner->m_iCollisionID = m_iExcueteCollisionID++;
-	m_ObjectList.insert(std::make_pair(owner->m_iCollisionID, owner));
+	m_ObjList.insert(std::make_pair(owner->m_iCollisionID, owner));
 	m_fnCollisionExecute.insert(std::make_pair(owner->m_iCollisionID, func));
 }
 void ObjMgr::DeleteCollisionExecute(BaseObj* owner)
 {
 	std::map<int, BaseObj*>::iterator objiter;
-	objiter = m_ObjectList.find(owner->m_iCollisionID);
-	if (objiter != m_ObjectList.end())
+	objiter = m_ObjList.find(owner->m_iCollisionID);
+	if (objiter != m_ObjList.end())
 	{
-		m_ObjectList.erase(objiter);
+		m_ObjList.erase(objiter);
 	}
 
 	FuncionIterator colliter = m_fnCollisionExecute.find(owner->m_iCollisionID);
@@ -59,12 +59,12 @@ void ObjMgr::CallRecursive(BaseObj* pSrcObj,DWORD dwState)
 bool ObjMgr::Frame()
 {
 	// collision
-	for (auto src : m_ObjectList)
+	for (auto src : m_ObjList)
 	{
 		BaseObj* pObjSrc = (BaseObj*)src.second;
 		if (pObjSrc->m_dwCollisonType == CollisionType::Ignore) continue;
 		DWORD dwState= CollisionType::Overlap;
-		for (auto dest : m_ObjectList)
+		for (auto dest : m_ObjList)
 		{
 			BaseObj* pObjDest = (BaseObj*)dest.second;
 			if (pObjSrc == pObjDest) continue;
@@ -132,7 +132,7 @@ bool ObjMgr::Frame()
 }
 bool ObjMgr::Release()
 {
-	m_ObjectList.clear();
+	m_ObjList.clear();
 	m_SelectList.clear();
 	return true;
 }
