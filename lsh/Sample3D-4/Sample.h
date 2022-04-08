@@ -14,7 +14,7 @@ class Sample : public Core
 	Camera m_Camera;
 	Camera m_CameraTopView;
 	Map m_MapObj;
-	BoxObj m_PlayerObj;
+	//BoxObj m_PlayerObj;
 	std::vector<MapObj*> m_pObjList;
 	SkyObj m_SkyObj;
 	Quadtree m_Quadtree;
@@ -22,10 +22,10 @@ class Sample : public Core
 public:
 	T::TVector3	m_vIntersection;
 	std::vector<T::TVector3> m_vIntersectionList;
+public:
 	bool GetIntersection(T::TVector3 vStart, T::TVector3 vEnd, T::TVector3 v0, T::TVector3 v1, T::TVector3 v2, T::TVector3 vNormal);
 	bool PointInPolygon(T::TVector3 vert, T::TVector3 faceNormal, T::TVector3 v0, T::TVector3 v1, T::TVector3 v2);
 	bool IntersectTriangle(const TVector3& orig, const TVector3& dir, TVector3& v0, TVector3& v1, TVector3& v2, FLOAT* t, FLOAT* u, FLOAT* v);
-public:
 	void CreateMapObject();
 public:
 	virtual void CreateResizeDevice(UINT iWidth, UINT iHeight) override;

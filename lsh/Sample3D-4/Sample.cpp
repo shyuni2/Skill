@@ -66,13 +66,11 @@ bool Sample::IntersectTriangle(const TVector3& orig, const TVector3& dir, TVecto
 		det = -det;
 	}
 
-	if (det < 0.0001f)
-		return false;
+	if (det < 0.0001f) { return false; }
 
 	// Calculate U parameter and test bounds
 	*u = D3DXVec3Dot(&tvec, &pvec);
-	if (*u < 0.0f || *u > det)
-		return false;
+	if (*u < 0.0f || *u > det) { return false; }
 
 	// Prepare to test V parameter
 	TVector3 qvec;
@@ -80,9 +78,8 @@ bool Sample::IntersectTriangle(const TVector3& orig, const TVector3& dir, TVecto
 
 	// Calculate V parameter and test bounds
 	*v = D3DXVec3Dot(&dir, &qvec);
-	if (*v < 0.0f || *u + *v > det)
-		return false;
-
+	if (*v < 0.0f || *u + *v > det) { return false; }
+	
 	// Calculate t, scale parameters, ray intersects triangle
 	*t = D3DXVec3Dot(&edge2, &qvec);
 	FLOAT fInvDet = 1.0f / det;
@@ -157,8 +154,7 @@ bool Sample::Init()
 
 	m_Camera.Init();
 	m_Camera.CreateViewMatrix(T::TVector3(0, 500.0f, -100.0f), T::TVector3(0, 0.0f, 0));
-	m_Camera.CreateProjMatrix(XM_PI * 0.25f,
-		(float)g_rtClient.right / (float)g_rtClient.bottom, 0.1f, 5000.0f);
+	m_Camera.CreateProjMatrix(XM_PI * 0.25f, (float)g_rtClient.right / (float)g_rtClient.bottom, 0.1f, 5000.0f);
 	m_Camera.m_pColorTex = I_Texture.Load(L"../../data/charport.bmp");
 	m_Camera.m_pVShader = I_Shader.CreateVertexShader(m_pd3dDevice.Get(), L"Box.hlsl", "VSColor");
 	m_Camera.m_pPShader = I_Shader.CreatePixelShader(m_pd3dDevice.Get(), L"Box.hlsl", "PSColor");
@@ -167,16 +163,7 @@ bool Sample::Init()
 	{
 		return false;
 	}
-	m_PlayerObj.Init();
-	m_PlayerObj.m_pColorTex = I_Texture.Load(L"../../data/charport.bmp");
-	m_PlayerObj.m_pVShader = pVShader;
-	m_PlayerObj.m_pPShader = pPShader;
-	m_PlayerObj.SetPosition(T::TVector3(0.0f, 1.0f, 0.0f));
-	if (!m_PlayerObj.Create(m_pd3dDevice.Get(), m_pImmediateContext.Get()))
-	{
-		return false;
-	}
-
+	
 	m_SkyObj.Init();
 	m_SkyObj.SetPosition(T::TVector3(0.0f, 0.0f, 0.0f));
 	if (!m_SkyObj.Create(m_pd3dDevice.Get(), m_pImmediateContext.Get(), L"sky.hlsl", L"../../data/sky/LobbyCube.dds"))
@@ -210,33 +197,14 @@ bool Sample::Init()
 bool Sample::Frame()
 {	
 	T::TVector2 dir = Input::Get().GetDelta();
-	/*if (Input::Get().GetKey('A') || Input::Get().GetKey(VK_LEFT))
-	{
-		m_PlayerObj.m_vPos -= m_PlayerObj.m_vRight *  g_fSecPerFrame * 10.0f;
-	}
-	if (Input::Get().GetKey('D') || Input::Get().GetKey(VK_RIGHT))
-	{
-		m_PlayerObj.m_vPos += m_PlayerObj.m_vRight * g_fSecPerFrame * 10.0f;
-	}
-	if (Input::Get().GetKey('W') || Input::Get().GetKey(VK_UP))
-	{
-		m_PlayerObj.m_vPos += m_PlayerObj.m_vLook * g_fSecPerFrame * 10.0f;
-	}
-	if (Input::Get().GetKey('S') || Input::Get().GetKey(VK_DOWN))
-	{
-		m_PlayerObj.m_vPos -= m_PlayerObj.m_vLook * g_fSecPerFrame * 10.0f;
-	}*/
 	T::TMatrix matRotate;
 	T::TMatrix matScale;
 
 	T::D3DXMatrixRotationY(&matRotate, -dir.y);
 	T::D3DXMatrixScaling(&matScale, 50, 50, 50);
-	m_PlayerObj.m_matWorld = matScale*matRotate;
-	m_PlayerObj.m_vPos.y= m_MapObj.GetHeight(m_PlayerObj.m_vPos.x, m_PlayerObj.m_vPos.z)+50;
-	m_PlayerObj.SetPosition(m_PlayerObj.m_vPos);
-	m_Camera.m_vTarget = m_PlayerObj.m_vPos;
+
 	float y = m_MapObj.GetHeight(m_Camera.m_vCamera.x, m_Camera.m_vCamera.z);
-	//m_Camera.m_vCamera = m_PlayerObj.m_vPos + m_PlayerObj.m_vLook * -1.0f *5.0f + m_PlayerObj.m_vUp * 5.0f;
+	
 
 	if (Input::Get().GetKey('A') || Input::Get().GetKey(VK_LEFT))
 	{
@@ -259,7 +227,7 @@ bool Sample::Frame()
 	m_Camera.Update(T::TVector4(-dir.x, -dir.y,0,0));
 	m_MapObj.Frame();
 	m_Quadtree.Update(&m_Camera);
-	m_PlayerObj.Frame();
+	//m_PlayerObj.Frame();
 
 	// 마우스피킹
 	if (Input::Get().m_dwMouseState[1] == KEY_HOLD)
@@ -381,9 +349,6 @@ bool Sample::Render()
 	//m_MapObj.Render();	
 	m_Quadtree.Render();	
 
-	m_PlayerObj.SetMatrix(nullptr, &m_Camera.m_matView,	&m_Camera.m_matProj);
-	m_PlayerObj.Render();		
-	
 	std::wstring msg = L"FPS:";
 	msg += std::to_wstring(m_GameTimer.m_iFPS);
 	msg += L"  GT:";
@@ -397,7 +362,6 @@ bool Sample::Release()
 {
 	m_SkyObj.Release();
 	m_MapObj.Release();
-	m_PlayerObj.Release();
 	m_Camera.Release();
 
 	for (int iObj = 0; iObj < MAX_NUM_OBJECTS; iObj++)
