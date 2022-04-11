@@ -55,7 +55,7 @@ bool Core::GameRun()
 }
 bool Core::CoreFrame()
 {
-	if (Input::Get().GetKey('V') == KEY_PUSH) // 와이어 프레임 키 V
+	if (Input::Get().GetKey('F') == KEY_PUSH) // 와이어 프레임 키 f
 	{
 		m_bWireFrame = !m_bWireFrame;
 	}

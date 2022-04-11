@@ -199,19 +199,19 @@ bool Sample::Frame()
 	float y = m_MapObj.GetHeight(m_Camera.m_vCamera.x, m_Camera.m_vCamera.z);
 	
 	// 카메라 이동 방향키 
-	if (Input::Get().GetKey(VK_LEFT))
+	if (Input::Get().GetKey('A'))
 	{
 		m_Camera.MoveSide(-g_fSecPerFrame * 500.0f);
 	}
-	if (Input::Get().GetKey(VK_RIGHT))
+	if (Input::Get().GetKey('D'))
 	{
 		m_Camera.MoveSide(g_fSecPerFrame * 500.0f);
 	}
-	if (Input::Get().GetKey(VK_UP))
+	if (Input::Get().GetKey('W'))
 	{
 		m_Camera.MoveLook(g_fSecPerFrame * 500.0f);
 	}
-	if (Input::Get().GetKey(VK_DOWN))
+	if (Input::Get().GetKey('S'))
 	{
 		m_Camera.MoveLook(-g_fSecPerFrame * 500.0f);
 	}
@@ -340,7 +340,9 @@ bool Sample::Render()
 	msg += std::to_wstring(m_GameTimer.m_iFPS);
 	msg += L", Play Time :";
 	msg += std::to_wstring(m_GameTimer.m_fTimer);
-	m_dxWrite.Draw(msg, g_rtClient, D2D1::ColorF(0, 0, 1, 1));
+	msg += L"\n카메라 이동키 : w, a, s, d";
+	msg += L"\n와이어프레임 온오프키 : f";
+	m_dxWrite.Draw(msg, g_rtClient, D2D1::ColorF(0, 0, 0, 1));
 
 	return true;
 }
