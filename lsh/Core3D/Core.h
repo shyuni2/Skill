@@ -5,10 +5,12 @@
 #include "Timer.h"
 #include "WriteFont.h"
 #include "Camera.h"
+#include "SkyObj.h"
 
 class Core : public Device
 {
 public:
+	SkyObj m_SkyObj;
 	Camera* m_pMainCamera = nullptr;
 	Camera  m_DefaultCamera;
 	Timer m_GameTimer;

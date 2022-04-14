@@ -1,5 +1,6 @@
 #pragma once
 #include "Obj3D.h"
+
 class SkyObj : public Obj3D
 {
 public:	

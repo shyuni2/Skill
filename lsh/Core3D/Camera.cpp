@@ -14,17 +14,13 @@ void Camera::CreateProjMatrix(float fovy, float Aspect, float zn, float zf)
 {
 	m_fFarDistance = zf;
 	m_fNearDistance = zn;
-	T::D3DXMatrixPerspectiveFovLH(&m_matProj,
-		fovy,
-		Aspect,
-		zn, zf);
+	T::D3DXMatrixPerspectiveFovLH(&m_matProj, fovy, Aspect, zn, zf);
 }
 bool Camera::Init()
 {
 	Frustum::Init();
 	CreateViewMatrix(m_vCamera, m_vTarget, m_vUp);
-	CreateProjMatrix(XM_PI * 0.25f, 
-		(float)g_rtClient.right / (float)g_rtClient.bottom, 0.1f, 5000.0f);
+	CreateProjMatrix(XM_PI * 0.25f, (float)g_rtClient.right / (float)g_rtClient.bottom, 0.1f, 5000.0f);
 	UpdateVector();	
 	return true;
 }
@@ -37,8 +33,7 @@ bool Camera::Update(T::TVector4 vDirValue)
 	m_vCamera += m_vLook * vDirValue.w;
 	m_fRadius += vDirValue.w;
 
-	T::D3DXMatrixAffineTransformation(&matRotation, 1.0f, NULL, 
-		&m_qRotation, &m_vCamera);
+	T::D3DXMatrixAffineTransformation(&matRotation, 1.0f, NULL, &m_qRotation, &m_vCamera);
 	T::D3DXMatrixInverse(&m_matView, NULL, &matRotation);
 
 	return UpdateVector();
@@ -48,9 +43,11 @@ bool Camera::UpdateVector()
 	m_vRight.x = m_matView._11;
 	m_vRight.y = m_matView._21;
 	m_vRight.z = m_matView._31;
+
 	m_vUp.x = m_matView._12;
 	m_vUp.y = m_matView._22;
 	m_vUp.z = m_matView._32;
+
 	m_vLook.x = m_matView._13;
 	m_vLook.y = m_matView._23;
 	m_vLook.z = m_matView._33;

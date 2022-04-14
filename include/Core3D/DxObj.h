@@ -114,10 +114,17 @@ struct ConstantData
 	T::TVector4 Timer;
 };
 
+struct BoneWorld
+{
+	T::TMatrix  matBoneWorld[255];
+};
+
 struct LightData
 {
 	T::TVector4 vLightDir;
 	T::TVector4 vLightPos;
+	T::TVector4 vCameraDir;
+	T::TVector4 vCameraPos;
 };
 
 class DxObj : public BaseObj

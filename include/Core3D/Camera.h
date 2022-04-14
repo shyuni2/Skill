@@ -5,8 +5,8 @@ class Camera : public Frustum
 public:
 	float m_fNearDistance= 0.01f;
 	float m_fFarDistance = 1000.0f;
-
 	float m_fRadius=10.0f;
+public:
 	T::TQuaternion m_qRotation;
 	T::TVector3	m_vCamera;
 	T::TVector3	m_vTarget;
@@ -20,7 +20,6 @@ public:
 	T::TMatrix m_matView;
 	T::TMatrix m_matProj;
 public:
-
 	void CreateViewMatrix(T::TVector3 p,T::TVector3 t=T::TVector3(0, 0, 0), T::TVector3 u = T::TVector3(0,1,0));
 	void CreateProjMatrix(float fovy = XM_PI*0.25f, float Aspect = 1.44f, float zn=0.1f, float zf=5000.0f);
 public:
