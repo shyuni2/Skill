@@ -260,6 +260,11 @@ bool		Map::SetIndexData()
 	}
 	return true;
 }
+float Map::GetHeight(int index)
+{
+	return m_fHeightList[index];
+}
+
 Map::Map()
 {
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "TVector3.h"
 
-namespace Math
+namespace SMath
 {
 	struct float4x4
 	{
@@ -23,14 +23,14 @@ namespace Math
 		void XRotate(float fRadian);
 		void YRotate(float fRadian);
 		void ZRotate(float fRadian);
-		void Translation(const Math::TVector3& v);
+		void Translation(const SMath::TVector3& v);
 		void Translation(float x, float y, float z);
-		void Scale(const Math::TVector3& vector);
+		void Scale(const SMath::TVector3& vector);
 		void Scale(float x, float y, float z);
 		void Identity();
 		TMatrix Transpose();		
-		TMatrix ViewLookAt(Math::TVector3& vPosition, Math::TVector3& vTarget, Math::TVector3& vUp); // 외적을 통한 뷰 행렬 계산
-		TMatrix CreateViewLook(Math::TVector3& vPosition, Math::TVector3& vTarget, Math::TVector3& vUp); // 내적을 통한 뷰 행렬 계산
+		TMatrix ViewLookAt(SMath::TVector3& vPosition, SMath::TVector3& vTarget, SMath::TVector3& vUp); // 외적을 통한 뷰 행렬 계산
+		TMatrix CreateViewLook(SMath::TVector3& vPosition, SMath::TVector3& vTarget, SMath::TVector3& vUp); // 내적을 통한 뷰 행렬 계산
 		TMatrix PerspectiveFovLH(float fNearPlane, float fFarPlane, float fovy, float Aspect); // 원근 투영 행렬 계산
 		static TMatrix RotationViewYawPitchRoll(float yaw, float pitch, float roll); // Yaw(Y축), Pitch(X축), Roll(Z축) 값으로 회전하는 회전행렬 만듬
 	public:

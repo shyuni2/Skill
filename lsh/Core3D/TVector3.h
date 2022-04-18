@@ -1,7 +1,7 @@
 #pragma once
 #include "TVector2.h"
 
-namespace Math
+namespace SMath
 {
 	struct Float3
 	{

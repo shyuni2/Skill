@@ -1,13 +1,13 @@
 #pragma once
 #include "Node.h"
 #include "Map.h"
-#include "Camera.h"
+#include "SCamera.h"
 
 class Quadtree
 {
 public:
 	Map*	m_pMap=nullptr;
-	Camera* m_pCamera = nullptr;
+	SCamera* m_pCamera = nullptr;
 	int		m_iWidth;
 	int		m_iHeight;
 	Node*  m_pRootNode;
@@ -42,7 +42,7 @@ public:
 public:
 	void		SetIndexData(Node* pNode, int iLodLevel);
 	bool		CreateIndexBuffer(Node* pNode, int iLodLevel);
-	void		Update(Camera* pCamera);
+	void		Update(SCamera* pCamera);
 	bool		Render();
 	void		RenderObject(Node* pNode);
 	void		RenderTile(Node* pNode);

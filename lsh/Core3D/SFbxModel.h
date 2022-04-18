@@ -1,7 +1,7 @@
 #pragma once
 #include "Obj3D.h"
 #include <fbxsdk.h>
-#include "Camera.h"
+#include "SCamera.h"
 
 // 멀티스트림  (VB[0], VB[1])
 // 인풋레이아웃 ( PNCTIW ) -> 정점쉐이더 전달
@@ -68,7 +68,7 @@ struct Scene
 class SFbxModel : public Obj3D
 {
 public:
-	Camera* m_pMainCamera;
+	SCamera* m_pMainCamera;
 public:
 	int m_iIndex = -1;
 	bool m_bSkinned = false;

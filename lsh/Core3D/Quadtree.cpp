@@ -64,7 +64,7 @@ int		Quadtree::GetLodType(Node* pNode)
 	pNode->m_dwLodType = dwType;
 	return dwType;
 }
-void		Quadtree::Update(Camera* pCamera)
+void		Quadtree::Update(SCamera* pCamera)
 {
 	g_pDrawLeafNodes.clear();
 	m_ObjList.clear();

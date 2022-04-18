@@ -2,8 +2,9 @@
 #include <iostream>
 #include <math.h>
 
-namespace Math
+namespace SMath
 {
+	// -- Vector2 
 	struct Float2
 	{
 		union
@@ -36,8 +37,7 @@ namespace Math
 		float Distance(TVector2& v); //°Å¸®
 	};
 
-	// ------------------------------------------------------------------------
-
+	// -- Vector4
 	struct Float4
 	{
 		union

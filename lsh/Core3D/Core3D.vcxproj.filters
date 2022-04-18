@@ -64,10 +64,10 @@
     <ClCompile Include="Quadtree.cpp">
       <Filter>map</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
+    <ClCompile Include="SCamera.cpp">
       <Filter>camera</Filter>
     </ClCompile>
-    <ClCompile Include="Frustum.cpp">
+    <ClCompile Include="SFrustum.cpp">
       <Filter>camera</Filter>
     </ClCompile>
     <ClCompile Include="DxObj.cpp">
@@ -160,10 +160,10 @@
     <ClInclude Include="Quadtree.h">
       <Filter>map</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
+    <ClInclude Include="SCamera.h">
       <Filter>camera</Filter>
     </ClInclude>
-    <ClInclude Include="Frustum.h">
+    <ClInclude Include="SFrustum.h">
       <Filter>camera</Filter>
     </ClInclude>
     <ClInclude Include="DxObj.h">
@@ -227,6 +227,8 @@
     <FxCompile Include="sky.hlsl">
       <Filter>shader</Filter>
     </FxCompile>
-    <FxCompile Include="Character.hlsl" />
+    <FxCompile Include="Character.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

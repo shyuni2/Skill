@@ -30,8 +30,8 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="BoxObj.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Frustum.cpp" />
+    <ClCompile Include="SCamera.cpp" />
+    <ClCompile Include="SFrustum.cpp" />
     <ClCompile Include="TMatrix.cpp" />
     <ClCompile Include="Obj2D.cpp" />
     <ClCompile Include="Obj3D.cpp" />
@@ -63,8 +63,8 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="BoxObj.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Frustum.h" />
+    <ClInclude Include="SCamera.h" />
+    <ClInclude Include="SFrustum.h" />
     <ClInclude Include="TMatrix.h" />
     <ClInclude Include="Obj2D.h" />
     <ClInclude Include="Obj3D.h" />

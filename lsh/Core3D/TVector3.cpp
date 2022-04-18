@@ -1,6 +1,6 @@
 #include "TVector3.h"
 
-namespace Math
+namespace SMath
 {
 	TVector3::TVector3()
 	{

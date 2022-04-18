@@ -1,6 +1,6 @@
 #include "TMatrix.h"
 
-namespace Math
+namespace SMath
 {
 	TMatrix TMatrix::operator * (TMatrix const& matrix)
 	{
@@ -41,7 +41,7 @@ namespace Math
 		_21 = -fSin;
 		_22 = fCos;
 	}
-	void TMatrix::Translation(const Math::TVector3& v)
+	void TMatrix::Translation(const SMath::TVector3& v)
 	{
 		_41 = v.x;
 		_42 = v.y;
@@ -53,7 +53,7 @@ namespace Math
 		_42 = y;
 		_43 = z;
 	}
-	void TMatrix::Scale(const Math::TVector3& vector)
+	void TMatrix::Scale(const SMath::TVector3& vector)
 	{
 		_11 = vector.x;
 		_22 = vector.y;
@@ -82,12 +82,12 @@ namespace Math
 		matrix._41 = _14; matrix._42 = _24; matrix._43 = _34; matrix._44 = _44;
 		return matrix;
 	}
-	TMatrix TMatrix::ViewLookAt(Math::TVector3& vPosition, Math::TVector3& vTarget, Math::TVector3& vUp)
+	TMatrix TMatrix::ViewLookAt(SMath::TVector3& vPosition, SMath::TVector3& vTarget, SMath::TVector3& vUp)
 	{
 		TMatrix matrix;
-		Math::TVector3 vDirection = (vTarget - vPosition).Normal();		// Z Axis
-		Math::TVector3 vRightVector = (vUp ^ vDirection).Normal();		// X Axis
-		Math::TVector3 vUpVector = (vDirection ^ vRightVector).Normal();	// Y Axis
+		SMath::TVector3 vDirection = (vTarget - vPosition).Normal();		// Z Axis
+		SMath::TVector3 vRightVector = (vUp ^ vDirection).Normal();		// X Axis
+		SMath::TVector3 vUpVector = (vDirection ^ vRightVector).Normal();	// Y Axis
 
 		_11 = vRightVector.x;	_12 = vUpVector.x;	_13 = vDirection.x;
 		_21 = vRightVector.y;	_22 = vUpVector.y;	_23 = vDirection.y;
@@ -99,16 +99,16 @@ namespace Math
 		memcpy((void*)&matrix, this, 16 * sizeof(float));
 		return matrix;
 	}
-	TMatrix TMatrix::CreateViewLook(Math::TVector3& vPosition, Math::TVector3& vTarget, Math::TVector3& vUp)
+	TMatrix TMatrix::CreateViewLook(SMath::TVector3& vPosition, SMath::TVector3& vTarget, SMath::TVector3& vUp)
 	{
 		TMatrix matrix;
-		Math::TVector3 vDirection = vTarget - vPosition;
+		SMath::TVector3 vDirection = vTarget - vPosition;
 		vDirection = vDirection.Normal();//z
 		float fDot = vUp | vDirection;
 		// 직교의 근사화 작업
-		Math::TVector3 vUpVector = vUp - (vDirection * fDot);
+		SMath::TVector3 vUpVector = vUp - (vDirection * fDot);
 		vUpVector = vUpVector.Normal();
-		Math::TVector3 vRightVector = vUpVector ^ vDirection;
+		SMath::TVector3 vRightVector = vUpVector ^ vDirection;
 
 		_11 = vRightVector.x;	_12 = vUpVector.x;	_13 = vDirection.x;
 		_21 = vRightVector.y;	_22 = vUpVector.y;	_23 = vDirection.y;

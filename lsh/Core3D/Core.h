@@ -4,15 +4,15 @@
 #include "Input.h"
 #include "Timer.h"
 #include "WriteFont.h"
-#include "Camera.h"
+#include "SCamera.h"
 #include "SkyObj.h"
 
 class Core : public Device
 {
 public:
 	SkyObj m_SkyObj;
-	Camera* m_pMainCamera = nullptr;
-	Camera  m_DefaultCamera;
+	SCamera* m_pMainCamera = nullptr;
+	SCamera  m_DefaultCamera;
 	Timer m_GameTimer;
 	WriteFont m_dxWrite;
 	bool m_bWireFrame = false;

@@ -1,6 +1,6 @@
 #include "TVector2.h"
 
-namespace Math
+namespace SMath
 {
 	TVector2::TVector2()
 	{
