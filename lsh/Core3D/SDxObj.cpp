@@ -35,9 +35,9 @@ bool SDxObj::SetIndexData()
 bool SDxObj::SetConstantData()
 {
 	ZeroMemory(&m_ConstantList, sizeof(ConstantData));
-	m_ConstantList.matWorld = T::TMatrix();
-	m_ConstantList.matView = T::TMatrix();
-	m_ConstantList.matProj = T::TMatrix();
+	m_ConstantList.matWorld = S::SMatrix();
+	m_ConstantList.matView = S::SMatrix();
+	m_ConstantList.matProj = S::SMatrix();
 
 	m_ConstantList.Color.x = 0.0f;
 	m_ConstantList.Color.y = 1.0f;

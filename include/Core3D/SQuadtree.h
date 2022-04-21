@@ -35,7 +35,7 @@ public:
 	void Build(SMap* pMap, int iMaxDepth);
 	void BuildTree(SNode* pParent); // 트리 생성
 	Box GenBoundingBox(SNode* pNode);
-	TVector2 GetHeightFromNode(DWORD dwTL, DWORD dwTR, DWORD dwBL, DWORD dwBR);
+	SVector2 GetHeightFromNode(DWORD dwTL, DWORD dwTR, DWORD dwBL, DWORD dwBR);
 	bool AddStaticObject(MapObj* obj);
 	bool AddDynamicObject(MapObj* obj);
 
@@ -51,7 +51,7 @@ public:
 	void RenderTile(SNode* pNode);
 public:
 	void FindNeighborNode(); // 이웃노드 찾기
-	SNode* CheckBoxtoPoint(T::TVector3 p);
+	SNode* CheckBoxtoPoint(S::SVector3 p);
 	void GetRatio(SNode* pNode);
 	int GetLodType(SNode* pNode);
 	int UpdateIndexList(SNode* pNode, DWORD dwCurentIndex, DWORD dwNumLevel);

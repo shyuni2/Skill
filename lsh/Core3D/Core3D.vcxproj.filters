@@ -55,7 +55,7 @@
     <ClCompile Include="SMatrix.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="TMath.cpp">
+    <ClCompile Include="SMath.cpp">
       <Filter>math</Filter>
     </ClCompile>
     <ClCompile Include="SMap.cpp">
@@ -151,7 +151,7 @@
     <ClInclude Include="SMatrix.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="TMath.h">
+    <ClInclude Include="SMath.h">
       <Filter>math</Filter>
     </ClInclude>
     <ClInclude Include="SMap.h">

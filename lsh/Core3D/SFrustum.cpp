@@ -13,130 +13,130 @@ bool SFrustum::SetVertexData()
 	// +Z plane
 	// 0       1
 	// 2       3
-	m_VertexList[index].p = T::TVector3(1.0f, 1.0f, 1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, 0.0f, 1.0f);
-	m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 1.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(0.0f, 0.0f);
+	m_VertexList[index].p = S::SVector3(1.0f, 1.0f, 1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, 0.0f, 1.0f);
+	m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 1.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(0.0f, 0.0f);
 
-	m_VertexList[++index].p = T::TVector3(-1.0f, 1.0f, 1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, 0.0f, 1.0f);
-	m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 1.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(1.0f, 0.0f);
+	m_VertexList[++index].p = S::SVector3(-1.0f, 1.0f, 1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, 0.0f, 1.0f);
+	m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 1.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(1.0f, 0.0f);
 
-	m_VertexList[++index].p = T::TVector3(1.0f, -1.0f, 1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, 0.0f, 1.0f);
-	m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 1.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(0.0f, 1.0f);
+	m_VertexList[++index].p = S::SVector3(1.0f, -1.0f, 1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, 0.0f, 1.0f);
+	m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 1.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(0.0f, 1.0f);
 
-	m_VertexList[++index].p = T::TVector3(-1.0f, -1.0f, 1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, 0.0f, 1.0f);
-	m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 1.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(1.0f, 1.0f);
+	m_VertexList[++index].p = S::SVector3(-1.0f, -1.0f, 1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, 0.0f, 1.0f);
+	m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 1.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(1.0f, 1.0f);
 	// -Z plane
 
-	m_VertexList[++index].p = T::TVector3(-1.0f, 1.0f, -1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, 0.0f, -1.0f);
-	m_VertexList[index].c = T::TVector4(1.0f, 0.0f, 0.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(0.0f, 0.0f);
+	m_VertexList[++index].p = S::SVector3(-1.0f, 1.0f, -1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, 0.0f, -1.0f);
+	m_VertexList[index].c = S::SVector4(1.0f, 0.0f, 0.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(0.0f, 0.0f);
 
-	m_VertexList[++index].p = T::TVector3(1.0f, 1.0f, -1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, 0.0f, -1.0f);
-	m_VertexList[index].c = T::TVector4(1.0f, 0.0f, 0.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(1.0f, 0.0f);
+	m_VertexList[++index].p = S::SVector3(1.0f, 1.0f, -1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, 0.0f, -1.0f);
+	m_VertexList[index].c = S::SVector4(1.0f, 0.0f, 0.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(1.0f, 0.0f);
 
-	m_VertexList[++index].p = T::TVector3(-1.0f, -1.0f, -1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, 0.0f, -1.0f);
-	m_VertexList[index].c = T::TVector4(1.0f, 0.0f, 0.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(0.0f, 1.0f);
+	m_VertexList[++index].p = S::SVector3(-1.0f, -1.0f, -1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, 0.0f, -1.0f);
+	m_VertexList[index].c = S::SVector4(1.0f, 0.0f, 0.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(0.0f, 1.0f);
 
-	m_VertexList[++index].p = T::TVector3(1.0f, -1.0f, -1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, 0.0f, -1.0f);
-	m_VertexList[index].c = T::TVector4(1.0f, 0.0f, 0.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(1.0f, 1.0f);
+	m_VertexList[++index].p = S::SVector3(1.0f, -1.0f, -1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, 0.0f, -1.0f);
+	m_VertexList[index].c = S::SVector4(1.0f, 0.0f, 0.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(1.0f, 1.0f);
 
 	// +X plane
-	m_VertexList[++index].p = T::TVector3(1.0f, 1.0f, -1.0f);
-	m_VertexList[index].n = T::TVector3(1.0f, 0.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 0.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(0.0f, 0.0f);
+	m_VertexList[++index].p = S::SVector3(1.0f, 1.0f, -1.0f);
+	m_VertexList[index].n = S::SVector3(1.0f, 0.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 0.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(0.0f, 0.0f);
 
-	m_VertexList[++index].p = T::TVector3(1.0f, 1.0f, 1.0f);
-	m_VertexList[index].n = T::TVector3(1.0f, 0.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 0.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(1.0f, 0.0f);
+	m_VertexList[++index].p = S::SVector3(1.0f, 1.0f, 1.0f);
+	m_VertexList[index].n = S::SVector3(1.0f, 0.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 0.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(1.0f, 0.0f);
 
-	m_VertexList[++index].p = T::TVector3(1.0f, -1.0f, -1.0f);
-	m_VertexList[index].n = T::TVector3(1.0f, 0.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 0.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(0.0f, 1.0f);
+	m_VertexList[++index].p = S::SVector3(1.0f, -1.0f, -1.0f);
+	m_VertexList[index].n = S::SVector3(1.0f, 0.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 0.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(0.0f, 1.0f);
 
-	m_VertexList[++index].p = T::TVector3(1.0f, -1.0f, 1.0f);
-	m_VertexList[index].n = T::TVector3(1.0f, 0.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 0.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(1.0f, 1.0f);
+	m_VertexList[++index].p = S::SVector3(1.0f, -1.0f, 1.0f);
+	m_VertexList[index].n = S::SVector3(1.0f, 0.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 0.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(1.0f, 1.0f);
 
 	// -X plane
-	m_VertexList[++index].p = T::TVector3(-1.0f, 1.0f, 1.0f);
-	m_VertexList[index].n = T::TVector3(-1.0f, 0.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(0.0f, 1.0f, 1.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(0.0f, 0.0f);
+	m_VertexList[++index].p = S::SVector3(-1.0f, 1.0f, 1.0f);
+	m_VertexList[index].n = S::SVector3(-1.0f, 0.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(0.0f, 1.0f, 1.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(0.0f, 0.0f);
 
-	m_VertexList[++index].p = T::TVector3(-1.0f, 1.0f, -1.0f);
-	m_VertexList[index].n = T::TVector3(-1.0f, 0.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(0.0f, 1.0f, 1.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(1.0f, 0.0f);
+	m_VertexList[++index].p = S::SVector3(-1.0f, 1.0f, -1.0f);
+	m_VertexList[index].n = S::SVector3(-1.0f, 0.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(0.0f, 1.0f, 1.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(1.0f, 0.0f);
 
-	m_VertexList[++index].p = T::TVector3(-1.0f, -1.0f, 1.0f);
-	m_VertexList[index].n = T::TVector3(-1.0f, 0.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(0.0f, 1.0f, 1.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(0.0f, 1.0f);
+	m_VertexList[++index].p = S::SVector3(-1.0f, -1.0f, 1.0f);
+	m_VertexList[index].n = S::SVector3(-1.0f, 0.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(0.0f, 1.0f, 1.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(0.0f, 1.0f);
 
-	m_VertexList[++index].p = T::TVector3(-1.0f, -1.0f, -1.0f);
-	m_VertexList[index].n = T::TVector3(-1.0f, 0.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(0.0f, 1.0f, 1.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(1.0f, 1.0f);
+	m_VertexList[++index].p = S::SVector3(-1.0f, -1.0f, -1.0f);
+	m_VertexList[index].n = S::SVector3(-1.0f, 0.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(0.0f, 1.0f, 1.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(1.0f, 1.0f);
 
 	// -y plane
-	m_VertexList[++index].p = T::TVector3(-1.0f, -1.0f, -1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, -1.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 0.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(0.0f, 0.0f);
+	m_VertexList[++index].p = S::SVector3(-1.0f, -1.0f, -1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, -1.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 0.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(0.0f, 0.0f);
 
-	m_VertexList[++index].p = T::TVector3(1.0f, -1.0f, -1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, -1.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 0.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(1.0f, 0.0f);
+	m_VertexList[++index].p = S::SVector3(1.0f, -1.0f, -1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, -1.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 0.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(1.0f, 0.0f);
 
-	m_VertexList[++index].p = T::TVector3(-1.0f, -1.0f, 1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, -1.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 0.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(0.0f, 1.0f);
+	m_VertexList[++index].p = S::SVector3(-1.0f, -1.0f, 1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, -1.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 0.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(0.0f, 1.0f);
 
-	m_VertexList[++index].p = T::TVector3(1.0f, -1.0f, 1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, -1.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 0.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(1.0f, 1.0f);
+	m_VertexList[++index].p = S::SVector3(1.0f, -1.0f, 1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, -1.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 0.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(1.0f, 1.0f);
 
 	// +y plane
-	m_VertexList[++index].p = T::TVector3(-1.0f, 1.0f, 1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, 1.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 1.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(0.0f, 0.0f);
+	m_VertexList[++index].p = S::SVector3(-1.0f, 1.0f, 1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, 1.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(0.0f, 0.0f);
 
-	m_VertexList[++index].p = T::TVector3(1.0f, 1.0f, 1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, 1.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 1.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(1.0f, 0.0f);
+	m_VertexList[++index].p = S::SVector3(1.0f, 1.0f, 1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, 1.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(1.0f, 0.0f);
 
-	m_VertexList[++index].p = T::TVector3(-1.0f, 1.0f, -1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, 1.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 1.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(0.0f, 1.0f);
+	m_VertexList[++index].p = S::SVector3(-1.0f, 1.0f, -1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, 1.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(0.0f, 1.0f);
 
-	m_VertexList[++index].p = T::TVector3(1.0f, 1.0f, -1.0f);
-	m_VertexList[index].n = T::TVector3(0.0f, 1.0f, 0.0f);
-	m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 1.0f, 1.0f);
-	m_VertexList[index].t = T::TVector2(1.0f, 1.0f);
+	m_VertexList[++index].p = S::SVector3(1.0f, 1.0f, -1.0f);
+	m_VertexList[index].n = S::SVector3(0.0f, 1.0f, 0.0f);
+	m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_VertexList[index].t = S::SVector2(1.0f, 1.0f);
 
 	return true;
 }
@@ -179,36 +179,36 @@ bool SFrustum::Init()
 	// 1     2 
 	//
 	// 0     3
-	m_vFrustum[0] = TVector3(-1.0f, -1.0f, 0.0f);
-	m_vFrustum[1] = TVector3(-1.0f, 1.0f, 0.0f);
-	m_vFrustum[2] = TVector3(1.0f, 1.0f, 0.0f);
-	m_vFrustum[3] = TVector3(1.0f, -1.0f, 0.0f);
+	m_vFrustum[0] = SVector3(-1.0f, -1.0f, 0.0f);
+	m_vFrustum[1] = SVector3(-1.0f, 1.0f, 0.0f);
+	m_vFrustum[2] = SVector3(1.0f, 1.0f, 0.0f);
+	m_vFrustum[3] = SVector3(1.0f, -1.0f, 0.0f);
 
-	m_vFrustum[4] = TVector3(-1.0f, -1.0f, 1.0f);
-	m_vFrustum[5] = TVector3(-1.0f, 1.0f, 1.0f);
-	m_vFrustum[6] = TVector3(1.0f, 1.0f, 1.0f);
-	m_vFrustum[7] = TVector3(1.0f, -1.0f, 1.0f);
+	m_vFrustum[4] = SVector3(-1.0f, -1.0f, 1.0f);
+	m_vFrustum[5] = SVector3(-1.0f, 1.0f, 1.0f);
+	m_vFrustum[6] = SVector3(1.0f, 1.0f, 1.0f);
+	m_vFrustum[7] = SVector3(1.0f, -1.0f, 1.0f);
 
 	return true;
 }
-void SFrustum::CreateFrustum(T::TMatrix& matView, T::TMatrix& matProj)
+void SFrustum::CreateFrustum(S::SMatrix& matView, S::SMatrix& matProj)
 {
-	m_vFrustum[0] = TVector3(-1.0f, -1.0f, 0.0f);
-	m_vFrustum[1] = TVector3(-1.0f, 1.0f, 0.0f);
-	m_vFrustum[2] = TVector3(1.0f, 1.0f, 0.0f);
-	m_vFrustum[3] = TVector3(1.0f, -1.0f, 0.0f);
+	m_vFrustum[0] = SVector3(-1.0f, -1.0f, 0.0f);
+	m_vFrustum[1] = SVector3(-1.0f, 1.0f, 0.0f);
+	m_vFrustum[2] = SVector3(1.0f, 1.0f, 0.0f);
+	m_vFrustum[3] = SVector3(1.0f, -1.0f, 0.0f);
 
-	m_vFrustum[4] = TVector3(-1.0f, -1.0f, 1.0f);
-	m_vFrustum[5] = TVector3(-1.0f, 1.0f, 1.0f);
-	m_vFrustum[6] = TVector3(1.0f, 1.0f, 1.0f);
-	m_vFrustum[7] = TVector3(1.0f, -1.0f, 1.0f);
+	m_vFrustum[4] = SVector3(-1.0f, -1.0f, 1.0f);
+	m_vFrustum[5] = SVector3(-1.0f, 1.0f, 1.0f);
+	m_vFrustum[6] = SVector3(1.0f, 1.0f, 1.0f);
+	m_vFrustum[7] = SVector3(1.0f, -1.0f, 1.0f);
 
-	T::TMatrix matInverse;
-	T::D3DXMatrixMultiply(&matInverse, &matView, &matProj);
-	T::D3DXMatrixInverse(&matInverse, NULL, &matInverse);
+	S::SMatrix matInverse;
+	S::D3DXMatrixMultiply(&matInverse, &matView, &matProj);
+	S::D3DXMatrixInverse(&matInverse, NULL, &matInverse);
 	for (int iVer = 0; iVer < 8; iVer++)
 	{
-		T::D3DXVec3TransformCoord(&m_vFrustum[iVer], &m_vFrustum[iVer], &matInverse);
+		S::D3DXVec3TransformCoord(&m_vFrustum[iVer], &m_vFrustum[iVer], &matInverse);
 		//m_vFrustum[iVer] = m_vFrustum[iVer].xyz,w=1.0f * matInverse;
 	}
 	// 5     6 
@@ -254,20 +254,20 @@ void SFrustum::CreateFrustum(T::TMatrix& matView, T::TMatrix& matProj)
 		m_pContext->UpdateSubresource(m_pVertexBuffer, 0, NULL, &m_VertexList.at(0), 0, 0);
 	}
 	//-z
-	m_Plane[0] = T::TPlane(m_vFrustum[0], m_vFrustum[1], m_vFrustum[2]);
+	m_Plane[0] = S::SPlane(m_vFrustum[0], m_vFrustum[1], m_vFrustum[2]);
 	//+z
-	m_Plane[1] = T::TPlane(m_vFrustum[6], m_vFrustum[5], m_vFrustum[4]);
+	m_Plane[1] = S::SPlane(m_vFrustum[6], m_vFrustum[5], m_vFrustum[4]);
 	// -x
-	m_Plane[2] = T::TPlane(m_vFrustum[5], m_vFrustum[1], m_vFrustum[0]);
+	m_Plane[2] = S::SPlane(m_vFrustum[5], m_vFrustum[1], m_vFrustum[0]);
 	//+x
-	m_Plane[3] = T::TPlane(m_vFrustum[2], m_vFrustum[6], m_vFrustum[7]);
+	m_Plane[3] = S::SPlane(m_vFrustum[2], m_vFrustum[6], m_vFrustum[7]);
 	//-y
-	m_Plane[4] = T::TPlane(m_vFrustum[7], m_vFrustum[4], m_vFrustum[0]);
+	m_Plane[4] = S::SPlane(m_vFrustum[7], m_vFrustum[4], m_vFrustum[0]);
 	//+y
-	m_Plane[5] = T::TPlane(m_vFrustum[5], m_vFrustum[6], m_vFrustum[1]);
+	m_Plane[5] = S::SPlane(m_vFrustum[5], m_vFrustum[6], m_vFrustum[1]);
 }
 
-BOOL SFrustum::ClassifyPoint(T::TVector3* v)
+BOOL SFrustum::ClassifyPoint(S::SVector3* v)
 {
 	for (int i = 0; i < 6; i++)
 	{
@@ -294,7 +294,7 @@ BOOL SFrustum::ClassifySphere(Sphere* v)
 BOOL SFrustum::ClassifyOBB(Box* box)
 {
 	float sum = 0.0f;
-	T::TVector3 vDir;
+	S::SVector3 vDir;
 	for (int i = 0; i < 6; i++)
 	{
 		vDir = box->vAxis[0] * box->size.x;

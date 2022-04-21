@@ -5,14 +5,14 @@
 class SFrustum : public SBoxObj
 {
 public:
-	T::TPlane m_Plane[6];
-	T::TVector3 m_vFrustum[8];
+	S::SPlane m_Plane[6];
+	S::SVector3 m_vFrustum[8];
 public:
 	bool Init();
 	bool PostRender();
-	void CreateFrustum(T::TMatrix& matView, T::TMatrix& matProj);
+	void CreateFrustum(S::SMatrix& matView, S::SMatrix& matProj);
 public:
-	BOOL ClassifyPoint(T::TVector3* v);
+	BOOL ClassifyPoint(S::SVector3* v);
 	BOOL ClassifySphere(Sphere* v);
 	BOOL ClassifyOBB(Box* v);
 public:

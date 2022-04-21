@@ -2,12 +2,12 @@
 #include "SInput.h"
 
 // -- ºäÇà·Ä »ý¼º
-void SCamera::CreateViewMatrix(T::TVector3 p, T::TVector3 t, T::TVector3 u)
+void SCamera::CreateViewMatrix(S::SVector3 p, S::SVector3 t, S::SVector3 u)
 {
 	m_vCamera = p;
 	m_vTarget = t;
 	m_vUp = u;
-	T::D3DXMatrixLookAtLH(&m_matView, &m_vCamera, &m_vTarget, &m_vUp);	
+	S::D3DXMatrixLookAtLH(&m_matView, &m_vCamera, &m_vTarget, &m_vUp);	
 	UpdateVector();
 }
 
@@ -16,7 +16,7 @@ void SCamera::CreateProjMatrix(float fovy, float Aspect, float zn, float zf)
 {
 	m_fFarDistance = zf;
 	m_fNearDistance = zn;
-	T::D3DXMatrixPerspectiveFovLH(&m_matProj, fovy, Aspect, zn, zf);
+	S::D3DXMatrixPerspectiveFovLH(&m_matProj, fovy, Aspect, zn, zf);
 }
 
 bool SCamera::Init()
@@ -28,17 +28,17 @@ bool SCamera::Init()
 	return true;
 }
 
-bool SCamera::Update(T::TVector4 vDirValue)
+bool SCamera::Update(S::SVector4 vDirValue)
 {
 	// vValue.x : pitch, y=yaw, z= roll, w =radius
-	T::TMatrix matRotation;
-	T::D3DXQuaternionRotationYawPitchRoll(&m_qRotation, vDirValue.y, vDirValue.x, vDirValue.z);
+	S::SMatrix matRotation;
+	S::D3DXQuaternionRotationYawPitchRoll(&m_qRotation, vDirValue.y, vDirValue.x, vDirValue.z);
 
 	m_vCamera += m_vLook * vDirValue.w;
 	m_fRadius += vDirValue.w;
 
-	T::D3DXMatrixAffineTransformation(&matRotation, 1.0f, NULL, &m_qRotation, &m_vCamera);
-	T::D3DXMatrixInverse(&m_matView, NULL, &matRotation);
+	S::D3DXMatrixAffineTransformation(&matRotation, 1.0f, NULL, &m_qRotation, &m_vCamera);
+	S::D3DXMatrixInverse(&m_matView, NULL, &matRotation);
 
 	return UpdateVector();
 }
@@ -72,7 +72,7 @@ void SCamera::MoveUp(float fValue)
 }
 bool SCamera::Frame()
 {
-	T::TVector2 dir = SInput::Get().GetDelta();
+	S::SVector2 dir = SInput::Get().GetDelta();
 	if (SInput::Get().GetKey('A') || SInput::Get().GetKey(VK_LEFT))
 	{
 		MoveSide(-g_fSecPerFrame * 100.0f);
@@ -91,7 +91,7 @@ bool SCamera::Frame()
 		MoveLook(-g_fSecPerFrame * 100.0f);
 	}
 
-	Update(T::TVector4(-dir.x, -dir.y, 0, 0));
+	Update(S::SVector4(-dir.x, -dir.y, 0, 0));
 	return true;
 }
 SCamera::SCamera()
@@ -104,5 +104,5 @@ SCamera::SCamera()
 	m_vTarget.y = 0;
 	m_vTarget.z = 100;
 
-	m_vUp = m_vDefaultUp = T::TVector3(0, 1, 0);
+	m_vUp = m_vDefaultUp = S::SVector3(0, 1, 0);
 }

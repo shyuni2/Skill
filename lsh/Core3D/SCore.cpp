@@ -24,12 +24,12 @@ bool SCore::CoreInit()
 	}
 
 	m_DefaultCamera.Init();
-	m_DefaultCamera.CreateViewMatrix(T::TVector3(0, 500.0f, -100.0f), T::TVector3(0, 0.0f, 0));
+	m_DefaultCamera.CreateViewMatrix(S::SVector3(0, 500.0f, -100.0f), S::SVector3(0, 0.0f, 0));
 	m_DefaultCamera.CreateProjMatrix(XM_PI * 0.25f, (float)g_rtClient.right / (float)g_rtClient.bottom, 0.1f, 5000.0f);
 	m_DefaultCamera.m_pColorTex = I_Texture.Load(L"../../data/charport.bmp");
 	m_DefaultCamera.m_pVShader = I_Shader.CreateVertexShader(m_pd3dDevice.Get(), L"Box.hlsl", "VSColor");
 	m_DefaultCamera.m_pPShader = I_Shader.CreatePixelShader(m_pd3dDevice.Get(), L"Box.hlsl", "PSColor");
-	m_DefaultCamera.SetPosition(T::TVector3(0.0f, 1.0f, 0.0f));
+	m_DefaultCamera.SetPosition(S::SVector3(0.0f, 1.0f, 0.0f));
 	if (!m_DefaultCamera.Create(m_pd3dDevice.Get(), m_pImmediateContext.Get()))
 	{
 		return false;
@@ -38,7 +38,7 @@ bool SCore::CoreInit()
 	m_pMainCamera = &m_DefaultCamera;
 
 	m_SkyObj.Init();
-	m_SkyObj.SetPosition(T::TVector3(0.0f, 0.0f, 0.0f));
+	m_SkyObj.SetPosition(S::SVector3(0.0f, 0.0f, 0.0f));
 
 	if (!m_SkyObj.Create(m_pd3dDevice.Get(), m_pImmediateContext.Get(), L"../../data/shader/sky.hlsl", L"../../data/sky/skybox02.dds"))
 	{
@@ -104,9 +104,9 @@ bool SCore::CoreRender()
 	m_SkyObj.m_matView._41 = 0;
 	m_SkyObj.m_matView._42 = 0;
 	m_SkyObj.m_matView._43 = 0;
-	T::TMatrix matRotation, matScale;
-	/*T::D3DXMatrixScaling(&matScale, 3000.0f, 3000.0f, 3000.0f);
-	T::D3DXMatrixRotationY(&matRotation, g_fGameTimer * 0.00f);
+	S::SMatrix matRotation, matScale;
+	/*S::D3DXMatrixScaling(&matScale, 3000.0f, 3000.0f, 3000.0f);
+	S::D3DXMatrixRotationY(&matRotation, g_fGameTimer * 0.00f);
 	m_SkyObj.m_matWorld = matScale * matRotation;*/
 	m_SkyObj.SetMatrix(NULL, &m_SkyObj.m_matView, &m_pMainCamera->m_matProj);
 	m_pImmediateContext->RSSetState(SDxState::g_pRSNoneCullSolid);

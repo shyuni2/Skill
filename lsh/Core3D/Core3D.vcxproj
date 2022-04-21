@@ -40,7 +40,7 @@
     <ClCompile Include="SSoundMgr.cpp" />
     <ClCompile Include="STexturerMgr.cpp" />
     <ClCompile Include="STimer.cpp" />
-    <ClCompile Include="TMath.cpp" />
+    <ClCompile Include="SMath.cpp" />
     <ClCompile Include="SQuadtree.cpp" />
     <ClCompile Include="SNode.cpp" />
     <ClCompile Include="SPlaneObj.cpp" />
@@ -74,7 +74,7 @@
     <ClInclude Include="STD.h" />
     <ClInclude Include="STextureMgr.h" />
     <ClInclude Include="STimer.h" />
-    <ClInclude Include="TMath.h" />
+    <ClInclude Include="SMath.h" />
     <ClInclude Include="SQuadtree.h" />
     <ClInclude Include="SNode.h" />
     <ClInclude Include="SPlaneObj.h" />

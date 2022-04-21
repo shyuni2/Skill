@@ -6,7 +6,7 @@ int SQuadtree::g_iCount = 0;
 // 2(0,1)   3(1,1)   6(2,1)   7(3,1)
 // 8        9        12       13
 // 10(0,3)  11       14       14(3,3)
-SNode* SQuadtree::CheckBoxtoPoint(T::TVector3 p)
+SNode* SQuadtree::CheckBoxtoPoint(S::SVector3 p)
 {
 	for (auto node : g_pLeafNodes)
 	{
@@ -23,7 +23,7 @@ void SQuadtree::FindNeighborNode()
 	for (auto node : g_pLeafNodes)
 	{
 		node->m_pNeighborList.resize(4);
-		T::TVector3 p;		
+		S::SVector3 p;		
 		p.x = node->m_Box.vCenter.x;
 		p.y = 0.0f;
 		p.z = node->m_Box.vMax.z + node->m_Box.size.z;
@@ -43,8 +43,8 @@ void SQuadtree::FindNeighborNode()
 }
 void		SQuadtree::GetRatio(SNode* pNode)
 {
-	T::TVector3 v = m_pCamera->m_vCamera - pNode->m_Box.vCenter;
-	float fDistance = T::D3DXVec3Length(&v);
+	S::SVector3 v = m_pCamera->m_vCamera - pNode->m_Box.vCenter;
+	float fDistance = S::D3DXVec3Length(&v);
 	float fRatio = fDistance / m_pCamera->m_fFarDistance;
 	// lod level==> 0 ~ 1 :  0 ~ 0.25,  0.25 ~ 05,  0.5 ~  1.0f
 	pNode->m_iCurrentLod = fRatio * m_iNumLOD; // 0,  1 , 2
@@ -129,7 +129,7 @@ bool		SQuadtree::Render()
 	//for (int iNode = 0; iNode < g_pDrawLeafNodes.size(); iNode++)
 	//{
 	//	DrawDebugRender(&g_pDrawLeafNodes[iNode]->m_Box);
-	//	/*m_pMap->m_ConstantList.Color = T::TVector4(1, 1, 0, 1);
+	//	/*m_pMap->m_ConstantList.Color = S::SVector4(1, 1, 0, 1);
 	//	m_pMap->m_pContext->UpdateSubresource(
 	//		m_pMap->m_pConstantBuffer, 0, NULL, &m_pMap->m_ConstantList, 0, 0);
 
@@ -145,7 +145,7 @@ bool		SQuadtree::Render()
 		obj->pObject->SetMatrix(&obj->matWorld,
 			&m_pMap->m_matView,
 			&m_pMap->m_matProj);
-		obj->pObject->m_ConstantList.Color = T::TVector4(1, 1, 1, 1);
+		obj->pObject->m_ConstantList.Color = S::SVector4(1, 1, 1, 1);
 		obj->pObject->Render();
 	}
 	return true;
@@ -176,23 +176,23 @@ SNode* SQuadtree::CreateNode(
 }
 Box	SQuadtree::GenBoundingBox(SNode* pNode)
 {
-	TVector3 v0, v4;
+	SVector3 v0, v4;
 	v0 = m_pMap->m_VertexList[pNode->m_CornerList[0]].p; // 0
 	v4 = m_pMap->m_VertexList[pNode->m_CornerList[3]].p; // 24
 	pNode->m_Box.vMin.x = v0.x;
 	pNode->m_Box.vMin.z = v4.z;
 	pNode->m_Box.vMax.x = v4.x;
 	pNode->m_Box.vMax.z = v0.z;
-	TVector2 vHeight = GetHeightFromNode(
+	SVector2 vHeight = GetHeightFromNode(
 		pNode->m_CornerList[0],
 		pNode->m_CornerList[1],	
 		pNode->m_CornerList[2], 
 		pNode->m_CornerList[3]);
 	pNode->m_Box.vMin.y = vHeight.y;
 	pNode->m_Box.vMax.y = vHeight.x;
-	pNode->m_Box.vAxis[0] = TVector3(1, 0, 0);
-	pNode->m_Box.vAxis[1] = TVector3(0, 1, 0);
-	pNode->m_Box.vAxis[2] = TVector3(0, 0, 1);
+	pNode->m_Box.vAxis[0] = SVector3(1, 0, 0);
+	pNode->m_Box.vAxis[1] = SVector3(0, 1, 0);
+	pNode->m_Box.vAxis[2] = SVector3(0, 0, 1);
 	pNode->m_Box.size.x = (pNode->m_Box.vMax.x- pNode->m_Box.vMin.x) / 2.0f;
 	pNode->m_Box.size.y = (pNode->m_Box.vMax.y - pNode->m_Box.vMin.y) / 2.0f;
 	pNode->m_Box.size.z = (pNode->m_Box.vMax.z - pNode->m_Box.vMin.z) / 2.0f;
@@ -201,7 +201,7 @@ Box	SQuadtree::GenBoundingBox(SNode* pNode)
 
 	return pNode->m_Box;
 }
-TVector2	SQuadtree::GetHeightFromNode(DWORD dwTL, DWORD dwTR, DWORD dwBL, DWORD dwBR)
+SVector2	SQuadtree::GetHeightFromNode(DWORD dwTL, DWORD dwTR, DWORD dwBL, DWORD dwBR)
 {
 	assert(m_pMap);
 
@@ -211,7 +211,7 @@ TVector2	SQuadtree::GetHeightFromNode(DWORD dwTL, DWORD dwTR, DWORD dwBL, DWORD 
 	DWORD dwStartCol = dwTL % m_iWidth;
 	DWORD dwEndCol = dwTR % m_iWidth;
 
-	TVector2 vHeight;
+	SVector2 vHeight;
 	vHeight.x = -999999.0f;
 	vHeight.y = 999999.0f;
 
@@ -666,7 +666,7 @@ void SQuadtree::DrawDebugInit(ID3D11Device* pd3dDevice,
 		pd3dDevice, L"Box.hlsl", "VSColor");
 	m_BoxDebug.m_pPShader = I_Shader.CreatePixelShader(
 		pd3dDevice, L"Box.hlsl", "PSColor");
-	m_BoxDebug.SetPosition(T::TVector3(0.0f, 1.0f, 0.0f));
+	m_BoxDebug.SetPosition(S::SVector3(0.0f, 1.0f, 0.0f));
 	if (!m_BoxDebug.Create(pd3dDevice, pContext))
 	{
 		return;
@@ -674,29 +674,29 @@ void SQuadtree::DrawDebugInit(ID3D11Device* pd3dDevice,
 }
 void SQuadtree::DrawDebugRender(Box*  pBox)
 {
-	pBox->vList[0] = T::TVector3(pBox->vMin.x,
+	pBox->vList[0] = S::SVector3(pBox->vMin.x,
 		pBox->vMax.y,
 		pBox->vMin.z);
-	pBox->vList[1] = T::TVector3(pBox->vMax.x,
+	pBox->vList[1] = S::SVector3(pBox->vMax.x,
 		pBox->vMax.y,
 		pBox->vMin.z);
-	pBox->vList[2] = T::TVector3(pBox->vMin.x,
+	pBox->vList[2] = S::SVector3(pBox->vMin.x,
 		pBox->vMin.y,
 		pBox->vMin.z);
-	pBox->vList[3] = T::TVector3(pBox->vMax.x,
+	pBox->vList[3] = S::SVector3(pBox->vMax.x,
 		pBox->vMin.y,
 		pBox->vMin.z);
 
-	pBox->vList[4] = T::TVector3(pBox->vMin.x,
+	pBox->vList[4] = S::SVector3(pBox->vMin.x,
 		pBox->vMax.y,
 		pBox->vMax.z);
-	pBox->vList[5] = T::TVector3(pBox->vMax.x,
+	pBox->vList[5] = S::SVector3(pBox->vMax.x,
 		pBox->vMax.y,
 		pBox->vMax.z);
-	pBox->vList[6] = T::TVector3(pBox->vMin.x,
+	pBox->vList[6] = S::SVector3(pBox->vMin.x,
 		pBox->vMin.y,
 		pBox->vMax.z);
-	pBox->vList[7] = T::TVector3(pBox->vMax.x,
+	pBox->vList[7] = S::SVector3(pBox->vMax.x,
 		pBox->vMin.y,
 		pBox->vMax.z);
 	// 4      5
@@ -707,127 +707,127 @@ void SQuadtree::DrawDebugRender(Box*  pBox)
 	int index = 0;
 	// +z
 	m_BoxDebug.m_VertexList[index].p = pBox->vList[5];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 1.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(0.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(0.0f, 0.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[4];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 1.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(1.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(1.0f, 0.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[7];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 1.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(0.0f, 1.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[6];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 1.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(1.0f, 1.0f);
 	// -Z plane
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[0];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, 0.0f, -1.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(1.0f, 0.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(0.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, 0.0f, -1.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(1.0f, 0.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(0.0f, 0.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[1];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, 0.0f, -1.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(1.0f, 0.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(1.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, 0.0f, -1.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(1.0f, 0.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(1.0f, 0.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[2];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, 0.0f, -1.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(1.0f, 0.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, 0.0f, -1.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(1.0f, 0.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(0.0f, 1.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[3];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, 0.0f, -1.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(1.0f, 0.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, 0.0f, -1.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(1.0f, 0.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(1.0f, 1.0f);
 
 	// +X plane
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[1];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(1.0f, 0.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(0.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(1.0f, 0.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(0.0f, 0.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[5];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(1.0f, 0.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(1.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(1.0f, 0.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(1.0f, 0.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[3];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(1.0f, 0.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(1.0f, 0.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(0.0f, 1.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[7];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(1.0f, 0.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(1.0f, 0.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(1.0f, 1.0f);
 
 	// -X plane
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[4];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(-1.0f, 0.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(0.0f, 1.0f, 1.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(0.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(-1.0f, 0.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(0.0f, 1.0f, 1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(0.0f, 0.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[0];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(-1.0f, 0.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(0.0f, 1.0f, 1.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(1.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(-1.0f, 0.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(0.0f, 1.0f, 1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(1.0f, 0.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[6];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(-1.0f, 0.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(0.0f, 1.0f, 1.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(-1.0f, 0.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(0.0f, 1.0f, 1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(0.0f, 1.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[2];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(-1.0f, 0.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(0.0f, 1.0f, 1.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(-1.0f, 0.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(0.0f, 1.0f, 1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(1.0f, 1.0f);
 
 	// -y plane
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[2];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, -1.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(0.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, -1.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(0.0f, 0.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[3];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, -1.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(1.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, -1.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(1.0f, 0.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[6];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, -1.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, -1.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(0.0f, 1.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[7];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, -1.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(0.0f, 0.0f, 0.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, -1.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(0.0f, 0.0f, 0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(1.0f, 1.0f);
 	// +y plane
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[4];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, 1.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 1.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(0.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, 1.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(0.0f, 0.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[5];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, 1.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 1.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(1.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, 1.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(1.0f, 0.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[0];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, 1.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 1.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(0.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, 1.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(0.0f, 1.0f);
 
 	m_BoxDebug.m_VertexList[++index].p = pBox->vList[1];
-	m_BoxDebug.m_VertexList[index].n = T::TVector3(0.0f, 1.0f, 0.0f);
-	m_BoxDebug.m_VertexList[index].c = T::TVector4(1.0f, 1.0f, 1.0f, 1.0f);
-	m_BoxDebug.m_VertexList[index].t = T::TVector2(1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].n = S::SVector3(0.0f, 1.0f, 0.0f);
+	m_BoxDebug.m_VertexList[index].c = S::SVector4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_BoxDebug.m_VertexList[index].t = S::SVector2(1.0f, 1.0f);
 
 	m_BoxDebug.SetMatrix(NULL, &m_pCamera->m_matView, &m_pCamera->m_matProj);
 	m_BoxDebug.PreRender();

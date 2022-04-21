@@ -8,10 +8,10 @@
 
 struct PNCT
 {
-	T::TVector3 p;
-	T::TVector3 n;
-	T::TVector4 c;
-	T::TVector2 t;
+	S::SVector3 p;
+	S::SVector3 n;
+	S::SVector4 c;
+	S::SVector2 t;
 };
 struct VertexIW
 {
@@ -26,10 +26,10 @@ struct VertexIW
 struct Track
 {
 	UINT iFrame;
-	TMatrix matTrack;
-	T::TVector3 s; // 크기 
-	T::TQuaternion r; // 회전
-	T::TVector3 t; // 이동
+	SMatrix matTrack;
+	S::SVector3 s; // 크기 
+	S::SQuaternion r; // 회전
+	S::SVector3 t; // 이동
 };
 struct Weight
 {
@@ -72,8 +72,8 @@ public:
 public:
 	int m_iIndex = -1;
 	bool m_bSkinned = false;
-	TMatrix m_matLocal;
-	TMatrix m_matAnim;
+	SMatrix m_matLocal;
+	SMatrix m_matAnim;
 	FbxNode* m_pFbxParent = nullptr;
 	FbxNode* m_pFbxNode = nullptr;
 	SFbxModel* m_pParentObj = nullptr;
@@ -90,7 +90,7 @@ public:
 	std::vector<ID3D11Buffer*> m_pVBWeightList;
 	std::vector<STexture*> m_pTextureList;
 	std::vector<Track> m_AnimTrack;
-	std::map<std::wstring, TMatrix>	m_dxMatrixBindPoseMap;
+	std::map<std::wstring, SMatrix>	m_dxMatrixBindPoseMap;
 public:
 	virtual bool SetVertexData() override;
 	virtual bool CreateVertexBuffer()override;

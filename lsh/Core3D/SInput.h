@@ -28,7 +28,7 @@ public:
 	}
 public:
 	DWORD GetKey(DWORD dwKey); // 입력값 받아옴
-	T::TVector2 GetDelta();
+	S::SVector2 GetDelta();
 public:
 	bool Init();
 	bool Frame();

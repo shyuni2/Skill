@@ -34,9 +34,9 @@ public:
 	bool ParseMeshSkinning(FbxMesh* pFbxMesh, SFbxModel* pObject);
 public:
 	// DX와 FBX는 좌표축이 다르기 때문에 변환해줘야함
-	TMatrix DxConvertMatrix(TMatrix m);
-	TMatrix ConvertMatrix(FbxMatrix& m);
-	TMatrix ConvertAMatrix(FbxAMatrix& m);
+	SMatrix DxConvertMatrix(SMatrix m);
+	SMatrix ConvertMatrix(FbxMatrix& m);
+	SMatrix ConvertAMatrix(FbxAMatrix& m);
 	void ParseAnimation();
 public:
 	virtual bool Init();

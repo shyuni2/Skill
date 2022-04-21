@@ -565,7 +565,7 @@ bool SFbxImporter::ParseMeshSkinning(FbxMesh* pFbxMesh, SFbxModel* pObject)
 			pCluster->GetTransformMatrix(matReferenceGlobalInitPosition);
 			FbxMatrix matBindPose = matReferenceGlobalInitPosition.Inverse() * matXBindPose;
 
-			TMatrix matInvBindPos = DxConvertMatrix(ConvertMatrix(matBindPose));
+			SMatrix matInvBindPos = DxConvertMatrix(ConvertMatrix(matBindPose));
 			matInvBindPos = matInvBindPos.Invert();
 			int  iBoneIndex = m_pFbxNodeMap.find(pCluster->GetLink())->second;
 			std::wstring name = m_TreeList[iBoneIndex]->m_csName;
@@ -589,9 +589,9 @@ bool SFbxImporter::ParseMeshSkinning(FbxMesh* pFbxMesh, SFbxModel* pObject)
 	return true;
 }
 
-TMatrix SFbxImporter::DxConvertMatrix(TMatrix m)
+SMatrix SFbxImporter::DxConvertMatrix(SMatrix m)
 {
-	TMatrix mat;
+	SMatrix mat;
 	mat._11 = m._11; mat._12 = m._13; mat._13 = m._12;
 	mat._21 = m._31; mat._22 = m._33; mat._23 = m._32;
 	mat._31 = m._21; mat._32 = m._23; mat._33 = m._22;
@@ -600,9 +600,9 @@ TMatrix SFbxImporter::DxConvertMatrix(TMatrix m)
 	mat._44 = 1.0f;
 	return mat;
 }
-TMatrix SFbxImporter::ConvertMatrix(FbxMatrix& m)
+SMatrix SFbxImporter::ConvertMatrix(FbxMatrix& m)
 {
-	TMatrix mat;
+	SMatrix mat;
 	float* pMatArray = reinterpret_cast<float*>(&mat);
 	double* pSrcArray = reinterpret_cast<double*>(&m);
 	for (int i = 0; i < 16; i++)
@@ -611,9 +611,9 @@ TMatrix SFbxImporter::ConvertMatrix(FbxMatrix& m)
 	}
 	return mat;
 }
-TMatrix SFbxImporter::ConvertAMatrix(FbxAMatrix& m) // 일반적으로 아핀메트릭스를 사용한다? 벡터공간에서 행렬을 사용한다
+SMatrix SFbxImporter::ConvertAMatrix(FbxAMatrix& m) // 일반적으로 아핀메트릭스를 사용한다? 벡터공간에서 행렬을 사용한다
 {
-	TMatrix mat;
+	SMatrix mat;
 	float* pMatArray = reinterpret_cast<float*>(&mat);
 	double* pSrcArray = reinterpret_cast<double*>(&m);
 	for (int i = 0; i < 16; i++)
@@ -656,7 +656,7 @@ void SFbxImporter::ParseAnimation()
 			tTrack.matTrack = DxConvertMatrix(ConvertAMatrix(matGlobal));
 			// 행렬분해
 			// 행렬을 분해(SRT)
-			T::D3DXMatrixDecompose(&tTrack.s, &tTrack.r, &tTrack.t, &tTrack.matTrack);
+			S::D3DXMatrixDecompose(&tTrack.s, &tTrack.r, &tTrack.t, &tTrack.matTrack);
 			m_TreeList[iObj]->m_AnimTrack.push_back(tTrack);
 		}
 	}

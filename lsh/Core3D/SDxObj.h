@@ -6,17 +6,17 @@
 
 struct SimpleVertex
 {
-	T::TVector2 v;
-	T::TVector2 t;
+	S::SVector2 v;
+	S::SVector2 t;
 };
 struct Vertex
 {
-	T::TVector3 p; // 위치
-	T::TVector3 n; // 노말
-	T::TVector4 c; // 컬러
-	T::TVector2 t; // 텍셀
+	S::SVector3 p; // 위치
+	S::SVector3 n; // 노말
+	S::SVector4 c; // 컬러
+	S::SVector2 t; // 텍셀
 
-	Vertex(T::TVector3 p1, T::TVector3 n1, T::TVector4 c1, T::TVector2 t1)
+	Vertex(S::SVector3 p1, S::SVector3 n1, S::SVector4 c1, S::SVector2 t1)
 	{
 		p = p1;
 		n = n1;
@@ -99,22 +99,22 @@ struct Index
 };
 struct ConstantData
 {
-	T::TMatrix matWorld; // 월드행렬
-	T::TMatrix matView; // 뷰행렬
-	T::TMatrix matProj; // 투영행렬
-	T::TVector4 Color;
-	T::TVector4 Timer;
+	S::SMatrix matWorld; // 월드행렬
+	S::SMatrix matView; // 뷰행렬
+	S::SMatrix matProj; // 투영행렬
+	S::SVector4 Color;
+	S::SVector4 Timer;
 };
 struct BoneWorld 
 {
-	T::TMatrix  matBoneWorld[255]; // 뼈대행렬?
+	S::SMatrix  matBoneWorld[255]; // 뼈대행렬?
 };
 struct LightData
 {
-	T::TVector4 vLightDir; // 빛 거리
-	T::TVector4 vLightPos; // 빛 위치
-	T::TVector4 vCameraDir; // 카메라 거리
-	T::TVector4 vCameraPos; // 카메라 위치
+	S::SVector4 vLightDir; // 빛 거리
+	S::SVector4 vLightPos; // 빛 위치
+	S::SVector4 vCameraDir; // 카메라 거리
+	S::SVector4 vCameraPos; // 카메라 위치
 };
 
 class SDxObj : public SBaseObj

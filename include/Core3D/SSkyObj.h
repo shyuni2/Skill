@@ -8,7 +8,7 @@ public:
 	STexture* m_pTexCube; // 큐브 텍스쳐
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pSRVArray[6];
 public:
-	virtual void SetMatrix(T::TMatrix* matWorld,T::TMatrix* matView, T::TMatrix* matProj);
+	virtual void SetMatrix(S::SMatrix* matWorld,S::SMatrix* matView, S::SMatrix* matProj);
 	virtual bool SetVertexData();
 	virtual bool SetIndexData();
 	virtual bool LoadTexture(const TCHAR* szColorFileName, const TCHAR* szMaskFileName);
