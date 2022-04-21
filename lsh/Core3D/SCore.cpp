@@ -1,6 +1,6 @@
 #include "SCore.h"
-#include "ObjMgr.h"
-#include "SoundMgr.h"
+#include "SObjMgr.h"
+#include "SSoundMgr.h"
 
 bool SCore::CoreInit()
 {

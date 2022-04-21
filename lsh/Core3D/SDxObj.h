@@ -1,6 +1,6 @@
 #pragma once
-#include "ShaderMgr.h"
-#include "TextureMgr.h"
+#include "SShaderMgr.h"
+#include "STextureMgr.h"
 #include "SDxState.h"
 #include "SCollision.h"
 
@@ -120,12 +120,12 @@ struct LightData
 class SDxObj : public SBaseObj
 {
 public:
-	Texture* m_pColorTex = nullptr;
-	Texture* m_pMaskTex = nullptr; 
+	STexture* m_pColorTex = nullptr;
+	STexture* m_pMaskTex = nullptr; 
 
 	// 쉐이더 지정해주기 전까진 NULL
-	Shader* m_pVShader = nullptr;
-	Shader* m_pPShader = nullptr;
+	SShader* m_pVShader = nullptr;
+	SShader* m_pPShader = nullptr;
 
 	D3D11_TEXTURE2D_DESC m_TextureDesc;
 public:

@@ -1,5 +1,5 @@
 #include "SDxObj.h"
-#include "ObjMgr.h"
+#include "SObjMgr.h"
 
 void SBaseObj::HitOverlap(SBaseObj* pObj, DWORD dwState)
 {

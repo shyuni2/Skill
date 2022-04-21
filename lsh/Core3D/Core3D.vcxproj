@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BaseMgr.cpp" />
+    <ClCompile Include="SBaseMgr.cpp" />
     <ClCompile Include="SCollision.cpp" />
     <ClCompile Include="SCore.cpp" />
     <ClCompile Include="SDevice.cpp" />
@@ -35,10 +35,10 @@
     <ClCompile Include="SMatrix.cpp" />
     <ClCompile Include="SObj2D.cpp" />
     <ClCompile Include="SObj3D.cpp" />
-    <ClCompile Include="ObjMgr.cpp" />
-    <ClCompile Include="ShaderMgr.cpp" />
-    <ClCompile Include="SoundMgr.cpp" />
-    <ClCompile Include="TexturerMgr.cpp" />
+    <ClCompile Include="SObjMgr.cpp" />
+    <ClCompile Include="SShaderMgr.cpp" />
+    <ClCompile Include="SSoundMgr.cpp" />
+    <ClCompile Include="STexturerMgr.cpp" />
     <ClCompile Include="STimer.cpp" />
     <ClCompile Include="TMath.cpp" />
     <ClCompile Include="SQuadtree.cpp" />
@@ -52,7 +52,7 @@
     <ClCompile Include="SWriteFont.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseMgr.h" />
+    <ClInclude Include="SBaseMgr.h" />
     <ClInclude Include="SCollision.h" />
     <ClInclude Include="SCore.h" />
     <ClInclude Include="SDevice.h" />
@@ -68,11 +68,11 @@
     <ClInclude Include="SMatrix.h" />
     <ClInclude Include="SObj2D.h" />
     <ClInclude Include="SObj3D.h" />
-    <ClInclude Include="ObjMgr.h" />
-    <ClInclude Include="ShaderMgr.h" />
-    <ClInclude Include="SoundMgr.h" />
+    <ClInclude Include="SObjMgr.h" />
+    <ClInclude Include="SShaderMgr.h" />
+    <ClInclude Include="SSoundMgr.h" />
     <ClInclude Include="STD.h" />
-    <ClInclude Include="TextureMgr.h" />
+    <ClInclude Include="STextureMgr.h" />
     <ClInclude Include="STimer.h" />
     <ClInclude Include="TMath.h" />
     <ClInclude Include="SQuadtree.h" />

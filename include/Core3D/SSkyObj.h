@@ -4,8 +4,8 @@
 class SSkyObj : public SObj3D
 {
 public:	
-	Texture* m_pTexArray[6]; // 텍스쳐 배열
-	Texture* m_pTexCube; // 큐브 텍스쳐
+	STexture* m_pTexArray[6]; // 텍스쳐 배열
+	STexture* m_pTexCube; // 큐브 텍스쳐
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pSRVArray[6];
 public:
 	virtual void SetMatrix(T::TMatrix* matWorld,T::TMatrix* matView, T::TMatrix* matProj);

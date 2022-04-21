@@ -1,5 +1,5 @@
 #include "SWorld.h"
-#include "ObjMgr.h"
+#include "SObjMgr.h"
 
 SWorld* SWorld::m_pWorld = nullptr;
 

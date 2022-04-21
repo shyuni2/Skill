@@ -88,7 +88,7 @@ public: // submaterial
 public:
 	std::vector<ID3D11Buffer*> m_pVBList;
 	std::vector<ID3D11Buffer*> m_pVBWeightList;
-	std::vector<Texture*> m_pTextureList;
+	std::vector<STexture*> m_pTextureList;
 	std::vector<Track> m_AnimTrack;
 	std::map<std::wstring, TMatrix>	m_dxMatrixBindPoseMap;
 public:

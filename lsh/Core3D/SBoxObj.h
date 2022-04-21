@@ -4,7 +4,7 @@
 class SBoxObj : public SObj3D
 {
 public:
-	Texture* m_pTexCube;
+	STexture* m_pTexCube;
 	bool PostRender();
 public:
 	virtual bool SetVertexData();

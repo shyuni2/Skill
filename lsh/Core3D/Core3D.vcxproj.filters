@@ -7,19 +7,19 @@
     <ClCompile Include="SObj3D.cpp">
       <Filter>obj</Filter>
     </ClCompile>
-    <ClCompile Include="ObjMgr.cpp">
+    <ClCompile Include="SObjMgr.cpp">
       <Filter>mgr</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderMgr.cpp">
+    <ClCompile Include="SShaderMgr.cpp">
       <Filter>mgr</Filter>
     </ClCompile>
-    <ClCompile Include="SoundMgr.cpp">
+    <ClCompile Include="SSoundMgr.cpp">
       <Filter>mgr</Filter>
     </ClCompile>
-    <ClCompile Include="TexturerMgr.cpp">
+    <ClCompile Include="STexturerMgr.cpp">
       <Filter>mgr</Filter>
     </ClCompile>
-    <ClCompile Include="BaseMgr.cpp">
+    <ClCompile Include="SBaseMgr.cpp">
       <Filter>mgr</Filter>
     </ClCompile>
     <ClCompile Include="SCore.cpp">
@@ -102,19 +102,19 @@
     <ClInclude Include="SObj3D.h">
       <Filter>obj</Filter>
     </ClInclude>
-    <ClInclude Include="ObjMgr.h">
+    <ClInclude Include="SObjMgr.h">
       <Filter>mgr</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderMgr.h">
+    <ClInclude Include="SShaderMgr.h">
       <Filter>mgr</Filter>
     </ClInclude>
-    <ClInclude Include="SoundMgr.h">
+    <ClInclude Include="SSoundMgr.h">
       <Filter>mgr</Filter>
     </ClInclude>
-    <ClInclude Include="TextureMgr.h">
+    <ClInclude Include="STextureMgr.h">
       <Filter>mgr</Filter>
     </ClInclude>
-    <ClInclude Include="BaseMgr.h">
+    <ClInclude Include="SBaseMgr.h">
       <Filter>mgr</Filter>
     </ClInclude>
     <ClInclude Include="SVector3.h">
