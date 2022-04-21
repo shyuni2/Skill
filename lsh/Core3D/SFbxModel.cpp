@@ -107,7 +107,7 @@ bool SFbxModel::PostRender()
 }
 bool SFbxModel::Release()
 {
-	Obj3D::Release();
+	SObj3D::Release();
 	for (int ivb = 0; ivb < m_pVBList.size(); ivb++)
 	{
 		if (m_pVBList[ivb] != nullptr)

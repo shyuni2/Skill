@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Obj2D.cpp">
+    <ClCompile Include="SObj2D.cpp">
       <Filter>obj</Filter>
     </ClCompile>
-    <ClCompile Include="Obj3D.cpp">
+    <ClCompile Include="SObj3D.cpp">
       <Filter>obj</Filter>
     </ClCompile>
     <ClCompile Include="ObjMgr.cpp">
@@ -22,46 +22,46 @@
     <ClCompile Include="BaseMgr.cpp">
       <Filter>mgr</Filter>
     </ClCompile>
-    <ClCompile Include="Core.cpp">
+    <ClCompile Include="SCore.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="Device.cpp">
+    <ClCompile Include="SDevice.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="DxState.cpp">
+    <ClCompile Include="SDxState.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
+    <ClCompile Include="SInput.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
+    <ClCompile Include="STimer.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="Window.cpp">
+    <ClCompile Include="SWindow.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="World.cpp">
+    <ClCompile Include="SWorld.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="WriteFont.cpp">
+    <ClCompile Include="SWriteFont.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="TVector3.cpp">
+    <ClCompile Include="SVector3.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="TVector2.cpp">
+    <ClCompile Include="SVector2.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="TMatrix.cpp">
+    <ClCompile Include="SMatrix.cpp">
       <Filter>math</Filter>
     </ClCompile>
     <ClCompile Include="TMath.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
+    <ClCompile Include="SMap.cpp">
       <Filter>map</Filter>
     </ClCompile>
-    <ClCompile Include="Quadtree.cpp">
+    <ClCompile Include="SQuadtree.cpp">
       <Filter>map</Filter>
     </ClCompile>
     <ClCompile Include="SCamera.cpp">
@@ -70,22 +70,22 @@
     <ClCompile Include="SFrustum.cpp">
       <Filter>camera</Filter>
     </ClCompile>
-    <ClCompile Include="DxObj.cpp">
+    <ClCompile Include="SDxObj.cpp">
       <Filter>obj</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp">
+    <ClCompile Include="SCollision.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="PlaneObj.cpp">
+    <ClCompile Include="SPlaneObj.cpp">
       <Filter>obj</Filter>
     </ClCompile>
-    <ClCompile Include="SkyObj.cpp">
+    <ClCompile Include="SSkyObj.cpp">
       <Filter>obj</Filter>
     </ClCompile>
-    <ClCompile Include="BoxObj.cpp">
+    <ClCompile Include="SBoxObj.cpp">
       <Filter>obj</Filter>
     </ClCompile>
-    <ClCompile Include="Node.cpp">
+    <ClCompile Include="SNode.cpp">
       <Filter>map</Filter>
     </ClCompile>
     <ClCompile Include="SFbxImporter.cpp">
@@ -96,10 +96,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Obj2D.h">
+    <ClInclude Include="SObj2D.h">
       <Filter>obj</Filter>
     </ClInclude>
-    <ClInclude Include="Obj3D.h">
+    <ClInclude Include="SObj3D.h">
       <Filter>obj</Filter>
     </ClInclude>
     <ClInclude Include="ObjMgr.h">
@@ -117,47 +117,47 @@
     <ClInclude Include="BaseMgr.h">
       <Filter>mgr</Filter>
     </ClInclude>
-    <ClInclude Include="TVector3.h">
+    <ClInclude Include="SVector3.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="TVector2.h">
+    <ClInclude Include="SVector2.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="Core.h">
+    <ClInclude Include="SCore.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="Device.h">
+    <ClInclude Include="SDevice.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="DxState.h">
+    <ClInclude Include="SDxState.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
+    <ClInclude Include="SInput.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
+    <ClInclude Include="STimer.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="Window.h">
+    <ClInclude Include="SWindow.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="World.h">
+    <ClInclude Include="SWorld.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="WriteFont.h">
+    <ClInclude Include="SWriteFont.h">
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="STD.h" />
-    <ClInclude Include="TMatrix.h">
+    <ClInclude Include="SMatrix.h">
       <Filter>math</Filter>
     </ClInclude>
     <ClInclude Include="TMath.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
+    <ClInclude Include="SMap.h">
       <Filter>map</Filter>
     </ClInclude>
-    <ClInclude Include="Quadtree.h">
+    <ClInclude Include="SQuadtree.h">
       <Filter>map</Filter>
     </ClInclude>
     <ClInclude Include="SCamera.h">
@@ -166,19 +166,19 @@
     <ClInclude Include="SFrustum.h">
       <Filter>camera</Filter>
     </ClInclude>
-    <ClInclude Include="DxObj.h">
+    <ClInclude Include="SDxObj.h">
       <Filter>obj</Filter>
     </ClInclude>
-    <ClInclude Include="SkyObj.h">
+    <ClInclude Include="SSkyObj.h">
       <Filter>obj</Filter>
     </ClInclude>
-    <ClInclude Include="PlaneObj.h">
+    <ClInclude Include="SPlaneObj.h">
       <Filter>obj</Filter>
     </ClInclude>
-    <ClInclude Include="BoxObj.h">
+    <ClInclude Include="SBoxObj.h">
       <Filter>obj</Filter>
     </ClInclude>
-    <ClInclude Include="Node.h">
+    <ClInclude Include="SNode.h">
       <Filter>map</Filter>
     </ClInclude>
     <ClInclude Include="SFbxImporter.h">
@@ -187,7 +187,7 @@
     <ClInclude Include="SFbxModel.h">
       <Filter>fbx</Filter>
     </ClInclude>
-    <ClInclude Include="Collision.h">
+    <ClInclude Include="SCollision.h">
       <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>

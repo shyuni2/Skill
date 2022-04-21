@@ -1,5 +1,5 @@
 #include "SCamera.h"
-#include "Input.h"
+#include "SInput.h"
 
 // -- ºäÇà·Ä »ý¼º
 void SCamera::CreateViewMatrix(T::TVector3 p, T::TVector3 t, T::TVector3 u)
@@ -72,21 +72,21 @@ void SCamera::MoveUp(float fValue)
 }
 bool SCamera::Frame()
 {
-	T::TVector2 dir = Input::Get().GetDelta();
-	if (Input::Get().GetKey('A') || Input::Get().GetKey(VK_LEFT))
+	T::TVector2 dir = SInput::Get().GetDelta();
+	if (SInput::Get().GetKey('A') || SInput::Get().GetKey(VK_LEFT))
 	{
 		MoveSide(-g_fSecPerFrame * 100.0f);
 	}
-	if (Input::Get().GetKey('D') || Input::Get().GetKey(VK_RIGHT))
+	if (SInput::Get().GetKey('D') || SInput::Get().GetKey(VK_RIGHT))
 	{
 		MoveSide(g_fSecPerFrame * 100.0f);
 	}
 	//m_Camera.MoveLook(10.0f);
-	if (Input::Get().GetKey('W'))
+	if (SInput::Get().GetKey('W'))
 	{
 		MoveLook(g_fSecPerFrame * 100.0f);
 	}
-	if (Input::Get().GetKey('S') || Input::Get().GetKey(VK_DOWN))
+	if (SInput::Get().GetKey('S') || SInput::Get().GetKey(VK_DOWN))
 	{
 		MoveLook(-g_fSecPerFrame * 100.0f);
 	}

@@ -17,7 +17,7 @@
 #include <DirectXPackedVector.h>
 #include <DirectXCollision.h>
 
-#include "Collision.h"
+#include "SCollision.h"
 #include "TMath.h"
 
 #pragma comment	(lib, "d3d11.lib")

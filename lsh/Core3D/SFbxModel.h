@@ -1,5 +1,5 @@
 #pragma once
-#include "Obj3D.h"
+#include "SObj3D.h"
 #include <fbxsdk.h>
 #include "SCamera.h"
 
@@ -65,7 +65,7 @@ struct Scene
 	UINT iFrameSpeed;
 };
 
-class SFbxModel : public Obj3D
+class SFbxModel : public SObj3D
 {
 public:
 	SCamera* m_pMainCamera;

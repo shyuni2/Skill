@@ -89,8 +89,8 @@ struct Box
 	T::TVector3 vMin;
 	T::TVector3 vMax;
 	// obb
-	T::TVector3 vCenter;
-	T::TVector3 vAxis[3];
+	T::TVector3 vCenter; // 중심
+	T::TVector3 vAxis[3]; // 기저축
 	T::TVector3 size;
 	bool operator == (const Box& v)
 	{

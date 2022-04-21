@@ -22,7 +22,7 @@ cbuffer cb0 : register(b0)
 	matrix   g_matView : packoffset(c4);
 	matrix   g_matProj : packoffset(c8);
 	float4   Color0 : packoffset(c12);
-	float    TimerX : packoffset(c13.x); // Timer.x, Timer.y, Timer.z, Timer.w	
+	float    TimerX : packoffset(c13.x); // STimer.x, STimer.y, STimer.z, STimer.w	
 };
 
 VS_OUTPUT VS( VS_INPUT v)

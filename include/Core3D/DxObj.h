@@ -1,7 +1,7 @@
 #pragma once
 #include "ShaderMgr.h"
 #include "TextureMgr.h"
-#include "DxState.h"
+#include "SDxState.h"
 #include "Collision.h"
 
 struct SimpleVertex
@@ -111,7 +111,7 @@ struct ConstantData
 	T::TMatrix  matView;
 	T::TMatrix  matProj;
 	T::TVector4 Color;
-	T::TVector4 Timer;
+	T::TVector4 STimer;
 };
 
 struct BoneWorld

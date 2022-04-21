@@ -1,15 +1,15 @@
 #include "ObjMgr.h"
-#include "Input.h"
+#include "SInput.h"
 
-void ObjMgr::AddCollisionExecute(BaseObj* owner, CollisionFunction func)
+void ObjMgr::AddCollisionExecute(SBaseObj* owner, CollisionFunction func)
 {
 	owner->m_iCollisionID = m_iExcueteCollisionID++;
 	m_ObjList.insert(std::make_pair(owner->m_iCollisionID, owner));
 	m_fnCollisionExecute.insert(std::make_pair(owner->m_iCollisionID, func));
 }
-void ObjMgr::DeleteCollisionExecute(BaseObj* owner)
+void ObjMgr::DeleteCollisionExecute(SBaseObj* owner)
 {
-	std::map<int, BaseObj*>::iterator objiter;
+	std::map<int, SBaseObj*>::iterator objiter;
 	objiter = m_ObjList.find(owner->m_iCollisionID);
 	if (objiter != m_ObjList.end())
 	{
@@ -22,15 +22,15 @@ void ObjMgr::DeleteCollisionExecute(BaseObj* owner)
 		m_fnCollisionExecute.erase(colliter);
 	}
 }
-void ObjMgr::AddSelectExecute(BaseObj* owner, CollisionFunction func)
+void ObjMgr::AddSelectExecute(SBaseObj* owner, CollisionFunction func)
 {
 	owner->m_iSelectID = m_iExcueteSelectID++;
 	m_SelectList.insert(std::make_pair(owner->m_iSelectID, owner));
 	m_fnSelectExecute.insert(std::make_pair(owner->m_iSelectID, func));
 }
-void ObjMgr::DeleteSelectExecute(BaseObj* owner)
+void ObjMgr::DeleteSelectExecute(SBaseObj* owner)
 {
-	std::map<int, BaseObj*>::iterator objiter;
+	std::map<int, SBaseObj*>::iterator objiter;
 	objiter = m_SelectList.find(owner->m_iCollisionID);
 	if (objiter != m_SelectList.end())
 	{
@@ -47,7 +47,7 @@ bool ObjMgr::Init()
 {
 	return true;
 }
-void ObjMgr::CallRecursive(BaseObj* pSrcObj,DWORD dwState)
+void ObjMgr::CallRecursive(SBaseObj* pSrcObj,DWORD dwState)
 {
 	if (pSrcObj->m_pParent == nullptr)
 	{		
@@ -61,14 +61,14 @@ bool ObjMgr::Frame()
 	// collision
 	for (auto src : m_ObjList)
 	{
-		BaseObj* pObjSrc = (BaseObj*)src.second;
+		SBaseObj* pObjSrc = (SBaseObj*)src.second;
 		if (pObjSrc->m_dwCollisonType == CollisionType::Ignore) continue;
 		DWORD dwState= CollisionType::Overlap;
 		for (auto dest : m_ObjList)
 		{
-			BaseObj* pObjDest = (BaseObj*)dest.second;
+			SBaseObj* pObjDest = (SBaseObj*)dest.second;
 			if (pObjSrc == pObjDest) continue;
-			if (Collision::ToRect(pObjSrc->m_rtCollision, pObjDest->m_rtCollision))
+			if (SCollision::ToRect(pObjSrc->m_rtCollision, pObjDest->m_rtCollision))
 			{
 				FuncionIterator colliter = m_fnCollisionExecute.find(pObjSrc->m_iCollisionID);
 				if (colliter != m_fnCollisionExecute.end())
@@ -83,15 +83,15 @@ bool ObjMgr::Frame()
 	// mouse select
 	for (auto src : m_SelectList)
 	{
-		BaseObj* pObjSrc = (BaseObj*)src.second;
+		SBaseObj* pObjSrc = (SBaseObj*)src.second;
 		//if (pObjSrc->m_dwSelectType == SelectType::Select_Ignore) continue;
 		DWORD dwState = SelectState::DEFAULT;
 
 		if (pObjSrc->m_dwSelectType != SelectType::Select_Ignore &&
-			Collision::RectToPoint(
+			SCollision::RectToPoint(
 			pObjSrc->m_rtCollision, (float)g_ptMouse.x, (float)g_ptMouse.y))
 		{
-			DWORD dwKeyState = Input::Get().m_dwMouseState[0];
+			DWORD dwKeyState = SInput::Get().m_dwMouseState[0];
 			pObjSrc->m_dwSelectState = SelectState::HOVER;
 			if (dwKeyState == KEY_PUSH)
 			{

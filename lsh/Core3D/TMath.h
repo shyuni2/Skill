@@ -649,7 +649,7 @@ namespace T
 
 		static void Transform(const TPlane& plane, const TQuaternion& rotation, TPlane& result);
 		static TPlane Transform(const TPlane& plane, const TQuaternion& rotation);
-		// Input quaternion must be the inverse transpose of the transformation
+		// SInput quaternion must be the inverse transpose of the transformation
 	};
 
 	//------------------------------------------------------------------------------

@@ -1,16 +1,16 @@
 #pragma once
-#include "Obj2D.h"
+#include "SObj2D.h"
 
-using CollisionFunction = std::function<void(BaseObj*, DWORD)>;
-using SelectFunction = std::function<void(BaseObj*, DWORD)>;
+using CollisionFunction = std::function<void(SBaseObj*, DWORD)>;
+using SelectFunction = std::function<void(SBaseObj*, DWORD)>;
 
 class ObjMgr : public Singleton< ObjMgr>
 {
 private:
 	int m_iExcueteCollisionID;
 	int m_iExcueteSelectID;
-	std::map<int, BaseObj*> m_ObjList;
-	std::map<int, BaseObj*> m_SelectList;	
+	std::map<int, SBaseObj*> m_ObjList;
+	std::map<int, SBaseObj*> m_SelectList;	
 public:
 	friend Singleton< ObjMgr>;
 public:	
@@ -19,15 +19,15 @@ public:
 	typedef std::map<int, SelectFunction>::iterator FuncionIterator;
 	std::map<int, SelectFunction> m_fnSelectExecute;
 public:
-	void AddCollisionExecute(BaseObj* owner, CollisionFunction func);
-	void DeleteCollisionExecute(BaseObj* owner);
-	void AddSelectExecute(BaseObj* owner, CollisionFunction func);
-	void DeleteSelectExecute(BaseObj* owner);
+	void AddCollisionExecute(SBaseObj* owner, CollisionFunction func);
+	void DeleteCollisionExecute(SBaseObj* owner);
+	void AddSelectExecute(SBaseObj* owner, CollisionFunction func);
+	void DeleteSelectExecute(SBaseObj* owner);
 public:
 	bool Init();
 	bool Frame();
 	bool Release();
-	void CallRecursive(BaseObj* pSrcObj, DWORD dwState);
+	void CallRecursive(SBaseObj* pSrcObj, DWORD dwState);
 private:
 	ObjMgr();
 public:

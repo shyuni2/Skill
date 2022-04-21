@@ -30,7 +30,7 @@ cbuffer cb0 : register(b0)
 	matrix   g_matView : packoffset(c4);
 	matrix   g_matProj : packoffset(c8);
 	float4   Color0 : packoffset(c12);
-	float    TimerX : packoffset(c13.x); // Timer.x, Timer.y, Timer.z, Timer.w	
+	float    TimerX : packoffset(c13.x); // STimer.x, STimer.y, STimer.z, STimer.w	
 };
 // 시스템값 : 정점인덱스, 페이스인덱스 등
 VS_OUTPUT VS( VS_INPUT v)

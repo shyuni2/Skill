@@ -1,7 +1,7 @@
 #pragma once
 #include "SFbxModel.h"
 
-class SFbxImporter : public Obj3D
+class SFbxImporter : public SObj3D
 {
 public:
 	Scene m_Scene;
