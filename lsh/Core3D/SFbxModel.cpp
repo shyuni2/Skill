@@ -124,3 +124,55 @@ bool SFbxModel::Release()
 	}
 	return true;
 }
+void SFbxModel::GenAABB()
+{
+	// aabb 
+	m_BoxCollision.vMin = S::SVector3(100000, 100000, 100000);
+	m_BoxCollision.vMax = S::SVector3(-100000, -100000, -100000);
+	for (int iMtrl = 0; iMtrl < m_pSubVertexList.size(); iMtrl++)
+	{
+		for (int i = 0; i < m_pSubVertexList[iMtrl].size(); i++)
+		{
+			if (m_BoxCollision.vMin.x > m_pSubVertexList[iMtrl][i].p.x)
+			{
+				m_BoxCollision.vMin.x = m_pSubVertexList[iMtrl][i].p.x;
+			}
+			if (m_BoxCollision.vMin.y > m_pSubVertexList[iMtrl][i].p.y)
+			{
+				m_BoxCollision.vMin.y = m_pSubVertexList[iMtrl][i].p.y;
+			}
+			if (m_BoxCollision.vMin.z > m_pSubVertexList[iMtrl][i].p.z)
+			{
+				m_BoxCollision.vMin.z = m_pSubVertexList[iMtrl][i].p.z;
+			}
+
+			if (m_BoxCollision.vMax.x < m_pSubVertexList[iMtrl][i].p.x)
+			{
+				m_BoxCollision.vMax.x = m_pSubVertexList[iMtrl][i].p.x;
+			}
+			if (m_BoxCollision.vMax.y < m_pSubVertexList[iMtrl][i].p.y)
+			{
+				m_BoxCollision.vMax.y = m_pSubVertexList[iMtrl][i].p.y;
+			}
+			if (m_BoxCollision.vMax.z < m_pSubVertexList[iMtrl][i].p.z)
+			{
+				m_BoxCollision.vMax.z = m_pSubVertexList[iMtrl][i].p.z;
+			}
+		}
+	}
+
+	// 4      5
+	// 6      7
+
+	// 0     1
+	// 2     3
+	m_BoxCollision.vList[0] = S::SVector3(m_BoxCollision.vMin.x, m_BoxCollision.vMax.y, m_BoxCollision.vMin.z);
+	m_BoxCollision.vList[1] = S::SVector3(m_BoxCollision.vMax.x, m_BoxCollision.vMax.y, m_BoxCollision.vMin.z);
+	m_BoxCollision.vList[2] = S::SVector3(m_BoxCollision.vMin.x, m_BoxCollision.vMin.y, m_BoxCollision.vMin.z);
+	m_BoxCollision.vList[3] = S::SVector3(m_BoxCollision.vMax.x, m_BoxCollision.vMin.y, m_BoxCollision.vMin.z);
+							
+	m_BoxCollision.vList[4] = S::SVector3(m_BoxCollision.vMin.x, m_BoxCollision.vMax.y, m_BoxCollision.vMax.z);
+	m_BoxCollision.vList[5] = S::SVector3(m_BoxCollision.vMax.x, m_BoxCollision.vMax.y, m_BoxCollision.vMax.z);
+	m_BoxCollision.vList[6] = S::SVector3(m_BoxCollision.vMin.x, m_BoxCollision.vMin.y, m_BoxCollision.vMax.z);
+	m_BoxCollision.vList[7] = S::SVector3(m_BoxCollision.vMax.x, m_BoxCollision.vMin.y, m_BoxCollision.vMax.z);
+}

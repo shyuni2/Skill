@@ -7,12 +7,12 @@
 #include "SObj3D.h"
 using namespace std;
 
-struct MapObj
+struct SMapObj
 {
 	std::wstring name;
 	S::SMatrix matWorld; // 월드행렬
 	S::SVector3 vPos; // 위치
-	Box box;
+	SBox box;
 	SObj3D* pObject;
 	S::SVector3 m_vLight; // ??벡터
 	S::SVector3 m_vUp; // 상향벡터 
@@ -87,7 +87,7 @@ class SNode
 public:
 	int m_iIndex;
 	SNode* m_pParent;
-	Box	m_Box;
+	SBox m_Box;
 	int m_iDepth; // 깊이
 	int m_iCurrentLod = 0; // 현재 LOD
 	int m_dwLodType; //0 ~ 16
@@ -95,11 +95,11 @@ public:
 	std::vector<SNode*> m_pChild; // 자식 노드
 	std::vector<SNode*> m_pNeighborList; // 이웃노드, 북(0)남(1)서(2)동(3)
 	std::vector<int> m_CornerList; // 정점인덱스
-	std::list<MapObj*> m_StaticObjectList; // 정적 오브젝트 리스트
-	std::list<MapObj*> m_DynamicObjectList; // 동적 오브젝트 리스트
-	void AddStaticObject(MapObj* obj); // 정적 오브젝트 추가
-	void AddDynamicObject(MapObj* obj); // 동적 오브젝트 추가
-	void DelDynamicObject(MapObj* obj); // 동적 오브젝트 삭제
+	std::list<SMapObj*> m_StaticObjectList; // 정적 오브젝트 리스트
+	std::list<SMapObj*> m_DynamicObjectList; // 동적 오브젝트 리스트
+	void AddStaticObject(SMapObj* obj); // 정적 오브젝트 추가
+	void AddDynamicObject(SMapObj* obj); // 동적 오브젝트 추가
+	void DelDynamicObject(SMapObj* obj); // 동적 오브젝트 삭제
 public:
 	using INDEXLIST = std::vector<DWORD>;// m_IndexList;
 	using INDEXBUFFER = Microsoft::WRL::ComPtr<ID3D11Buffer>;// m_pIndexBuffer0;

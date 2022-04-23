@@ -14,7 +14,7 @@ public:
 public:
 	BOOL ClassifyPoint(S::SVector3* v);
 	BOOL ClassifySphere(Sphere* v);
-	BOOL ClassifyOBB(Box* v);
+	BOOL ClassifyOBB(SBox* v);
 public:
 	virtual bool SetVertexData();
 	virtual bool SetIndexData();

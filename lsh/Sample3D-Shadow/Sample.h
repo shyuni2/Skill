@@ -1,48 +1,56 @@
 #pragma once
-#include "Core.h"
+#include "SCore.h"
 #include "SFbxObj.h"
-#include "Map.h"
-#include "Quadtree.h"
+#include "SMap.h"
+#include "SQuadtree.h"
 #include "SQuadObject.h"
+#include "SDxRT.h"
 
-// 맵생성 클래스 
-class SSampleMap : public Map
+class SSampleMap : public SMap
 {
 public:
-	virtual float GetHeight(int index) override
+	virtual float		GetHeight(int index) override
 	{
-		return Map::GetHeight(index) * 0.1f;
+		return SMap::GetHeight(index) * 0.1f;
 	}
-	virtual ~SSampleMap() {};
+	virtual ~SSampleMap() {}
 };
-
-class Sample : public Core
+class Sample : public SCore
 {
-	SSampleMap m_MapObj; 
-	Quadtree m_Quadtree;
-	std::vector<SFbxObj> m_FbxObj;
-	SQuadObject m_QuadObj;
-	Shader* m_pShadowPShader = nullptr; 
-	Texture* m_pLightTex; 
-	Texture* m_pNormalMap;
+	SSampleMap				m_MapObj;
+	SQuadtree				m_Quadtree;
+	std::vector<SFbx>		m_FbxObj;
+	SQuadObject				m_QuadObj;
+	SShader*				m_pShadowPShader = nullptr;
+	STexture* m_pLightTex;
+	STexture* m_pNormalMap;
 public:
-	bool LoadMap();
-	bool LoadFbx();
+	SShader*  m_pProjShadowVShader = nullptr;
+	SShader*  m_pProjShadowPShader = nullptr;
+	SDxRT	  m_dxRT;
+	SVector3  m_vLightPos;
+	SVector3  m_vLightDir;
+	SMatrix	  m_matShadow;
+	SMatrix	  m_matViewLight;
+	SMatrix	  m_matProjLight;
+	SMatrix	  m_matTex;
+	void		RenderShadow(SMatrix* matView, SMatrix* matProj);
 public:
-	void DisplayErrorBox(const WCHAR* lpszFunction);
-	DWORD LoadAllPath(const TCHAR* argv, std::vector<std::wstring>& list);
+	virtual void	CreateResizeDevice(UINT iWidth, UINT iHeight) override;
+	virtual void	DeleteResizeDevice(UINT iWidth, UINT iHeight) override;
+	virtual bool	Init()  override;
+	virtual bool	Frame()  override;
+	virtual bool	Render()  override;
+	virtual bool	Release()  override;
 public:
-	void RenderIntoBuffer(ID3D11DeviceContext* pContext);
-	void RenderMRT(ID3D11DeviceContext* pContext);
+	bool	LoadMap();
+	bool    LoadFbx();
 public:
-	virtual void CreateResizeDevice(UINT iWidth, UINT iHeight) override;
-	virtual void DeleteResizeDevice(UINT iWidth, UINT iHeight) override;
-public:			 
-	virtual bool Init()  override;
-	virtual bool Frame()  override;
-	virtual bool Render()  override;
-	virtual bool Release()  override;
-
+	void	DisplayErrorBox(const WCHAR* lpszFunction);
+	DWORD	LoadAllPath(const TCHAR* argv, std::vector<std::wstring>& list);
+public:
+	void		RenderIntoBuffer(ID3D11DeviceContext* pContext);
+	void		RenderMRT(ID3D11DeviceContext* pContext);
 public:
 	Sample();
 	virtual ~Sample();

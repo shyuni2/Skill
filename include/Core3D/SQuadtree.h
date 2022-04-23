@@ -20,7 +20,7 @@ public:
 	int m_iLeafLOD = 1; // 府橇畴靛 LOD
 	static int g_iCount;
 public:
-	std::list<MapObj*> m_ObjList;
+	std::list<SMapObj*> m_ObjList;
 	std::vector<SNode*> g_pDrawLeafNodes;
 	std::vector<SNode*> g_pLeafNodes;
 	std::queue<SNode*> g_Queue;	
@@ -34,19 +34,20 @@ public:
 public:
 	void Build(SMap* pMap, int iMaxDepth);
 	void BuildTree(SNode* pParent); // 飘府 积己
-	Box GenBoundingBox(SNode* pNode);
+	SBox GenBoundingBox(SNode* pNode);
 	SVector2 GetHeightFromNode(DWORD dwTL, DWORD dwTR, DWORD dwBL, DWORD dwBR);
-	bool AddStaticObject(MapObj* obj);
-	bool AddDynamicObject(MapObj* obj);
-
+	bool AddStaticObject(SMapObj* obj);
+	bool AddDynamicObject(SMapObj* obj);
 	void DynamicDeleteObject(SNode* pNode);
-	SNode* FindNode(SNode* pNode, Box& box);
-	bool CheckBox(Box& a, Box& b);
+	SNode* FindNode(SNode* pNode, SBox& box);
+	bool CheckBox(SBox& a, SBox& b);
 public:
 	void SetIndexData(SNode* pNode, int iLodLevel);
 	bool CreateIndexBuffer(SNode* pNode, int iLodLevel);
 	void Update(SCamera* pCamera);
+	bool PreRender();
 	bool Render();
+	bool PostRender();
 	void RenderObject(SNode* pNode);
 	void RenderTile(SNode* pNode);
 public:
@@ -60,7 +61,7 @@ public:
 public:
 	SBoxObj m_BoxDebug;
 	void DrawDebugInit(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pContext);
-	void DrawDebugRender(Box* pBox);
+	void DrawDebugRender(SBox* pBox);
 #endif
 public:
 	void PrintObjectList(SNode* pNode);

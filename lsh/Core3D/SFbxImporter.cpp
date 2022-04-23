@@ -6,8 +6,8 @@ bool SFbxImporter::Load(ID3D11Device* pd3dDevice, std::wstring filename)
 	if (Load(to_wm(filename).c_str()))
 	{
 		CreateConstantBuffer(pd3dDevice);
-		SShader* pVShader = I_Shader.CreateVertexShader(pd3dDevice, L"", "VS");
-		SShader* pPShader = I_Shader.CreatePixelShader(pd3dDevice, L"", "PS");
+		SShader* pVShader = I_Shader.CreateVertexShader(pd3dDevice, L"../../data/shader/Character.hlsl", "VS");
+		SShader* pPShader = I_Shader.CreatePixelShader(pd3dDevice, L"../../data/shader/Character.hlsl", "PS");
 		for (int iObj = 0; iObj < m_DrawList.size(); iObj++)
 		{
 			m_DrawList[iObj]->Init();
@@ -17,6 +17,7 @@ bool SFbxImporter::Load(ID3D11Device* pd3dDevice, std::wstring filename)
 			{
 				return false;
 			}
+			m_DrawList[iObj]->GenAABB();
 		}
 	}
 	return true;

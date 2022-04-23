@@ -3,7 +3,7 @@
 bool SBoxObj::SetVertexData()
 {
 	// Local Coord
-	// Box
+	// SBox
 	//  0        1 
 	//     ¿øÁ¡
 	//  2        3

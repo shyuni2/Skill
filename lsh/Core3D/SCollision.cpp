@@ -100,7 +100,7 @@ CollisionResult SCollision::ToRect(Rect rt1,Rect rt2)
 	}
 	return RECT_OUT;
 }
-bool SCollision::BoxToPoint(Box rt, int x, int y, int z)
+bool SCollision::BoxToPoint(SBox rt, int x, int y, int z)
 {
 	if (rt.vMin.x <= x && rt.vMax.x >= x && rt.vMin.y <= y && rt.vMax.y >= y && rt.vMin.z <= z && rt.vMax.z >= z)
 	{
@@ -108,7 +108,7 @@ bool SCollision::BoxToPoint(Box rt, int x, int y, int z)
 	}
 	return false;
 }
-bool SCollision::BoxToPoint(Box rt, S::SVector3 v)
+bool SCollision::BoxToPoint(SBox rt, S::SVector3 v)
 {
 	if (rt.vMin.x <= v.x && rt.vMax.x >= v.x && rt.vMin.y <= v.y && rt.vMax.y >= v.y && rt.vMin.z <= v.z && rt.vMax.z >= v.z)
 	{
@@ -116,9 +116,9 @@ bool SCollision::BoxToPoint(Box rt, S::SVector3 v)
 	}
 	return false;
 }
-Box SCollision::UnionBox(Box rt1, Box rt2)
+SBox SCollision::UnionBox(SBox rt1, SBox rt2)
 {
-	Box rt;
+	SBox rt;
 	rt.vMin.x = rt1.vMin.x < rt2.vMin.x ? rt1.vMin.x : rt2.vMin.x;
 	rt.vMin.y = rt1.vMin.y < rt2.vMin.y ? rt1.vMin.y : rt2.vMin.y;
 	rt.vMin.z = rt1.vMin.z < rt2.vMin.z ? rt1.vMin.z : rt2.vMin.z;
@@ -132,10 +132,10 @@ Box SCollision::UnionBox(Box rt1, Box rt2)
 	rt.vCenter /= 2.0f;
 	return rt;
 }
-bool SCollision::IntersectBox(Box rt1, Box rt2, Box* pRect)
+bool SCollision::IntersectBox(SBox rt1, SBox rt2, SBox* pRect)
 {
-	Box rt;
-	Box rtUnion = UnionBox(rt1, rt2);
+	SBox rt;
+	SBox rtUnion = UnionBox(rt1, rt2);
 	if (rtUnion.size.x <= (rt1.size.x + rt2.size.x) && rtUnion.size.y <= (rt1.size.y + rt2.size.y) && rtUnion.size.z <= (rt1.size.z + rt2.size.z))
 	{
 		if (pRect != nullptr)
@@ -159,9 +159,9 @@ bool SCollision::IntersectBox(Box rt1, Box rt2, Box* pRect)
 // 0 :  떨어져 있다.
 // 1 :  안에 있다.
 // 2 :  걸쳐 있다.
-CollisionResult SCollision::BoxToBox(Box rt1, Box rt2)
+CollisionResult SCollision::BoxToBox(SBox rt1, SBox rt2)
 {
-	Box rtInterction;
+	SBox rtInterction;
 	int iRet = IntersectBox(rt1, rt2, &rtInterction);
 	if (iRet <= 0)
 	{

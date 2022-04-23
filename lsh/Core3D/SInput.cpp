@@ -15,8 +15,8 @@ bool SInput::Init()
 S::SVector2 SInput::GetDelta()
 {
 	S::SVector2 ret;
-	m_fRadianY += (SInput::Get().m_ptDeltaMouse.x / (float)g_rtClient.right) * BASIS_PI;
-	m_fRadianX += (SInput::Get().m_ptDeltaMouse.y / (float)g_rtClient.bottom) * BASIS_PI;
+	m_fRadianY = (SInput::Get().m_ptDeltaMouse.x / (float)g_rtClient.right) * BASIS_PI;
+	m_fRadianX = (SInput::Get().m_ptDeltaMouse.y / (float)g_rtClient.bottom) * BASIS_PI;
 	return SVector2(m_fRadianX, m_fRadianY);
 }
 bool SInput::Frame() 

@@ -88,7 +88,7 @@ struct Rect
 	}
 };
 // -- 박스
-struct Box 
+struct SBox 
 {
 	// aabb 충돌 검사방법 : 각 축 방향에서 상자의 변이 겹치는지 확인
 	// obb 충돌 검사방법 : 바운딩 박스로 겹치는지 확인, 회전하던 상관없이 중심점과 중심점 기준으로 바인딩 박스 영역 확인
@@ -101,7 +101,7 @@ struct Box
 	S::SVector3 vCenter; // 중심
 	S::SVector3 vAxis[3]; // 기저축 3개 x, y, z
 	S::SVector3 size;
-	bool operator == (const Box& v)
+	bool operator == (const SBox& v)
 	{
 		if (fabs((vMin - v.vMin).Length()) < 0.0001f)
 		{
@@ -112,8 +112,8 @@ struct Box
 		}
 		return false;
 	}
-	Box() {};
-	Box(S::SVector3 vMin, S::SVector3 vMax)
+	SBox() {};
+	SBox(S::SVector3 vMin, S::SVector3 vMax)
 	{
 		this->vMin = vMin;
 		this->vMax = vMax;
@@ -122,7 +122,7 @@ struct Box
 		size.x = vMax.x - vMin.x;
 		size.y = vMax.y - vMin.y;
 	}
-	Box(S::SVector3 v, float w, float h, float q)
+	SBox(S::SVector3 v, float w, float h, float q)
 	{
 		this->vMin = v;
 		this->vMax = vMin + S::SVector3(w, h,q);
@@ -155,10 +155,10 @@ public:
 	static Rect UnionRect(Rect rt1, Rect rt2);
 	static bool IntersectRect(Rect rt1, Rect rt2, Rect* rt);
 public:
-	static bool BoxToPoint(Box rt, int x, int y, int z);
-	static bool BoxToPoint(Box rt, S::SVector3 v);
-	static CollisionResult BoxToBox(Box, Box);
-	static Box UnionBox(Box rt1, Box rt2);
-	static bool IntersectBox(Box rt1, Box rt2, Box* rt);
+	static bool BoxToPoint(SBox rt, int x, int y, int z);
+	static bool BoxToPoint(SBox rt, S::SVector3 v);
+	static CollisionResult BoxToBox(SBox, SBox);
+	static SBox UnionBox(SBox rt1, SBox rt2);
+	static bool IntersectBox(SBox rt1, SBox rt2, SBox* rt);
 };
 

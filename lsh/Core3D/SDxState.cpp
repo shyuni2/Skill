@@ -111,6 +111,24 @@ bool SDxState::SetState(ID3D11Device* pd3dDevice)
 		return hr;
 	}
 
+	D3D11_SAMPLER_DESC SamDescShad =
+	{
+		D3D11_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT,// D3D11_FILTER Filter;
+		D3D11_TEXTURE_ADDRESS_BORDER, //D3D11_TEXTURE_ADDRESS_MODE AddressU;
+		D3D11_TEXTURE_ADDRESS_BORDER, //D3D11_TEXTURE_ADDRESS_MODE AddressV;
+		D3D11_TEXTURE_ADDRESS_BORDER, //D3D11_TEXTURE_ADDRESS_MODE AddressW;
+		0,//FLOAT MipLODBias;
+		0,//UINT MaxAnisotropy;
+		D3D11_COMPARISON_LESS , //D3D11_COMPARISON_FUNC ComparisonFunc;
+		0.0,0.0,0.0,0.0,//FLOAT BorderColor[ 4 ];
+		0,//FLOAT MinLOD;
+		0//FLOAT MaxLOD;   
+	};
+	if (FAILED(hr = pd3dDevice->CreateSamplerState(&SamDescShad, &g_pSSShadowMap)))
+	{
+		return hr;
+	}
+
 	// ID3D11RasterizerState
 	D3D11_RASTERIZER_DESC rsDesc;
 	ZeroMemory(&rsDesc, sizeof(rsDesc));
@@ -146,6 +164,13 @@ bool SDxState::SetState(ID3D11Device* pd3dDevice)
 	{
 		return hr;
 	}
+	rsDesc.FillMode = D3D11_FILL_SOLID;
+	rsDesc.CullMode = D3D11_CULL_BACK;
+	rsDesc.DepthBias = 100000;
+	rsDesc.DepthBiasClamp = 0.0f;
+	rsDesc.SlopeScaledDepthBias = 1.0f;
+	if (FAILED(hr = pd3dDevice->CreateRasterizerState(&rsDesc, &SDxState::g_pRSSlopeScaledDepthBias)))
+		return hr;
 
 	// ID3D11DepthStencilState
 	D3D11_DEPTH_STENCIL_DESC dsDescDepth;
@@ -196,6 +221,7 @@ bool SDxState::Release()
 	if (g_pRSNoneCullSolid) g_pRSNoneCullSolid->Release();
 	if (g_pRSBackCullWireFrame) g_pRSBackCullWireFrame->Release();
 	if (g_pRSNoneCullWireFrame) g_pRSNoneCullWireFrame->Release();
+	if (g_pRSSlopeScaledDepthBias) g_pRSSlopeScaledDepthBias->Release();	g_pRSSlopeScaledDepthBias = NULL;
 	if (g_pDSSDepthEnable) g_pDSSDepthEnable->Release();
 	if (g_pDSSDepthDisable) g_pDSSDepthDisable->Release();
 	if (g_pDSSDepthEnableWriteDisable) g_pDSSDepthEnableWriteDisable->Release();
@@ -212,5 +238,6 @@ bool SDxState::Release()
 	if (g_pSSMirrorPoint)	g_pSSMirrorPoint->Release(); g_pSSMirrorPoint = NULL;
 	if (g_pSSClampLinear)	g_pSSClampLinear->Release(); g_pSSClampLinear = NULL;
 	if (g_pSSClampPoint)	g_pSSClampPoint->Release(); g_pSSClampPoint = NULL;
+	if (g_pSSShadowMap) g_pSSShadowMap->Release(); g_pSSShadowMap = NULL;
 	return true;
 }

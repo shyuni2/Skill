@@ -63,7 +63,7 @@ public:
 	float m_fWidth;
 	float m_fHeight;
 	Rect m_rtCollision;
-	Box m_BoxCollision;
+	SBox m_BoxCollision;
 	DWORD m_dwCollisonType;
 	DWORD m_dwSelectType;
 	DWORD m_dwSelectState;
@@ -115,6 +115,7 @@ struct LightData
 	S::SVector4 vLightPos; // 빛 위치
 	S::SVector4 vCameraDir; // 카메라 거리
 	S::SVector4 vCameraPos; // 카메라 위치
+	S::SMatrix matLight;// w*v*p*t
 };
 
 class SDxObj : public SBaseObj

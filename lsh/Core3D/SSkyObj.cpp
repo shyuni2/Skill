@@ -48,7 +48,7 @@ bool SSkyObj::LoadTexture(const TCHAR* szColorFileName, const TCHAR* szMaskFileN
 bool SSkyObj::SetVertexData()
 {
 	// Local Coord
-	// Box
+	// SBox
 	//  0        1 
 	//     ¿øÁ¡
 	//  2        3

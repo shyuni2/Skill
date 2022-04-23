@@ -123,6 +123,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample3D-NormalMap", "Sampl
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample3D-Shadow", "Sample3D-Shadow\Sample3D-Shadow.vcxproj", "{4F2EF604-9BF9-4960-9F94-A7912A5A0A95}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample3D-focus, Blur", "Sample3D-focus, Blur\Sample3D-focus, Blur.vcxproj", "{9BFF49D4-E01D-4DF9-ADB1-69210E8EF6D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -459,6 +461,14 @@ Global
 		{4F2EF604-9BF9-4960-9F94-A7912A5A0A95}.Release|x64.Build.0 = Release|x64
 		{4F2EF604-9BF9-4960-9F94-A7912A5A0A95}.Release|x86.ActiveCfg = Release|Win32
 		{4F2EF604-9BF9-4960-9F94-A7912A5A0A95}.Release|x86.Build.0 = Release|Win32
+		{9BFF49D4-E01D-4DF9-ADB1-69210E8EF6D6}.Debug|x64.ActiveCfg = Debug|x64
+		{9BFF49D4-E01D-4DF9-ADB1-69210E8EF6D6}.Debug|x64.Build.0 = Debug|x64
+		{9BFF49D4-E01D-4DF9-ADB1-69210E8EF6D6}.Debug|x86.ActiveCfg = Debug|Win32
+		{9BFF49D4-E01D-4DF9-ADB1-69210E8EF6D6}.Debug|x86.Build.0 = Debug|Win32
+		{9BFF49D4-E01D-4DF9-ADB1-69210E8EF6D6}.Release|x64.ActiveCfg = Release|x64
+		{9BFF49D4-E01D-4DF9-ADB1-69210E8EF6D6}.Release|x64.Build.0 = Release|x64
+		{9BFF49D4-E01D-4DF9-ADB1-69210E8EF6D6}.Release|x86.ActiveCfg = Release|Win32
+		{9BFF49D4-E01D-4DF9-ADB1-69210E8EF6D6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -518,6 +528,7 @@ Global
 		{4F3D4EBC-8636-4552-8A43-3A8405AF1C97} = {8BCD2791-7951-485E-8506-95EEC8D62C37}
 		{8A4A5BBC-93C6-4815-A40C-ACA222FB7F78} = {8BCD2791-7951-485E-8506-95EEC8D62C37}
 		{4F2EF604-9BF9-4960-9F94-A7912A5A0A95} = {8BCD2791-7951-485E-8506-95EEC8D62C37}
+		{9BFF49D4-E01D-4DF9-ADB1-69210E8EF6D6} = {8BCD2791-7951-485E-8506-95EEC8D62C37}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C783B8AB-C125-4BDA-BEA0-3C3FC656A862}

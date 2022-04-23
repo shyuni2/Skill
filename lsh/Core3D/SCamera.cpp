@@ -8,6 +8,12 @@ void SCamera::CreateViewMatrix(S::SVector3 p, S::SVector3 t, S::SVector3 u)
 	m_vTarget = t;
 	m_vUp = u;
 	S::D3DXMatrixLookAtLH(&m_matView, &m_vCamera, &m_vTarget, &m_vUp);	
+	S::SMatrix mInvView;
+	D3DXMatrixInverse(&mInvView, NULL, &m_matView);
+	SVector3* pZBasis = (SVector3*)&mInvView._31;
+	m_fYaw = atan2f(pZBasis->x, pZBasis->z);
+	float fLen = sqrtf(pZBasis->z * pZBasis->z + pZBasis->x * pZBasis->x);
+	m_fPitch = -atan2f(pZBasis->y, fLen);
 	UpdateVector();
 }
 
@@ -31,8 +37,13 @@ bool SCamera::Init()
 bool SCamera::Update(S::SVector4 vDirValue)
 {
 	// vValue.x : pitch, y=yaw, z= roll, w =radius
+
+	m_fPitch += vDirValue.x;
+	m_fYaw += vDirValue.y;
+	m_fRoll += vDirValue.z;
+
 	S::SMatrix matRotation;
-	S::D3DXQuaternionRotationYawPitchRoll(&m_qRotation, vDirValue.y, vDirValue.x, vDirValue.z);
+	S::D3DXQuaternionRotationYawPitchRoll(&m_qRotation, m_fYaw, m_fPitch, m_fRoll);
 
 	m_vCamera += m_vLook * vDirValue.w;
 	m_fRadius += vDirValue.w;

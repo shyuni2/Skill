@@ -1,14 +1,14 @@
 #include "SNode.h"
 
-void SNode::AddStaticObject(MapObj* obj)
+void SNode::AddStaticObject(SMapObj* obj)
 {
 	m_StaticObjectList.push_back(obj);
 }
-void SNode::AddDynamicObject(MapObj* obj)
+void SNode::AddDynamicObject(SMapObj* obj)
 {
 	m_DynamicObjectList.push_back(obj);
 }
-void SNode::DelDynamicObject(MapObj* obj)
+void SNode::DelDynamicObject(SMapObj* obj)
 {
 	m_DynamicObjectList.clear();
 }
@@ -18,9 +18,9 @@ SNode::SNode()
 {
 	m_pParent = nullptr; // 시작노드의 부모는 x
 	m_iDepth = 0; // 깊이 0
-	for (std::list<MapObj*>::iterator iter = m_StaticObjectList.begin(); iter != m_StaticObjectList.end(); iter++)
+	for (std::list<SMapObj*>::iterator iter = m_StaticObjectList.begin(); iter != m_StaticObjectList.end(); iter++)
 	{
-		MapObj* pObj = *iter;
+		SMapObj* pObj = *iter;
 		delete pObj;
 	}
 	m_StaticObjectList.clear();

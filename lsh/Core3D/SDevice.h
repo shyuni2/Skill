@@ -32,6 +32,7 @@ public:
 public:
 	HRESULT InitDeivice();
 	void ResizeDevice(UINT iWidth, UINT iHeight);
+	void ClearD3D11DeviceContext(ID3D11DeviceContext* pd3dDeviceContext);
 public:
 	virtual bool CreateDevice();
 	virtual bool CreateRenderTargetView();

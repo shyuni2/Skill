@@ -3,7 +3,7 @@
 bool SFrustum::SetVertexData()
 {
 	// Local Coord
-	// Box
+	// SBox
 	//  0        1 
 	//     ¿øÁ¡
 	//  2        3
@@ -237,7 +237,7 @@ void SFrustum::CreateFrustum(S::SMatrix& matView, S::SMatrix& matProj)
 		m_VertexList[++index].p = m_vFrustum[3];
 		m_VertexList[++index].p = m_vFrustum[7];
 		// -X plane
-		m_VertexList[++index].p = m_vFrustum[5];;
+		m_VertexList[++index].p = m_vFrustum[5];
 		m_VertexList[++index].p = m_vFrustum[1];
 		m_VertexList[++index].p = m_vFrustum[4];
 		m_VertexList[++index].p = m_vFrustum[0];
@@ -258,7 +258,7 @@ void SFrustum::CreateFrustum(S::SMatrix& matView, S::SMatrix& matProj)
 	//+z
 	m_Plane[1] = S::SPlane(m_vFrustum[6], m_vFrustum[5], m_vFrustum[4]);
 	// -x
-	m_Plane[2] = S::SPlane(m_vFrustum[5], m_vFrustum[1], m_vFrustum[0]);
+	m_Plane[2] = S::SPlane(m_vFrustum[5], m_vFrustum[1], m_vFrustum[4]);
 	//+x
 	m_Plane[3] = S::SPlane(m_vFrustum[2], m_vFrustum[6], m_vFrustum[7]);
 	//-y
@@ -291,7 +291,7 @@ BOOL SFrustum::ClassifySphere(Sphere* v)
 	}
 	return TRUE;
 }
-BOOL SFrustum::ClassifyOBB(Box* box)
+BOOL SFrustum::ClassifyOBB(SBox* box)
 {
 	float sum = 0.0f;
 	S::SVector3 vDir;

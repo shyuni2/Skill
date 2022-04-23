@@ -6,6 +6,10 @@ class SCamera : public SFrustum
 public:
 	float m_fNearDistance= 0.01f; // 근거리
 	float m_fFarDistance = 1000.0f; // 원거리
+public:
+	float m_fPitch = 0.0f; // x축 기준
+	float m_fYaw = 0.0f; // z축 기준
+	float m_fRoll = 0.0f; // y축 기준
 	float m_fRadius = 10.0f; // 반지름
 public:
 	S::SQuaternion m_qRotation;

@@ -30,19 +30,19 @@ cbuffer cb0 : register(b0)
 	matrix   g_matView : packoffset(c4);
 	matrix   g_matProj : packoffset(c8);
 	float4   Color0 : packoffset(c12);
-	float    TimerX : packoffset(c13.x); // STimer.x, STimer.y, STimer.z, STimer.w	
+	float    TimerX : packoffset(c13.x); // Timer.x, Timer.y, Timer.z, Timer.w	
 };
 // 시스템값 : 정점인덱스, 페이스인덱스 등
-VS_OUTPUT VS( VS_INPUT v)
+VS_OUTPUT VS(VS_INPUT v)
 {
 	VS_OUTPUT pOut = (VS_OUTPUT)0;
 	float4 vLocal = float4(v.p.xyz, 1.0f);// float4(v.p.x, v.p.y, v.p.z, 1.0f);
 	float4 vWorld = mul(vLocal, g_matWorld);
 	float4 vView = mul(vWorld, g_matView);
 	float4 vProj = mul(vView, g_matProj);
-	pOut.p = vProj.xyzz;	
+	pOut.p = vProj.xyzz;
 	pOut.n = v.n;
-	pOut.t = v.t;	
+	pOut.t = v.t;
 	pOut.c = v.c;
 	pOut.r = normalize(vLocal.xyz);
 	return pOut;
@@ -72,7 +72,7 @@ float4 GetTextureColor(uint index, float2 uv)
 }
 //3번
 float4 PS(PS_INPUT input) : SV_TARGET
-{	
+{
 	float4 color = g_txCubeMap.Sample(g_SampleLinear, input.r);
 	return color;
 }

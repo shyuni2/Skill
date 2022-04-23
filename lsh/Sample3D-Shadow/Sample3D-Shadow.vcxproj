@@ -142,19 +142,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Sample.h" />
-    <ClInclude Include="SFbxObj.h" />
-    <ClInclude Include="SQuadObject.h" />
+    <ProjectReference Include="..\Core3D\Core3D.vcxproj">
+      <Project>{98617ca6-fe41-4536-94f6-159046e15ad9}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Character.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="MapRT.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="ProjShadow.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Quad.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="SDxRT.cpp" />
     <ClCompile Include="SFbxObj.cpp" />
     <ClCompile Include="SQuadObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core3D\Core3D.vcxproj">
-      <Project>{98617ca6-fe41-4536-94f6-159046e15ad9}</Project>
-    </ProjectReference>
+    <ClInclude Include="Sample.h" />
+    <ClInclude Include="SDxRT.h" />
+    <ClInclude Include="SFbxObj.h" />
+    <ClInclude Include="SQuadObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,6 +2,7 @@
 #include <winsock2.h>
 #include <windows.h>
 #include <d3d11.h>
+#include <dxgi.h>
 #include <dxgidebug.h>
 #include <tchar.h>
 #include <vector>
@@ -17,25 +18,79 @@
 #include <DirectXPackedVector.h>
 #include <DirectXCollision.h>
 
-#include "SCollision.h"
+// 마지막 헤더로 전부 연결
 #include "SMath.h"
+#include "SCollision.h"
 
-#pragma comment	(lib, "d3d11.lib")
-#ifdef _DEBUG
-#pragma comment	(lib, "Core3D_d.lib")
-#else
-#pragma comment	(lib, "Core3D_r.lib")
-#endif
+class SBoxObj;
+
+// 라이브러리 연결
 #pragma comment	(lib, "ws2_32.lib")
+#pragma comment	(lib, "d3d11.lib")
+#pragma comment( lib, "dxguid.lib" )
+#pragma comment( lib, "dxgi.lib" )
+#ifdef _DEBUG
+#pragma comment	(lib, "SCore3D_d.lib")
+#else
+#pragma comment	(lib, "SCore3D_r.lib")
+#endif
 
-//using namespace std;
-//using namespace Microsoft::WRL;
+// 매크로함수
+#define BASIS_EPSILON ((FLOAT)  0.001f)
+#define BASIS_PI ((FLOAT)  3.141592654f) // 3.14
+#define DegreeToRadian( degree ) ((degree) * (TBASIS_PI / 180.0f))
+#define RadianToDegree( radian ) ((radian) * (180.0f / TBASIS_PI))
+#define MAKECOLOR_ARGB(a, r, g, b) (((a)&0xff)<<24)|(((r)&0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff)
+#define IS_IN_RANGE(value,r0,r1) (( ((r0) <= (value)) && ((value) <= (r1)) ) ? 1 : 0)
+#define randf(x) (x*rand()/(float)RAND_MAX)
+#define randf2(x,off) (off+x*rand()/(float)RAND_MAX)
+#define randstep(fMin,fMax) (fMin+((float)fMax-(float)fMin)*rand()/(float)RAND_MAX)
+#define clamp(x,MinX,MaxX) if (x>MaxX) x=MaxX; else if (x<MinX) x=MinX;
 
-extern RECT	g_rtClient;
-extern HWND	g_hWnd;
+// 매크로함수 - 윈도우 실행
+#define GAME_START int WINAPI wWinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, LPWSTR    lpCmdLine, int       nCmdShow){   Sample core;   
+#define GAME_WIN(s,x,y) if (core.SetWinClass(hInstance) == FALSE) return 1;   if (core.SetWindow(L#s, x, y) == FALSE) return 1;   core.GameRun();    return 1;}
+#define SIMPLE_WIN() if (core.SetWinClass(hInstance) == FALSE) return 1;   if (core.SetWindow() == FALSE) return 1;   core.GameRun();    return 1;}
+#define GAME_RUN(s,x,y) GAME_START; GAME_WIN(s,x,y);
+#define RUN() GAME_START; SIMPLE_WIN();
+#define BEGIN_START(S) friend class TSingleton<S>
+
+// 전역변수
+extern RECT g_rtClient;
+extern HWND g_hWnd;
 extern float g_fSecPerFrame;
 extern float g_fGameTimer;
 extern POINT g_ptMouse;
+extern SBoxObj* g_pBoxDebug;
+extern ID3D11Device* g_pd3dDevice;
+
+// 재정의
+typedef std::basic_string<TCHAR>				T_STR;
+typedef std::basic_string<wchar_t>				W_STG;
+typedef std::basic_string<char>					C_STR;
+typedef std::vector<T_STR>						T_STR_VECTOR;
+typedef std::basic_string<TCHAR>::iterator		T_ITOR;
+typedef std::basic_string<wchar_t>::iterator	W_ITOR;
+typedef std::basic_string<char>::iterator		C_ITOR;
+typedef std::vector<T_STR>						T_ARRAY_ITOR;
+typedef std::vector<DWORD>						DWORD_VECTOR;
+typedef	std::vector< DWORD >::iterator			DWORD_VECTOR_ITOR;
+typedef std::list<DWORD>						DWORD_LIST;
+typedef std::list<DWORD>::iterator				DWORD_LIST_ITOR;
+typedef std::list< HANDLE >						HANDLE_LIST;
+typedef	std::list< HANDLE >::iterator			HANDLE_LIST_ITOR;
+
+// 싱글톤
+template<class T>
+class Singleton
+{
+public:
+	static T& Get()
+	{
+		static T theSingle;
+		return theSingle;
+	}
+};
 
 static std::wstring to_mw(const std::string& _src)
 {
@@ -49,16 +104,6 @@ static std::string to_wm(const std::wstring& _src)
 	return std::string(W2A(_src.c_str()));
 };
 
-template<class T>
-class Singleton
-{
-public:
-	static T& Get()
-	{
-		static T theSingle;
-		return theSingle;
-	}
-};
 
 static void DisplayText(const char* fmt, ...)
 {
@@ -69,7 +114,7 @@ static void DisplayText(const char* fmt, ...)
 	OutputDebugStringA((char*)buf);
 	va_end(arg);
 }
-static void MemoryReporting()
+static void MemoryReporting() // 메모리 사용량 보고?
 {
 #if defined(DEBUG) | defined(_DEBUG)
 	HMODULE dxgidebugdll = GetModuleHandleW(L"dxgidebug.dll");
@@ -82,27 +127,6 @@ static void MemoryReporting()
 	debug->Release();
 #endif
 }
-
-#define BASIS_EPSILON ((FLOAT)  0.001f)
-#define BASIS_PI ((FLOAT)  3.141592654f)
-#define DegreeToRadian( degree ) ((degree) * (BASIS_PI / 180.0f))
-#define RadianToDegree( radian ) ((radian) * (180.0f / BASIS_PI))
-#define MAKECOLOR_ARGB(a, r, g, b) (((a)&0xff)<<24)|(((r)&0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff)
-#define IS_IN_RANGE(value,r0,r1) (( ((r0) <= (value)) && ((value) <= (r1)) ) ? 1 : 0)
-
-#define randf(x) (x*rand()/(float)RAND_MAX)
-#define randf2(x,off) (off+x*rand()/(float)RAND_MAX)
-#define randstep(fMin,fMax) (fMin+((float)fMax-(float)fMin)*rand()/(float)RAND_MAX)
-#define clamp(x,MinX,MaxX) if (x>MaxX) x=MaxX; else if (x<MinX) x=MinX;
-
-
-#define GAME_START int WINAPI wWinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow){ Sample core;   
-#define GAME_WIN(s,x,y) if (core.SetWinClass(hInstance) == FALSE) return 1; if (core.SetWindow(L#s, x, y) == FALSE) return 1; core.GameRun(); return 1;}
-#define SIMPLE_WIN() if (core.SetWinClass(hInstance) == FALSE) return 1; if (core.SetWindow() == FALSE) return 1; core.GameRun(); return 1;}
-#define GAME_RUN(s,x,y) GAME_START; GAME_WIN(s,x,y);
-#define RUN() GAME_START; SIMPLE_WIN();
-#define BEGIN_START(S) friend class Singleton<S>
-
 
 /////////////////////////////////////////  반환하지 않는다. ////////////////////////////////////////////////////////
 #if defined(DEBUG) | defined(_DEBUG) 

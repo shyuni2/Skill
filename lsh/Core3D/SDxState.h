@@ -15,6 +15,7 @@ public:
 	static ID3D11SamplerState* g_pSSMirrorPoint;
 	static ID3D11SamplerState* g_pSSClampLinear;
 	static ID3D11SamplerState* g_pSSClampPoint;
+	static ID3D11SamplerState* g_pSSShadowMap; // 쉐도우 맵
 
 	// 와이어프레임모드
 	static ID3D11RasterizerState* g_pRSBackCullWireFrame; 
@@ -22,6 +23,7 @@ public:
 	// 컬링모드
 	static ID3D11RasterizerState* g_pRSBackCullSolid;
 	static ID3D11RasterizerState* g_pRSNoneCullSolid; 
+	static ID3D11RasterizerState* g_pRSSlopeScaledDepthBias; // 바이어스
 
 	static  ID3D11DepthStencilState* g_pDSSDepthEnable;
 	static  ID3D11DepthStencilState* g_pDSSDepthDisable;

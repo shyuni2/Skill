@@ -10,7 +10,7 @@ public:
 	int	m_iIndex;
 	ID3D11Device* m_pd3dDevice;
 	ID3D11DeviceContext* m_pContext;
-	std::map<std::wstring, std::shared_ptr<T> >  m_list;
+	std::map<std::wstring, std::shared_ptr<T>> m_list;
 public:
 	std::wstring Splitpath(std::wstring path, std::wstring entry);
 	virtual void Set(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pContext = nullptr)
@@ -20,16 +20,14 @@ public:
 	}
 	virtual T* Load(std::wstring filename);
 	T* GetPtr(std::wstring key);
-	bool	Init();
-	bool	Frame();
-	bool	Render();
-	bool	Release();
+	bool Init();
+	bool Frame();
+	bool Render();
+	bool Release();
 public:
 	SBaseMgr();
-public:
 	~SBaseMgr();
 };
-
 template<class T, class S>
 std::wstring SBaseMgr<T, S>::Splitpath(std::wstring path, std::wstring entry)
 {
@@ -49,7 +47,6 @@ std::wstring SBaseMgr<T, S>::Splitpath(std::wstring path, std::wstring entry)
 	}
 	return name;
 }
-
 template<class T, class S>
 T* SBaseMgr<T, S>::GetPtr(std::wstring key)
 {
@@ -79,25 +76,21 @@ T* SBaseMgr<T, S>::Load(std::wstring filename)
 	m_iIndex++;
 	return pNewData.get();
 }
-
 template<class T, class S>
 bool SBaseMgr<T, S>::Init()
 {
 	return true;
 }
-
 template<class T, class S>
 bool SBaseMgr<T, S>::Frame()
 {
 	return true;
 }
-
 template<class T, class S>
 bool SBaseMgr<T, S>::Render()
 {
 	return true;
 }
-
 template<class T, class S>
 bool SBaseMgr<T, S>::Release()
 {
@@ -108,13 +101,11 @@ bool SBaseMgr<T, S>::Release()
 	m_list.clear();
 	return true;
 }
-
 template<class T, class S>
 SBaseMgr<T, S>::SBaseMgr()
 {
 	m_iIndex = 0;
 }
-
 template<class T, class S>
 SBaseMgr<T, S>::~SBaseMgr()
 {
