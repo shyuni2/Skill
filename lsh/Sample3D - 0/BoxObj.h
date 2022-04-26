@@ -1,10 +1,10 @@
 #pragma once
-#include "Obj3D.h"
+#include "SObj3D.h"
 
-class BoxObj : public Obj3D
+class BoxObj : public SObj3D
 {
 public:
-	Texture* m_pTexCube;
+	STexture* m_pTexCube;
 public:
 	bool PostRender();
 public:

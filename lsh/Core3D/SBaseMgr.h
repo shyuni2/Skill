@@ -1,5 +1,6 @@
 #pragma once
 #include "STD.h"
+#include <strsafe.h>
 
 template <class T, class S>
 class SBaseMgr : public Singleton<S>

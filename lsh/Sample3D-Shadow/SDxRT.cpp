@@ -53,7 +53,7 @@ HRESULT SDxRT::CreateCubeMap(ID3D11Device* pd3dDevice, FLOAT fWidth, FLOAT fHeig
 
 
 	// ±Ì¿Ã Ω∫≈ŸΩ« ∫‰ ≈ÿΩ∫√≥ ª˝º∫
-	ComPtr<ID3D11Texture2D> pDSTexture = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11Texture2D> pDSTexture = nullptr;
 	D3D11_TEXTURE2D_DESC DSDesc;
 	ZeroMemory(&DSDesc, sizeof(D3D11_TEXTURE2D_DESC));
 	DSDesc.Width = (UINT)fWidth;
@@ -296,8 +296,8 @@ HRESULT SDxRT::SaveFile(ID3D11DeviceContext* pContext, T_STR name)
 	}
 	else if (m_pRenderTargetView != nullptr)
 	{
-		ComPtr<ID3D11Resource>       resource;
-		ComPtr<ID3D11Texture2D>		 texture;
+		Microsoft::WRL::ComPtr<ID3D11Resource>       resource;
+		Microsoft::WRL::ComPtr<ID3D11Texture2D>		 texture;
 		m_pRenderTargetView->GetResource(resource.GetAddressOf());
 		if (FAILED(hr = resource->QueryInterface(__uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*>(texture.GetAddressOf()))))
 		{

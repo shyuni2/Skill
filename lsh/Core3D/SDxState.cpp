@@ -10,11 +10,13 @@ ID3D11SamplerState* SDxState::g_pSSMirrorLinear = nullptr;
 ID3D11SamplerState* SDxState::g_pSSMirrorPoint = nullptr;
 ID3D11SamplerState* SDxState::g_pSSClampLinear = nullptr;
 ID3D11SamplerState* SDxState::g_pSSClampPoint = nullptr;
+ID3D11SamplerState* SDxState::g_pSSShadowMap = nullptr;
 
 ID3D11RasterizerState* SDxState::g_pRSBackCullSolid = nullptr;
 ID3D11RasterizerState* SDxState::g_pRSNoneCullSolid = nullptr;
 ID3D11RasterizerState* SDxState::g_pRSBackCullWireFrame = nullptr;
 ID3D11RasterizerState* SDxState::g_pRSNoneCullWireFrame = nullptr;
+ID3D11RasterizerState* SDxState::g_pRSSlopeScaledDepthBias = nullptr;
 
 ID3D11DepthStencilState* SDxState::g_pDSSDepthEnable = nullptr;
 ID3D11DepthStencilState* SDxState::g_pDSSDepthDisable = nullptr;

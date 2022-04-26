@@ -44,19 +44,19 @@ bool	SFbx::Frame()
 S::SMatrix SFbx::Interplate(SFbxImporter* pAnimImp, SFbxModel* pModel, float fTime)
 {
 	S::SMatrix matAnim;
-	TScene tScene = pAnimImp->m_Scene;
+	Scene tScene = pAnimImp->m_Scene;
 	int iStart = max(tScene.iStart, fTime);
 	int iEnd = min(tScene.iEnd, fTime + 1);
 	// º¸°£ = A ~ 7.5f ~ B
 	//       9.5f <=10   ~     20 -> 20.1
-	TTrack A = pModel->m_AnimTrack[iStart];
-	TTrack B = pModel->m_AnimTrack[iEnd];
+	Track A = pModel->m_AnimTrack[iStart];
+	Track B = pModel->m_AnimTrack[iEnd];
 	float s = fTime- (float)iStart; // 0~1
 	S::SVector3 pos;
 	S::D3DXVec3Lerp(&pos, &A.t, &B.t, s);
 	S::SVector3 scale;
 	S::D3DXVec3Lerp(&scale, &A.s, &B.s, s);
-	S::TQuaternion rotation;
+	S::SQuaternion rotation;
 	S::D3DXQuaternionSlerp(&rotation, &A.r, &B.r, s);
 	S::SMatrix matScale;
 	S::D3DXMatrixScaling(&matScale, scale.x, scale.y, scale.z);

@@ -1,5 +1,6 @@
 #pragma once
 #include "SObj2D.h"
+#include "SFbxImporter.h"
 
 using CollisionFunction = std::function<void(SBaseObj*, DWORD)>;
 using SelectFunction = std::function<void(SBaseObj*, DWORD)>;

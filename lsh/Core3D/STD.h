@@ -30,9 +30,9 @@ class SBoxObj;
 #pragma comment( lib, "dxguid.lib" )
 #pragma comment( lib, "dxgi.lib" )
 #ifdef _DEBUG
-#pragma comment	(lib, "SCore3D_d.lib")
+#pragma comment	(lib, "Core3D_d.lib")
 #else
-#pragma comment	(lib, "SCore3D_r.lib")
+#pragma comment	(lib, "Core3D_r.lib")
 #endif
 
 // 매크로함수
