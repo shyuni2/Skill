@@ -1,4 +1,7 @@
-struct VS_INPUT
+float4 main( float4 pos : POSITION ) : SV_POSITION
+{
+	return pos;
+}struct VS_INPUT
 {
 	float3 p : POSITION;
 	float3 n : NORMAL;
@@ -24,11 +27,7 @@ cbuffer cb0 : register(b0)
 	float4   Color0 : packoffset(c12);
 	float    TimerX : packoffset(c13.x); // Timer.x, Timer.y, Timer.z, Timer.w	
 };
-cbuffer cb1 : register(b1)
-{
-	float4   vLightDir : packoffset(c0);
-	float4   vLightPos : packoffset(c1);
-};
+
 VS_OUTPUT VS(VS_INPUT v)
 {
 	VS_OUTPUT pOut = (VS_OUTPUT)0;
@@ -40,8 +39,8 @@ VS_OUTPUT VS(VS_INPUT v)
 	float3 vNormal = mul(v.n, (float3x3)g_matWorld);
 	pOut.n = normalize(vNormal);
 	pOut.t = v.t;
-	float fDot = max(0.5f, dot(pOut.n, -vLightDir.xyz));
-	pOut.c = v.c * float4(fDot, fDot, fDot, 1) * Color0;
+	float fDot = max(0.5f, dot(pOut.n, -Color0.xyz));
+	pOut.c = float4(fDot, fDot, fDot, 1);
 
 	pOut.r = normalize(vLocal.xyz);
 	return pOut;
@@ -89,6 +88,6 @@ float4 PSAlphaBlend(VS_OUTPUT input) : SV_TARGET
 float4 PSColor(VS_OUTPUT input) : SV_TARGET
 {
 	float4 vColor = input.c;
-	vColor.a = 0.5f * input.c.a;
+	vColor.a = 0.5f;
 	return vColor;
 }

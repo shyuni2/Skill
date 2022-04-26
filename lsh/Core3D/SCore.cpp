@@ -26,8 +26,7 @@ bool SCore::CoreInit()
 	}
 
 	m_DefaultCamera.Init();
-	m_DefaultCamera.CreateViewMatrix(S::SVector3(0, 500.0f, -100.0f),
-		S::SVector3(0, 0.0f, 0));
+	m_DefaultCamera.CreateViewMatrix(S::SVector3(0, 500.0f, -100.0f), S::SVector3(0, 0.0f, 0));
 	m_DefaultCamera.CreateProjMatrix(XM_PI * 0.25f, (float)g_rtClient.right / (float)g_rtClient.bottom, 0.1f, 5000.0f);
 	m_DefaultCamera.m_pColorTex = I_Texture.Load(L"../../data/charport.bmp");
 	m_DefaultCamera.m_pVShader = I_Shader.CreateVertexShader(m_pd3dDevice.Get(), L"../../data/shader/Box.hlsl", "VSColor");

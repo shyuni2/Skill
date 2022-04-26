@@ -66,7 +66,7 @@ bool SCamera::UpdateVector()
 	m_vLook.x = m_matView._13;
 	m_vLook.y = m_matView._23;
 	m_vLook.z = m_matView._33;
-	CreateFrustum(m_matView, m_matProj);
+	//CreateFrustum(m_matView, m_matProj);
 	return true;
 }
 void SCamera::MoveLook(float fValue)
@@ -86,20 +86,20 @@ bool SCamera::Frame()
 	S::SVector2 dir = SInput::Get().GetDelta();
 	if (SInput::Get().GetKey('A') || SInput::Get().GetKey(VK_LEFT))
 	{
-		MoveSide(-g_fSecPerFrame * 100.0f);
+		MoveSide(-g_fSecPerFrame * 1000.0f);
 	}
 	if (SInput::Get().GetKey('D') || SInput::Get().GetKey(VK_RIGHT))
 	{
-		MoveSide(g_fSecPerFrame * 100.0f);
+		MoveSide(g_fSecPerFrame * 1000.0f);
 	}
 	//m_Camera.MoveLook(10.0f);
 	if (SInput::Get().GetKey('W'))
 	{
-		MoveLook(g_fSecPerFrame * 100.0f);
+		MoveLook(g_fSecPerFrame * 1000.0f);
 	}
 	if (SInput::Get().GetKey('S') || SInput::Get().GetKey(VK_DOWN))
 	{
-		MoveLook(-g_fSecPerFrame * 100.0f);
+		MoveLook(-g_fSecPerFrame * 1000.0f);
 	}
 
 	Update(S::SVector4(-dir.x, -dir.y, 0, 0));

@@ -7,10 +7,8 @@ class Sample : public SCore
 {
 public: 
 	SMap m_MapObj;
-	SCamera m_MainCamera;
-	SCamera m_CameraTopView;
 	SBoxObj m_BoxObj;
-
+	SCamera m_MainCamera;
 public: // ºû & ±×¸²ÀÚ
 	// ½¦ÀÌ´õ
 	SShader* m_pProjShadowVShader = nullptr;

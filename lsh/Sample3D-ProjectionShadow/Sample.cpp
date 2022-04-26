@@ -3,8 +3,6 @@
 // 현재 해야할거 리스트
 // 박스 텍스쳐
 // 박스 두개
-// 카메라에 붙은 이상한거
-// 맵 평면으로
 // 카메라 위치
 // 빛 그림자
 // 박스 이동
@@ -27,11 +25,8 @@ bool Sample::RenderMap()
 }
 bool Sample::RenderMainCamera()
 {
-	m_CameraTopView.CreateViewMatrix(S::SVector3(0, 3000.0f, -1), S::SVector3(0, 0.0f, 0));
-	m_CameraTopView.CreateProjMatrix(XM_PI * 0.25f, (float)g_rtClient.right / (float)g_rtClient.bottom, 0.1f, 10000.0f);
-
 	m_MainCamera.Init();
-	m_MainCamera.CreateViewMatrix(S::SVector3(0, 500.0f, -100.0f), S::SVector3(0, 0.0f, 0));
+	m_MainCamera.CreateViewMatrix(S::SVector3(-1000, 350.0f, 0.0f), S::SVector3(0, 0.0f, 0));
 	m_MainCamera.CreateProjMatrix(XM_PI * 0.25f, (float)g_rtClient.right / (float)g_rtClient.bottom, 0.1f, 5000.0f);
 	m_MainCamera.m_pVShader = I_Shader.CreateVertexShader(m_pd3dDevice.Get(), L"maincamera.hlsl", "VS");
 	m_MainCamera.m_pPShader = I_Shader.CreatePixelShader(m_pd3dDevice.Get(), L"maincamera.hlsl", "PS");
@@ -110,7 +105,7 @@ bool Sample::Frame()
 	m_MapObj.Frame();
 
 	m_BoxObj.m_matWorld = matScale * matRotate;
-	m_BoxObj.m_vPos.y = m_MapObj.GetHeight(m_BoxObj.m_vPos.x, m_BoxObj.m_vPos.z) + 50;
+	m_BoxObj.m_vPos.y = m_MapObj.GetHeight(m_BoxObj.m_vPos.x, m_BoxObj.m_vPos.z) + 300;
 	m_BoxObj.SetPosition(m_BoxObj.m_vPos);
 	m_BoxObj.Frame();
 
@@ -126,13 +121,12 @@ bool Sample::Render()
 	m_MapObj.SetMatrix(nullptr, &m_MainCamera.m_matView, &m_MainCamera.m_matProj);
 	m_MapObj.Render();
 
-	// 메인카메라 렌더링
-	m_MainCamera.SetMatrix(nullptr, &m_CameraTopView.m_matView, &m_CameraTopView.m_matProj);
-	m_MainCamera.Render();
-
 	// 박스 렌더링
-	m_BoxObj.SetMatrix(nullptr, &m_CameraTopView.m_matView, &m_CameraTopView.m_matProj); 
+	m_BoxObj.SetMatrix(nullptr, &m_MainCamera.m_matView, &m_MainCamera.m_matProj);
 	m_BoxObj.Render();
+
+	// 메인카메라 렌더링
+	m_MainCamera.Render();
 
 	return true;
 }
