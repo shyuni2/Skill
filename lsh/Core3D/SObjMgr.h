@@ -5,12 +5,13 @@
 using CollisionFunction = std::function<void(SBaseObj*, DWORD)>;
 using SelectFunction = std::function<void(SBaseObj*, DWORD)>;
 
-class SObjMgr : public Singleton< SObjMgr>
+class SObjMgr : public SBaseMgr<SFbxImporter, SObjMgr>
 {
+	friend class Singleton<STextureMgr>;	
 private:
 	int m_iExcueteCollisionID;
 	int m_iExcueteSelectID;
-	std::map<int, SBaseObj*> m_ObjList;
+	std::map<int, SBaseObj*> m_ObjectList;
 	std::map<int, SBaseObj*> m_SelectList;	
 public:
 	friend Singleton< SObjMgr>;
@@ -34,4 +35,5 @@ private:
 public:
 	virtual ~SObjMgr();
 };
-#define I_ObjectMgr   SObjMgr::Get()
+
+#define I_ObjectMgr SObjMgr::Get()

@@ -169,13 +169,16 @@ bool SBoxObj::SetIndexData()
 bool SBoxObj::PostRender()
 {
 	if (m_IndexList.size() <= 0)
+	{
 		m_pContext->Draw(m_VertexList.size(), 0);
+	}		
 	else
 	{
 		m_pContext->DrawIndexed(m_IndexList.size(), 0, 0);
 	}
 	return true;
 }
+
 SBoxObj::SBoxObj()
 {
 

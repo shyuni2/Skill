@@ -12,7 +12,7 @@ public:
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> m_pTexture;
 	D3D11_DEPTH_STENCIL_VIEW_DESC			m_DepthStencilDesc;
 	D3D11_TEXTURE2D_DESC					m_TexDesc;
-	DXGI_FORMAT								m_DSFormat;
+	DXGI_FORMAT								m_DSTexFormat;
 	D3D11_VIEWPORT			m_vp;
 	SMatrix				m_matProj;
 
@@ -22,20 +22,20 @@ public:
 	ID3D11RenderTargetView* m_pOldRTV;
 	ID3D11DepthStencilView* m_pOldDSV;
 public:
-	HRESULT	Create(ID3D11Device* pd3dDevice, FLOAT Width = 1024, FLOAT Height = 1024);
+	HRESULT	Create(ID3D11Device* pd3dDevice, FLOAT Width = 1024, FLOAT Height = 1024, DXGI_FORMAT dsTexFormat = DXGI_FORMAT_R24G8_TYPELESS);
 	HRESULT CreateCubeMap(ID3D11Device* pd3dDevice, FLOAT fWidth = 1024, FLOAT fHeight = 1024);
 
 	void	Set(ID3D11Device* pDevice, FLOAT TopLeftX, FLOAT TopLeftY, FLOAT Width, FLOAT Height,
 		FLOAT MinDepth = 0, FLOAT MaxDepth = 1);
-	HRESULT UpdateDepthStencilView(ID3D11Device* pDevice, UINT dwWidth, UINT dwHeight);
+	HRESULT UpdateDepthStencilView(ID3D11Device* pDevice, UINT dwWidth, UINT dwHeight, DXGI_FORMAT dsTexFormat = DXGI_FORMAT_R24G8_TYPELESS);
 	void	Apply(ID3D11DeviceContext* pImmediateContext,
 		ID3D11RenderTargetView* pRTV = NULL,
 		ID3D11DepthStencilView* pDepthStencilView = NULL,
 		bool bDepthClear = true, bool bStencilClear = true);
 	bool	Begin(ID3D11DeviceContext* pImmediateContext, SVector4 vColor,
-		bool bTargetClear = true, bool bDepthClear = true, bool bStencilClear = true);
+	bool bTargetClear = true, bool bDepthClear = true, bool bStencilClear = true);
 	bool	Clear(ID3D11DeviceContext* pImmediateContext, SVector4 vColor,
-		bool bTargetClear = true, bool bDepthClear = true, bool bStencilClear = true);
+	bool bTargetClear = true, bool bDepthClear = true, bool bStencilClear = true);
 	bool	End(ID3D11DeviceContext* pImmediateContext);
 	HRESULT SaveFile(ID3D11DeviceContext* pContext, T_STR name);
 	HRESULT SaveBackBuffer(ID3D11DeviceContext* pContext, T_STR name);

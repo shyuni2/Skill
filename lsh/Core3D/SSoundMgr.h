@@ -7,11 +7,11 @@
 class SSound
 {
 public:
-	int	m_iIndex;
+	int m_iIndex;
 	std::wstring m_csName;
 	FMOD::System* m_pSystem = nullptr;
 	FMOD::Sound* m_pSound = nullptr;
-	FMOD::Channel* m_pChannel = nullptr;
+	FMOD::Channel*	m_pChannel = nullptr;
 	float m_fVolume = 0.5f;
 	std::wstring m_szMsg;
 	TCHAR m_szBuffer[256];
@@ -21,7 +21,7 @@ public:
 	bool Frame();
 	bool Render();
 	bool Release();
-public:	 
+public:
 	void Play(bool bLoop= false);
 	void PlayEffect();
 	void Stop();
@@ -42,7 +42,7 @@ public:
 	std::map<std::wstring, std::shared_ptr<SSound> >  m_list;
 public:
 	SSound* Load(std::string filename);
-	SSound* GetPtr(std::wstring key);
+	SSound*	GetPtr(std::wstring key);
 public:
 	bool Init();
 	bool Frame();

@@ -5,6 +5,8 @@ class SFbx :public SObj3D
 {
 public:
 	SCamera* m_pMainCamera;
+	UINT m_iShadowID = 0;
+	SVector4 m_vShadowColor;
 public:
 	SFbxImporter* m_pMeshImp;
 	SFbxImporter* m_pAnimImporter;

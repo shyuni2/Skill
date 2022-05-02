@@ -17,7 +17,6 @@ bool STexture::Load(ID3D11Device* pd3dDevice, std::wstring filename)
 	m_pTexture->GetDesc(&m_TextureDesc);
 	return true;
 }
-
 bool STexture::Init()
 {
 	return true;
@@ -34,6 +33,15 @@ bool STexture::Release()
 {
 	return true;
 }
+STexture::STexture()
+{
+
+}
+STexture::~STexture()
+{
+
+}
+
 
 HRESULT STextureMgr::SaveFile(ID3D11DeviceContext* pContext, ID3D11Texture2D* pRes, T_STR name)
 {

@@ -39,4 +39,5 @@ private:
 public:
 	~SShaderMgr();
 };
+
 #define I_Shader SShaderMgr::Get()

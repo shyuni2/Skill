@@ -2,13 +2,18 @@
 #include "SCore.h"
 #include "SMap.h"
 #include "SCamera.h"
+#include "SDxRT.h"
+#include "SBox.h"
 
 class Sample : public SCore
 {
 public: 
 	SMap m_MapObj;
 	SBoxObj m_BoxObj;
+	//std::vector<SBox> m_vBoxObj;
 	SCamera m_MainCamera;
+	//Microsoft::WRL::ComPtr<ID3D11PixelShader>		m_pPixelShader;
+	SDxRT	  m_dxRT;
 public: // 빛 & 그림자
 	// 쉐이더
 	SShader* m_pProjShadowVShader = nullptr;
@@ -24,7 +29,7 @@ public:
 	bool RenderMap(); // 맵 렌더링
 	bool RenderMainCamera(); // 메인카메라 렌더링
 	bool RenderObject(); // 오브젝트 렌더링
-	void RenderShadow(SMatrix* matView, SMatrix* matProj); // 그림자 렌더링
+	void RenderProjectionShadow(SMatrix* matWorld, SMatrix* matShadow, SMatrix* matView, SMatrix* matProj); // 투영그림자 렌더링
 public: // 윈도우 크기 변경 함수
 	virtual void CreateResizeDevice(UINT iWidth, UINT iHeight) override;
 	virtual void DeleteResizeDevice(UINT iWidth, UINT iHeight) override;
@@ -37,4 +42,5 @@ public:
 	Sample() {};
 	~Sample() {};
 };
+
 

@@ -77,7 +77,7 @@ HRESULT SDxRT::CreateCubeMap(ID3D11Device* pd3dDevice, FLOAT fWidth, FLOAT fHeig
 	V(pd3dDevice->CreateDepthStencilView(pDSTexture.Get(), &DsvDesc, &m_pDepthStencilView));
 	return S_OK;
 }
-HRESULT SDxRT::Create(ID3D11Device* pd3dDevice, FLOAT Width, FLOAT Height)
+HRESULT SDxRT::Create(ID3D11Device* pd3dDevice, FLOAT Width, FLOAT Height, DXGI_FORMAT dsTexFormat)
 {
 	HRESULT hr = S_OK;
 	Set(pd3dDevice, 0, 0, Width, Height, 0.0f, 1.0f);
@@ -109,20 +109,23 @@ HRESULT SDxRT::Create(ID3D11Device* pd3dDevice, FLOAT Width, FLOAT Height)
 
 
 	// 백버퍼의 크기가 변경되면 반드시 깊이스텐실 뷰어도 다시 작성되어야 한다.		
-	if (FAILED(hr = UpdateDepthStencilView(pd3dDevice, (UINT)Width, (UINT)Height)))
+	if (FAILED(hr = UpdateDepthStencilView(pd3dDevice, (UINT)Width, (UINT)Height), dsTexFormat))
 	{
 		return hr;
 	}
 	return hr;
 }
-HRESULT SDxRT::UpdateDepthStencilView(ID3D11Device* pDevice, UINT Width, UINT Height)
+HRESULT SDxRT::UpdateDepthStencilView(ID3D11Device* pDevice, UINT Width, UINT Height, DXGI_FORMAT dsTexFormat)
 {
 	HRESULT hr;
 	if (m_pDepthStencilView != nullptr)
 	{
 		m_pDepthStencilView.ReleaseAndGetAddressOf();
 	}
-
+	if (dsTexFormat != m_DSTexFormat)
+	{
+		m_DSTexFormat = dsTexFormat;
+	}
 	m_vp.Width = (FLOAT)Width;
 	m_vp.Height = (FLOAT)Height;
 
@@ -132,7 +135,7 @@ HRESULT SDxRT::UpdateDepthStencilView(ID3D11Device* pDevice, UINT Width, UINT He
 	DescDepth.Height = Height;
 	DescDepth.MipLevels = 1;
 	DescDepth.ArraySize = 1;
-	DescDepth.Format = DXGI_FORMAT_R24G8_TYPELESS;
+	DescDepth.Format = m_DSTexFormat;//DXGI_FORMAT_R24G8_TYPELESS
 	DescDepth.SampleDesc.Count = 1;
 	DescDepth.SampleDesc.Quality = 0;
 	DescDepth.Usage = D3D11_USAGE_DEFAULT;
@@ -362,5 +365,5 @@ SDxRT::SDxRT()
 	m_pDepthStencilView = nullptr;
 	m_pSRV = nullptr;
 	m_pTexture = nullptr;
-	m_DSFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	m_DSTexFormat = DXGI_FORMAT_R24G8_TYPELESS;
 }

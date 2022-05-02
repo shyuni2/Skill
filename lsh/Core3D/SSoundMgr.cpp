@@ -21,10 +21,14 @@ void SSound::Play(bool bLoop)
 		if (ret == FMOD_OK) 
 		{
 			//m_pChannel->setVolume(0.5f);
-			if(bLoop)
+			if (bLoop)
+			{
 				m_pChannel->setMode(FMOD_LOOP_NORMAL);
+			}
 			else
+			{
 				m_pChannel->setMode(FMOD_LOOP_OFF);
+			}				
 		}
 	}
 }
@@ -32,8 +36,7 @@ void SSound::PlayEffect()
 {
 	FMOD::Channel* pChannel=nullptr;
 	// 채널은 플레이 되는 사운드의 제어를 담당.
-	FMOD_RESULT	ret = m_pSystem->playSound(
-		m_pSound, nullptr, false, &pChannel);
+	FMOD_RESULT	ret = m_pSystem->playSound(m_pSound, nullptr, false, &pChannel);
 	if (ret == FMOD_OK)
 	{
 	}
@@ -81,11 +84,11 @@ void SSound::VolumeDown(float fVolume)
 	}
 }
 
-bool	SSound::Init()
+bool SSound::Init()
 {
 	return true;
 }
-bool	SSound::Frame()
+bool SSound::Frame()
 {
 	if (m_pSound ==nullptr || m_pChannel==nullptr) return true;
 
@@ -94,14 +97,7 @@ bool	SSound::Frame()
 	m_pSound->getLength(&size, FMOD_TIMEUNIT_MS);
 	m_pChannel->getPosition(&ms, FMOD_TIMEUNIT_MS);
 
-	_stprintf_s(m_szBuffer,
-		_T("전체시간[%02d:%02d:%02d]:경과시간[%02d:%02d:%02d]"),
-		size / 1000 / 60,
-		size / 1000 % 60,
-		size / 10 % 60,
-		ms / 1000 / 60,
-		ms / 1000 % 60,
-		ms / 10 % 60);
+	_stprintf_s(m_szBuffer, _T("전체시간[%02d:%02d:%02d]:경과시간[%02d:%02d:%02d]"), size / 1000 / 60, size / 1000 % 60, size / 10 % 60, ms / 1000 / 60, ms / 1000 % 60, ms / 10 % 60);
 	
 	return true;
 }
@@ -127,12 +123,6 @@ SSound::~SSound()
 
 }
 
-
-/// <summary>
-/// 
-/// </summary>
-/// <param name="filename"></param>
-/// <returns></returns>
 SSound* SSoundMgr::GetPtr(std::wstring key)
 {
 	auto iter = m_list.find(key);
@@ -164,9 +154,7 @@ SSound* SSoundMgr::Load(std::string filename)
 	}
 
 	std::shared_ptr<SSound> pSound = std::make_shared<SSound>();
-	FMOD_RESULT ret = m_pSystem->createSound(filename.c_str(),
-		FMOD_DEFAULT, 0,
-		&pSound->m_pSound);		
+	FMOD_RESULT ret = m_pSystem->createSound(filename.c_str(), FMOD_DEFAULT, 0, &pSound->m_pSound);
 
 	if (ret != FMOD_OK)
 	{
@@ -178,23 +166,23 @@ SSound* SSoundMgr::Load(std::string filename)
 	m_iIndex++;
 	return pSound.get();
 }
-bool	SSoundMgr::Init()
+bool SSoundMgr::Init()
 {
 	FMOD_RESULT ret;
 	ret = FMOD::System_Create(&m_pSystem);
 	ret = m_pSystem->init(32, FMOD_INIT_NORMAL, 0);
 	return true;
 }
-bool	SSoundMgr::Frame()
+bool SSoundMgr::Frame()
 {
 	m_pSystem->update();
 	return true;
 }
-bool	SSoundMgr::Render()
+bool SSoundMgr::Render()
 {
 	return true;
 }
-bool	SSoundMgr::Release()
+bool SSoundMgr::Release()
 {
 	for (auto data : m_list)
 	{

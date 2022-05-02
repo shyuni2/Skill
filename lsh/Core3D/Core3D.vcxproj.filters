@@ -7,21 +7,6 @@
     <ClCompile Include="SObj3D.cpp">
       <Filter>obj</Filter>
     </ClCompile>
-    <ClCompile Include="SObjMgr.cpp">
-      <Filter>mgr</Filter>
-    </ClCompile>
-    <ClCompile Include="SShaderMgr.cpp">
-      <Filter>mgr</Filter>
-    </ClCompile>
-    <ClCompile Include="SSoundMgr.cpp">
-      <Filter>mgr</Filter>
-    </ClCompile>
-    <ClCompile Include="STexturerMgr.cpp">
-      <Filter>mgr</Filter>
-    </ClCompile>
-    <ClCompile Include="SBaseMgr.cpp">
-      <Filter>mgr</Filter>
-    </ClCompile>
     <ClCompile Include="SCore.cpp">
       <Filter>core</Filter>
     </ClCompile>
@@ -94,6 +79,18 @@
     <ClCompile Include="SFbxModel.cpp">
       <Filter>fbx</Filter>
     </ClCompile>
+    <ClCompile Include="SObjMgr.cpp">
+      <Filter>mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="SShaderMgr.cpp">
+      <Filter>mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="SSoundMgr.cpp">
+      <Filter>mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="STexturerMgr.cpp">
+      <Filter>mgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SObj2D.h">
@@ -101,21 +98,6 @@
     </ClInclude>
     <ClInclude Include="SObj3D.h">
       <Filter>obj</Filter>
-    </ClInclude>
-    <ClInclude Include="SObjMgr.h">
-      <Filter>mgr</Filter>
-    </ClInclude>
-    <ClInclude Include="SShaderMgr.h">
-      <Filter>mgr</Filter>
-    </ClInclude>
-    <ClInclude Include="SSoundMgr.h">
-      <Filter>mgr</Filter>
-    </ClInclude>
-    <ClInclude Include="STextureMgr.h">
-      <Filter>mgr</Filter>
-    </ClInclude>
-    <ClInclude Include="SBaseMgr.h">
-      <Filter>mgr</Filter>
     </ClInclude>
     <ClInclude Include="SVector3.h">
       <Filter>math</Filter>
@@ -189,6 +171,21 @@
     </ClInclude>
     <ClInclude Include="SCollision.h">
       <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="SBaseMgr.h">
+      <Filter>mgr</Filter>
+    </ClInclude>
+    <ClInclude Include="SObjMgr.h">
+      <Filter>mgr</Filter>
+    </ClInclude>
+    <ClInclude Include="SShaderMgr.h">
+      <Filter>mgr</Filter>
+    </ClInclude>
+    <ClInclude Include="SSoundMgr.h">
+      <Filter>mgr</Filter>
+    </ClInclude>
+    <ClInclude Include="STextureMgr.h">
+      <Filter>mgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -35,6 +35,7 @@ public:
 	virtual void UpdateData();
 	virtual void UpdateCollision();
 	virtual void GenAABB();
+
 public:
 	SObj3D();
 	virtual ~SObj3D();

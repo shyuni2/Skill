@@ -259,6 +259,8 @@ void SObj3D::GenAABB()
 	m_BoxCollision.vList[6] = S::SVector3(m_BoxCollision.vMin.x, m_BoxCollision.vMin.y, m_BoxCollision.vMax.z);
 	m_BoxCollision.vList[7] = S::SVector3(m_BoxCollision.vMax.x, m_BoxCollision.vMin.y, m_BoxCollision.vMax.z);
 }
+
+
 SObj3D::SObj3D()
 {
 	m_fAlpha = 1.0f;
@@ -283,6 +285,7 @@ SObj3D::SObj3D()
 	m_BoxCollision.vMin = S::SVector3(-1.0f, -1.0f, -1.0f);
 	m_BoxCollision.vMax = S::SVector3(1.0f, 1.0f, 1.0f);
 }
+
 SObj3D::~SObj3D()
 {
 

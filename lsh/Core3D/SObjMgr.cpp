@@ -4,16 +4,16 @@
 void SObjMgr::AddCollisionExecute(SBaseObj* owner, CollisionFunction func)
 {
 	owner->m_iCollisionID = m_iExcueteCollisionID++;
-	m_ObjList.insert(std::make_pair(owner->m_iCollisionID, owner));
+	m_ObjectList.insert(std::make_pair(owner->m_iCollisionID, owner));
 	m_fnCollisionExecute.insert(std::make_pair(owner->m_iCollisionID, func));
 }
 void SObjMgr::DeleteCollisionExecute(SBaseObj* owner)
 {
 	std::map<int, SBaseObj*>::iterator objiter;
-	objiter = m_ObjList.find(owner->m_iCollisionID);
-	if (objiter != m_ObjList.end())
+	objiter = m_ObjectList.find(owner->m_iCollisionID);
+	if (objiter != m_ObjectList.end())
 	{
-		m_ObjList.erase(objiter);
+		m_ObjectList.erase(objiter);
 	}
 
 	FuncionIterator colliter = m_fnCollisionExecute.find(owner->m_iCollisionID);
@@ -59,12 +59,12 @@ void SObjMgr::CallRecursive(SBaseObj* pSrcObj,DWORD dwState)
 bool SObjMgr::Frame()
 {
 	// collision
-	for (auto src : m_ObjList)
+	for (auto src : m_ObjectList)
 	{
 		SBaseObj* pObjSrc = (SBaseObj*)src.second;
 		if (pObjSrc->m_dwCollisonType == CollisionType::Ignore) continue;
 		DWORD dwState= CollisionType::Overlap;
-		for (auto dest : m_ObjList)
+		for (auto dest : m_ObjectList)
 		{
 			SBaseObj* pObjDest = (SBaseObj*)dest.second;
 			if (pObjSrc == pObjDest) continue;
@@ -84,12 +84,10 @@ bool SObjMgr::Frame()
 	for (auto src : m_SelectList)
 	{
 		SBaseObj* pObjSrc = (SBaseObj*)src.second;
-		//if (pObjSrc->m_dwSelectType == SelectType::Select_Ignore) continue;
+		//if (pObjSrc->m_dwSelectType == SSelectType::Select_Ignore) continue;
 		DWORD dwState = SelectState::DEFAULT;
 
-		if (pObjSrc->m_dwSelectType != SelectType::Select_Ignore &&
-			SCollision::RectToPoint(
-			pObjSrc->m_rtCollision, (float)g_ptMouse.x, (float)g_ptMouse.y))
+		if (pObjSrc->m_dwSelectType != SelectType::Select_Ignore && SCollision::RectToPoint(pObjSrc->m_rtCollision, (float)g_ptMouse.x, (float)g_ptMouse.y))
 		{
 			DWORD dwKeyState = SInput::Get().m_dwMouseState[0];
 			pObjSrc->m_dwSelectState = SelectState::HOVER;
@@ -132,7 +130,7 @@ bool SObjMgr::Frame()
 }
 bool SObjMgr::Release()
 {
-	m_ObjList.clear();
+	m_ObjectList.clear();
 	m_SelectList.clear();
 	return true;
 }
