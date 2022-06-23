@@ -4,19 +4,19 @@
 #include <stack>
 #include <vector> // 배열(재할당 가능한)
 #include <list>
-#include "Obj3D.h"
+#include "SObj3D.h"
 using namespace std;
 
 struct MapObj
 {
 	std::wstring  name;
-	T::TMatrix matWorld;
-	T::TVector3 vPos;
+	S::SMatrix matWorld;
+	S::SVector3 vPos;
 	TBox       box;
-	Obj3D* pObject;
-	T::TVector3 m_vLight;
-	T::TVector3 m_vUp;
-	T::TVector3 m_vLook;
+	SObj3D* pObject;
+	S::SVector3 m_vLight;
+	S::SVector3 m_vUp;
+	S::SVector3 m_vLook;
 	void		UpdateData()
 	{
 		m_vLight.x = matWorld._11;
@@ -29,9 +29,9 @@ struct MapObj
 		m_vLook.y = matWorld._32;
 		m_vLook.z = matWorld._33;
 
-		T::D3DXVec3Normalize(&m_vLight, &m_vLight);
-		T::D3DXVec3Normalize(&m_vUp, &m_vUp);
-		T::D3DXVec3Normalize(&m_vLook, &m_vLook);
+		S::D3DXVec3Normalize(&m_vLight, &m_vLight);
+		S::D3DXVec3Normalize(&m_vUp, &m_vUp);
+		S::D3DXVec3Normalize(&m_vLook, &m_vLook);
 	}
 	void		UpdateCollision()
 	{
@@ -40,12 +40,12 @@ struct MapObj
 		box.vAxis[2] = m_vLook;
 
 		// GenAABB();
-		box.vMin = T::TVector3(100000, 100000, 100000);
-		box.vMax = T::TVector3(-100000, -100000, -100000);
+		box.vMin = S::SVector3(100000, 100000, 100000);
+		box.vMax = S::SVector3(-100000, -100000, -100000);
 		for (int iV = 0; iV < 8; iV++)
 		{
-			T::TVector3 pos;
-			T::D3DXVec3TransformCoord(&pos, &box.vList[iV], &matWorld);
+			S::SVector3 pos;
+			S::D3DXVec3TransformCoord(&pos, &box.vList[iV], &matWorld);
 			if (box.vMin.x > pos.x)
 			{
 				box.vMin.x = pos.x;
@@ -73,10 +73,10 @@ struct MapObj
 			}
 		}
 
-		T:TVector3 vHalf = box.vMax - box.vCenter;
-		box.size.x = fabs(T::D3DXVec3Dot(&box.vAxis[0], &vHalf));
-		box.size.y = fabs(T::D3DXVec3Dot(&box.vAxis[1], &vHalf));
-		box.size.z = fabs(T::D3DXVec3Dot(&box.vAxis[2], &vHalf));
+		T:SVector3 vHalf = box.vMax - box.vCenter;
+		box.size.x = fabs(S::D3DXVec3Dot(&box.vAxis[0], &vHalf));
+		box.size.y = fabs(S::D3DXVec3Dot(&box.vAxis[1], &vHalf));
+		box.size.z = fabs(S::D3DXVec3Dot(&box.vAxis[2], &vHalf));
 		box.vCenter = (box.vMin + box.vMax);
 		box.vCenter /= 2.0f;
 	}

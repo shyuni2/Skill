@@ -1,15 +1,15 @@
 #pragma once
-#include "Obj3D.h"
+#include "SObj3D.h"
 struct Face
 {
 	UINT v0, v1, v2; // vb index;
-	T::TVector3 vNomal; // vb index;
+	S::SVector3 vNomal; // vb index;
 };
 //struct TVertexFace
 //{
 //	std::vector<UINT> iFaceList;
 //};
-class Map : public Obj3D
+class Map : public SObj3D
 {
 public:
 	std::vector< Face> m_FaceList;

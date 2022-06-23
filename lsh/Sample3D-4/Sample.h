@@ -1,19 +1,19 @@
 #pragma once
-#include "Core.h"
-#include "Camera.h"
-#include "Map.h"
-#include "BoxObj.h"
-#include "Quadtree.h" 
+#include "SCore.h"
+#include "SCamera.h"
+#include "SMap.h"
+#include "SBoxObj.h"
+#include "SQuadtree.h" 
 #include "Intersect.h"
 
 class Sample : public Intersect
 {
-	Camera m_Camera;
-	Camera m_CameraTopView;
-	Map m_MapObj;
-	std::vector<MapObj*> m_pObjList;
-	Quadtree m_Quadtree;
-	BoxObj*	m_pBoxObj;
+	SCamera m_Camera;
+	SCamera m_CameraTopView;
+	SMap m_MapObj;
+	std::vector<SMapObj*> m_pObjList;
+	SQuadtree m_Quadtree;
+	SBoxObj*	m_pBoxObj;
 public:
 	virtual void CreateResizeDevice(UINT iWidth, UINT iHeight) override;
 	virtual void DeleteResizeDevice(UINT iWidth, UINT iHeight) override;

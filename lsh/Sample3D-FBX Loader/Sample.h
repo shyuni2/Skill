@@ -1,8 +1,8 @@
 #pragma once
-#include "Core.h"
+#include "SCore.h"
 #include "FbxLoader.h"
 
-class Sample : public Core
+class Sample : public SCore
 {
 	FbxLoader m_FbxObj;
 public:

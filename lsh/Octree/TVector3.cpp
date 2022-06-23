@@ -1,11 +1,11 @@
-#include "TVector3.h"
+#include "SVector3.h"
 
-TVector3::TVector3()
+SVector3::SVector3()
 {
 	x = y = 0.0f;
 }
 
-TVector3::TVector3(float x, float y, float z)
+SVector3::SVector3(float x, float y, float z)
 {
 	// 자기자신이 x, y 일때
 	// this 는 주로 멤버변수를 초기화할때 사용
@@ -14,7 +14,7 @@ TVector3::TVector3(float x, float y, float z)
 	this->z = z;
 }
 
-TVector3::TVector3(const TVector3& v)
+SVector3::SVector3(const SVector3& v)
 {
 	x = v.x;
 	y = v.y;
@@ -22,9 +22,9 @@ TVector3::TVector3(const TVector3& v)
 }
 
 // 벡터 덧셈 
-TVector3 TVector3 :: operator + (const TVector3& v)
+SVector3 SVector3 :: operator + (const SVector3& v)
 {
-	TVector3 ret;
+	SVector3 ret;
 	this->x += v.x;
 	this->y += v.y;
 	this->z += v.z;
@@ -32,9 +32,9 @@ TVector3 TVector3 :: operator + (const TVector3& v)
 }
 
 // 백터 뺄셈
-TVector3 TVector3:: operator - (const TVector3& v)
+SVector3 SVector3:: operator - (const SVector3& v)
 {
-	TVector3 ret;
+	SVector3 ret;
 	this->x -= v.x;
 	this->y -= v.y;
 	this->z -= v.z;
@@ -42,21 +42,21 @@ TVector3 TVector3:: operator - (const TVector3& v)
 }
 
 // 스칼라곱
-TVector3 TVector3::operator * (float fValue)
+SVector3 SVector3::operator * (float fValue)
 {
 	this->x *= fValue;
 	this->y *= fValue;
 	this->z *= fValue;
 	return *this;
 }
-TVector3 TVector3::operator / (float fValue)
+SVector3 SVector3::operator / (float fValue)
 {
 	this->x /= fValue;
 	this->y /= fValue;
 	this->z /= fValue;
 	return *this;
 }
-bool TVector3::operator == (const TVector3& v)
+bool SVector3::operator == (const SVector3& v)
 {
 	if (fabs(x - v.x) < 0.0001f)
 	{
@@ -70,7 +70,7 @@ bool TVector3::operator == (const TVector3& v)
 	}
 	return false;
 }
-bool TVector3::operator != (const TVector3& v)
+bool SVector3::operator != (const SVector3& v)
 {
 	if (fabs(x - v.x) < 0.0001f)
 	{
@@ -87,16 +87,16 @@ bool TVector3::operator != (const TVector3& v)
 
 // 정규화
 // 자기자신을 정규화할건지, 벡터를 정규화할건지
-TVector3 TVector3::Normal()
+SVector3 SVector3::Normal()
 {
-	TVector3 ret;
+	SVector3 ret;
 	float length = 1.0f / Length();
 	ret.x = x * length;
 	ret.y = y * length;
 	ret.z = z * length;
 	return ret;
 }
-TVector3 TVector3::Normalize()
+SVector3 SVector3::Normalize()
 {
 	float length = 1.0f / Length();
 	x *= length;
@@ -104,9 +104,9 @@ TVector3 TVector3::Normalize()
 	z *= length;
 	return *this;
 }
-TVector3 Normalize(TVector3& v)
+SVector3 Normalize(SVector3& v)
 {
-	TVector3 ret;
+	SVector3 ret;
 	float length = 1.0f / v.Length();
 	ret.x = v.x * length;
 	ret.y = v.y * length;
@@ -115,7 +115,7 @@ TVector3 Normalize(TVector3& v)
 }
 // 크기
 // ret 리턴값
-float TVector3::Length()
+float SVector3::Length()
 {
 	float ret = x * x + y * y + z * z;
 	return sqrt(ret);

@@ -11,7 +11,7 @@ bool   TCollision::RectToPoint(TRect rt, int x, int y)
 	return false; // 충돌안함
 }
 // 사각형이 벡터와 충돌하는지
-bool   TCollision::RectToPoint(TRect rt, TVector3 v)
+bool   TCollision::RectToPoint(TRect rt, SVector3 v)
 {
 	if (rt.vMin.x <= v.x && rt.vMax.x >= v.x && rt.vMin.y <= v.y && rt.vMax.y >= v.y)
 	{

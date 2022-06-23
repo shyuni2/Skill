@@ -23,22 +23,22 @@
     <ClCompile Include="Sample.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="TBoxObj.cpp">
+    <ClCompile Include="BoxObj.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="TCamera.cpp">
+    <ClCompile Include="Camera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="TFrustum.cpp">
+    <ClCompile Include="Frustum.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="TMap.cpp">
+    <ClCompile Include="Map.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="TPlaneObj.cpp">
+    <ClCompile Include="PlaneObj.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="TSkyObj.cpp">
+    <ClCompile Include="SkyObj.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -46,22 +46,22 @@
     <ClInclude Include="Sample.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="TBoxObj.h">
+    <ClInclude Include="BoxObj.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="TCamera.h">
+    <ClInclude Include="Camera.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="TFrustum.h">
+    <ClInclude Include="Frustum.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="TMap.h">
+    <ClInclude Include="Map.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="TPlaneObj.h">
+    <ClInclude Include="PlaneObj.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="TSkyObj.h">
+    <ClInclude Include="SkyObj.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

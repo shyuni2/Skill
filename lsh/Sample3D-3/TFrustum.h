@@ -4,13 +4,13 @@
 class Frustum : public BoxObj
 {
 public:
-	T::TPlane   m_Plane[6];
-	T::TVector3 m_vFrustum[8];
+	S::TPlane   m_Plane[6];
+	S::SVector3 m_vFrustum[8];
 public:
 	bool		Init();
-	void		CreateFrustum(	T::TMatrix& matView, 
-								T::TMatrix& matProj);
-	BOOL ClassifyPoint(T::TVector3* v);
+	void		CreateFrustum(	S::SMatrix& matView, 
+								S::SMatrix& matProj);
+	BOOL ClassifyPoint(S::SVector3* v);
 	BOOL ClassifySphere(TSphere* v);
 	BOOL ClassifyOBB(TBox* v);
 public:

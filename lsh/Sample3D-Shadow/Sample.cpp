@@ -37,7 +37,7 @@ bool    Sample::LoadFbx()
 	listname.push_back(L"../../data/fbx/Greystone.fbx");
 	listname.push_back(L"../../data/fbx/idle.fbx");
 	listname.push_back(L"../../data/fbx/Man.fbx");
-	T::LoadAllPath(L"../../data/fbx/AdvancedVillagePack/Meshes", listname);
+	S::LoadAllPath(L"../../data/fbx/AdvancedVillagePack/Meshes", listname);
 
 	// 0 ~ 60  idel
 	// 61 ~91  walk;

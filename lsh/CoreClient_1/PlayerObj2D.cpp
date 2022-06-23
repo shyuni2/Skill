@@ -1,29 +1,29 @@
 #include "PlayerObj2D.h"
-#include "Input.h"
+#include "SInput.h"
 
 bool PlayerObj2D::Frame()
 { 
 	// w a s d 키보드 입력값
-	if (Input::Get().GetKey('W') == KEY_HOLD)
+	if (SInput::Get().GetKey('W') == KEY_HOLD)
 	{
 		Vector2 pos;
 		// 시간의 동기화(유저마다 네트워크 환경이 다를수 있기 때문에 해줘야함)
 		pos.y -= m_fSpeed * g_fSecPerFrame;
 		AddPosition(pos);
 	}
-	if (Input::Get().GetKey('A') == KEY_HOLD)
+	if (SInput::Get().GetKey('A') == KEY_HOLD)
 	{
 		Vector2 pos;
 		pos.x -= m_fSpeed * g_fSecPerFrame;
 		AddPosition(pos);
 	}
-	if (Input::Get().GetKey('S') == KEY_HOLD)
+	if (SInput::Get().GetKey('S') == KEY_HOLD)
 	{
 		Vector2 pos;
 		pos.y += m_fSpeed * g_fSecPerFrame;
 		AddPosition(pos);
 	}
-	if (Input::Get().GetKey('D') == KEY_HOLD)
+	if (SInput::Get().GetKey('D') == KEY_HOLD)
 	{
 		Vector2 pos;
 		pos.x += m_fSpeed * g_fSecPerFrame;

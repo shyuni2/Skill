@@ -11,26 +11,26 @@ struct TFloat3
 };
 
 
-class TVector3 : public TFloat3
+class SVector3 : public TFloat3
 {
 public:
-	TVector3();
-	TVector3(float x, float y, float z);
-	TVector3(const TVector3& v);
+	SVector3();
+	SVector3(float x, float y, float z);
+	SVector3(const SVector3& v);
 public:
 	// º¤ÅÍ µ¡¼À
-	TVector3 operator + (const TVector3& v);
+	SVector3 operator + (const SVector3& v);
 	// º¤ÅÍ »¬¼À
-	TVector3 operator - (const TVector3& v);
+	SVector3 operator - (const SVector3& v);
 	// ½ºÄ®¶ó °ö¼À
-	TVector3 operator * (float fValue);
-	TVector3 operator / (float fValue);
-	bool operator == (const TVector3& v);
-	bool operator != (const TVector3& v);
+	SVector3 operator * (float fValue);
+	SVector3 operator / (float fValue);
+	bool operator == (const SVector3& v);
+	bool operator != (const SVector3& v);
 	// Á¤±ÔÈ­
-	TVector3 Normalize();
-	TVector3 Normal();
-	friend TVector3 Normalize(TVector3& v);
+	SVector3 Normalize();
+	SVector3 Normal();
+	friend SVector3 Normalize(SVector3& v);
 	// Å©±â
 	float Length();
 

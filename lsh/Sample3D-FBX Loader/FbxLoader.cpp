@@ -194,9 +194,9 @@ void FbxLoader::ParseMesh(FbxObj* pObject)
 	}
 }
 
-TMatrix FbxLoader::DxConvertMatrix(TMatrix m)
+SMatrix FbxLoader::DxConvertMatrix(SMatrix m)
 {
-	TMatrix mat;
+	SMatrix mat;
 	mat._11 = m._11; mat._12 = m._13; mat._13 = m._12;
 	mat._21 = m._31; mat._22 = m._33; mat._23 = m._32;
 	mat._31 = m._21; mat._32 = m._23; mat._33 = m._22;
@@ -205,9 +205,9 @@ TMatrix FbxLoader::DxConvertMatrix(TMatrix m)
 	mat._44 = 1.0f;
 	return mat;
 }
-TMatrix FbxLoader::ConvertMatrix(FbxMatrix& m)
+SMatrix FbxLoader::ConvertMatrix(FbxMatrix& m)
 {
-	TMatrix mat;
+	SMatrix mat;
 	float* pMatArray = reinterpret_cast<float*>(&mat);
 	double* pSrcArray = reinterpret_cast<double*>(&m);
 	for (int i = 0; i < 16; i++)
@@ -216,9 +216,9 @@ TMatrix FbxLoader::ConvertMatrix(FbxMatrix& m)
 	}
 	return mat;
 }
-TMatrix FbxLoader::ConvertAMatrix(FbxAMatrix& m)
+SMatrix FbxLoader::ConvertAMatrix(FbxAMatrix& m)
 {
-	TMatrix mat;
+	SMatrix mat;
 	float* pMatArray = reinterpret_cast<float*>(&mat);
 	double* pSrcArray = reinterpret_cast<double*>(&m);
 	for (int i = 0; i < 16; i++)

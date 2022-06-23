@@ -1,12 +1,12 @@
 #pragma once
-#include "Obj3D.h"
+#include "SObj3D.h"
 
-class SkyObj : public Obj3D
+class SkyObj : public SObj3D
 {
 public:
 	Math::Matrix m_matViewSky;
-	Texture* m_pTexArray[6];
-	Texture* m_pTexCube;
+	STexture* m_pTexArray[6];
+	STexture* m_pTexCube;
 	Microsoft::WRL::Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pSRVArray[6];
 public:
 	bool PostRender();

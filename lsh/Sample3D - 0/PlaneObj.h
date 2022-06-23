@@ -1,7 +1,7 @@
 #pragma once
-#include "Obj3D.h"
+#include "SObj3D.h"
 
-class PlaneObj : public Obj3D
+class PlaneObj : public SObj3D
 {
 public:
 	virtual bool SetVertexData();

@@ -2,7 +2,7 @@
 
 
 // 벡터의 위치
-void   TObject::SetPos(TVector2 pos)
+void   TObject::SetPos(SVector2 pos)
 {
 	m_vPos = pos;
 }

@@ -1,6 +1,6 @@
 #include "TextureMgr.h"
 
-bool Texture::Load(ID3D11Device* pd3dDevice, std::wstring filename)
+bool STexture::Load(ID3D11Device* pd3dDevice, std::wstring filename)
 {
 	HRESULT hr = DirectX::CreateWICTextureFromFile(pd3dDevice, filename.c_str(), (ID3D11Resource**)m_pTexture.GetAddressOf(), m_pSRV.GetAddressOf());
 	if (FAILED(hr))
@@ -14,28 +14,28 @@ bool Texture::Load(ID3D11Device* pd3dDevice, std::wstring filename)
 	m_pTexture->GetDesc(&m_TextureDesc);
 	return true;
 }
-bool Texture::Init()
+bool STexture::Init()
 {
 	return true;
 }
-bool Texture::Frame()
+bool STexture::Frame()
 {	
 	return true;
 }
-bool Texture::Render()
+bool STexture::Render()
 {
 	return true;
 }
-bool Texture::Release()
+bool STexture::Release()
 {
 	return true;
 }
 
-Texture::Texture()
+STexture::STexture()
 {
 
 }
-Texture::~Texture()
+STexture::~STexture()
 {
 
 }

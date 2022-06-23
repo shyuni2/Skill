@@ -1,13 +1,13 @@
 #pragma once
-#include "Obj3D.h"
-class SkyObj : public Obj3D
+#include "SObj3D.h"
+class SkyObj : public SObj3D
 {
 public:	
-	Texture*			m_pTexArray[6];
-	Texture*			m_pTexCube;
+	STexture*			m_pTexArray[6];
+	STexture*			m_pTexCube;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pSRVArray[6];
 public:
-	virtual void		SetMatrix(T::TMatrix* matWorld,T::TMatrix* matView, T::TMatrix* matProj);
+	virtual void		SetMatrix(S::SMatrix* matWorld,S::SMatrix* matView, S::SMatrix* matProj);
 	virtual bool		SetVertexData();
 	virtual bool		SetIndexData();
 	virtual bool		LoadTexture(const TCHAR* szColorFileName,

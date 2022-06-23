@@ -36,7 +36,7 @@ bool		Quadtree::Render()
 
 	for (int iNode = 0; iNode < g_pDrawLeafNodes.size(); iNode++)
 	{
-		m_pMap->m_ConstantList.Color = T::TVector4(1, 1, 0, 1);
+		m_pMap->m_ConstantList.Color = S::SVector4(1, 1, 0, 1);
 		m_pMap->m_pContext->UpdateSubresource(
 			m_pMap->m_pConstantBuffer, 0, NULL, &m_pMap->m_ConstantList, 0, 0);
 
@@ -49,7 +49,7 @@ bool		Quadtree::Render()
 		obj->pObject->SetMatrix(&obj->matWorld,
 			&m_pMap->m_matView,
 			&m_pMap->m_matProj);
-		obj->pObject->m_ConstantList.Color = T::TVector4(1, 1, 1, 1);
+		obj->pObject->m_ConstantList.Color = S::SVector4(1, 1, 1, 1);
 		obj->pObject->Render();
 	}
 	return true;
@@ -80,23 +80,23 @@ Node* Quadtree::CreateNode(
 }
 TBox	Quadtree::GenBoundingBox(Node* pNode)
 {
-	TVector3 v0, v4;
+	SVector3 v0, v4;
 	v0 = m_pMap->m_VertexList[pNode->m_CornerList[0]].p; // 0
 	v4 = m_pMap->m_VertexList[pNode->m_CornerList[3]].p; // 24
 	pNode->m_Box.vMin.x = v0.x;
 	pNode->m_Box.vMin.z = v4.z;
 	pNode->m_Box.vMax.x = v4.x;
 	pNode->m_Box.vMax.z = v0.z;
-	TVector2 vHeight = GetHeightFromNode(
+	SVector2 vHeight = GetHeightFromNode(
 		pNode->m_CornerList[0],
 		pNode->m_CornerList[1],	
 		pNode->m_CornerList[2], 
 		pNode->m_CornerList[3]);
 	pNode->m_Box.vMin.y = vHeight.y;
 	pNode->m_Box.vMax.y = vHeight.x;
-	pNode->m_Box.vAxis[0] = TVector3(1, 0, 0);
-	pNode->m_Box.vAxis[1] = TVector3(0, 1, 0);
-	pNode->m_Box.vAxis[2] = TVector3(0, 0, 1);
+	pNode->m_Box.vAxis[0] = SVector3(1, 0, 0);
+	pNode->m_Box.vAxis[1] = SVector3(0, 1, 0);
+	pNode->m_Box.vAxis[2] = SVector3(0, 0, 1);
 	pNode->m_Box.size.x = (pNode->m_Box.vMax.x- pNode->m_Box.vMin.x) / 2.0f;
 	pNode->m_Box.size.y = (pNode->m_Box.vMax.y - pNode->m_Box.vMin.y) / 2.0f;
 	pNode->m_Box.size.z = (pNode->m_Box.vMax.z - pNode->m_Box.vMin.z) / 2.0f;
@@ -105,7 +105,7 @@ TBox	Quadtree::GenBoundingBox(Node* pNode)
 
 	return pNode->m_Box;
 }
-TVector2	Quadtree::GetHeightFromNode(DWORD dwTL, DWORD dwTR, DWORD dwBL, DWORD dwBR)
+SVector2	Quadtree::GetHeightFromNode(DWORD dwTL, DWORD dwTR, DWORD dwBL, DWORD dwBR)
 {
 	assert(m_pMap);
 
@@ -115,7 +115,7 @@ TVector2	Quadtree::GetHeightFromNode(DWORD dwTL, DWORD dwTR, DWORD dwBL, DWORD d
 	DWORD dwStartCol = dwTL % m_iWidth;
 	DWORD dwEndCol = dwTR % m_iWidth;
 
-	TVector2 vHeight;
+	SVector2 vHeight;
 	vHeight.x = -999999.0f;
 	vHeight.y = 999999.0f;
 

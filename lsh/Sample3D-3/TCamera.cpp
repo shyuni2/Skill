@@ -2,19 +2,19 @@
 #include "TInput.h"
 
 
-void Camera::CreateViewMatrix(T::TVector3 p,
-	T::TVector3 t, 
-	T::TVector3 u )
+void Camera::CreateViewMatrix(S::SVector3 p,
+	S::SVector3 t, 
+	S::SVector3 u )
 {
 	m_vCamera = p;
 	m_vTarget = t;
 	m_vUp = u;
-	T::D3DXMatrixLookAtLH(&m_matView, &m_vCamera, &m_vTarget, &m_vUp);	
+	S::D3DXMatrixLookAtLH(&m_matView, &m_vCamera, &m_vTarget, &m_vUp);	
 	UpdateVector();
 }
 void Camera::CreateProjMatrix(float fovy, float Aspect, float zn, float zf)
 {
-	T::D3DXMatrixPerspectiveFovLH(&m_matProj,
+	S::D3DXMatrixPerspectiveFovLH(&m_matProj,
 		fovy,
 		Aspect,
 		zn, zf);
@@ -29,10 +29,10 @@ bool Camera::Init()
 	return true;
 }
 // vValue.x : pitch, y=yaw, z= roll, w =radius
-bool Camera::Update(T::TVector4 vDirValue)
+bool Camera::Update(S::SVector4 vDirValue)
 {
-	T::TMatrix matRotation;
-	T::D3DXQuaternionRotationYawPitchRoll(&m_qRotation,
+	S::SMatrix matRotation;
+	S::D3DXQuaternionRotationYawPitchRoll(&m_qRotation,
 		vDirValue.y,
 		vDirValue.x,
 		vDirValue.z);
@@ -40,9 +40,9 @@ bool Camera::Update(T::TVector4 vDirValue)
 	m_vCamera += m_vLook * vDirValue.w;
 	m_fRadius += vDirValue.w;
 
-	T::D3DXMatrixAffineTransformation(&matRotation, 1.0f, NULL, 
+	S::D3DXMatrixAffineTransformation(&matRotation, 1.0f, NULL, 
 		&m_qRotation, &m_vCamera);
-	T::D3DXMatrixInverse(&m_matView, NULL, &matRotation);
+	S::D3DXMatrixInverse(&m_matView, NULL, &matRotation);
 
 	return UpdateVector();
 }
@@ -90,7 +90,7 @@ bool Camera::Frame()
 	{
 		m_vCamera.y -= g_fSecPerFrame * 1.0f;
 	}*/
-	T::D3DXMatrixLookAtLH(&m_matView, &m_vCamera, &m_vTarget, &m_vDefaultUp);
+	S::D3DXMatrixLookAtLH(&m_matView, &m_vCamera, &m_vTarget, &m_vDefaultUp);
 	return UpdateVector();
 }
 Camera::Camera()
@@ -101,5 +101,5 @@ Camera::Camera()
 	m_vTarget.x = 0;
 	m_vTarget.y = 0;
 	m_vTarget.z = 100;
-	m_vUp = m_vDefaultUp = T::TVector3(0, 1, 0);
+	m_vUp = m_vDefaultUp = S::SVector3(0, 1, 0);
 }

@@ -1,18 +1,18 @@
 #pragma once
-#include "Obj3D.h"
+#include "SObj3D.h"
 #include <fbxsdk.h>
 
 struct Track
 {
 	UINT iFrame;
-	TMatrix matTrack;
+	SMatrix matTrack;
 };
 
-class FbxObj : public Obj3D
+class FbxObj : public SObj3D
 {
 public:
-	TMatrix m_matLocal; // 로컬행렬
-	TMatrix m_matAnim; // 애니메이션 행렬
+	SMatrix m_matLocal; // 로컬행렬
+	SMatrix m_matAnim; // 애니메이션 행렬
 	FbxNode* m_pFbxParent = nullptr;
 	FbxNode* m_pFbxNode = nullptr;
 	FbxObj* m_pParentObj = nullptr;
@@ -22,7 +22,7 @@ public: // 서브 메터리얼
 	using SubVertex = std::vector<Vertex>;
 	std::vector<SubVertex> m_pSubVertexList;
 	std::vector<ID3D11Buffer*> m_pVBList;
-	std::vector<Texture*> m_pTextureList;
+	std::vector<STexture*> m_pTextureList;
 	std::vector<Track> m_AnimTrack;
 public:
 	virtual bool SetVertexData() override;
@@ -62,9 +62,9 @@ public:
 	int GetSubMaterialIndex(int iPlygon, FbxLayerElementMaterial* pMtrl);
 public:
 	// MAX 좌표계는 Direct3D의 Y축과 X축의 기저벡터가 다르기 때문에 컨버터를 사용한다
-	TMatrix DxConvertMatrix(TMatrix m);
-	TMatrix ConvertMatrix(FbxMatrix& m);
-	TMatrix ConvertAMatrix(FbxAMatrix& m);
+	SMatrix DxConvertMatrix(SMatrix m);
+	SMatrix ConvertMatrix(FbxMatrix& m);
+	SMatrix ConvertAMatrix(FbxAMatrix& m);
 	void ParseAnimation();
 public:
 	virtual bool Init();

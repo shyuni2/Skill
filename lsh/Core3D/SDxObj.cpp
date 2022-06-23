@@ -142,8 +142,8 @@ bool SDxObj::CreateConstantBuffer()
 bool SDxObj::CreateInputLayout()
 {
 	// 정점 구조체를 정의했다면 그 구조체의 각 성분이 어떤 용도인지 Direct3D에 알려줘야한다
-	// 그 수단이 Input Layout 객체
-	// Input Layout 객체는 D3D11_INPUT_ELEMENT_DESC구조체로 이루어진 배열을 통해 구축한다
+	// 그 수단이 SInput Layout 객체
+	// SInput Layout 객체는 D3D11_INPUT_ELEMENT_DESC구조체로 이루어진 배열을 통해 구축한다
 	// 정점쉐이더의 결과를 통해서 정점레이아웃을 생성한다
 	// 정점버퍼의 각 정점의 어떤 성분을 정점쉐이더에 전달할건지
 	D3D11_INPUT_ELEMENT_DESC layout[] =

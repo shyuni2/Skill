@@ -1,5 +1,5 @@
 #include "ObjMgr.h"
-#include "Input.h"
+#include "SInput.h"
 
 void ObjMgr::AddCollisionExecute(BaseObj* owner, CollisionFunction func)
 {
@@ -90,7 +90,7 @@ bool ObjMgr::Frame()
 			Collision::RectToPoint(
 			pObjSrc->m_rtCollision, (float)g_ptMouse.x, (float)g_ptMouse.y))
 		{
-			DWORD dwKeyState = Input::Get().m_dwMouseState[0];
+			DWORD dwKeyState = SInput::Get().m_dwMouseState[0];
 			pObjSrc->m_dwSelectState = SelectState::HOVER;
 			if (dwKeyState == KEY_PUSH)
 			{

@@ -12,14 +12,14 @@ bool Sample::Init()
 {
 	m_Camera.Init();
 
-	Texture* pTex = I_Texture.Load(L"../../data/ui/main_start_nor.png");
+	STexture* pTex = I_Texture.Load(L"../../data/ui/main_start_nor.png");
 	Shader* pVShader = I_Shader.CreateVertexShader(m_pd3dDevice.Get(), L"Box.hlsl", "VS");
 	Shader* pPShader = I_Shader.CreatePixelShader(m_pd3dDevice.Get(), L"Box.hlsl", "PS");
 
 	m_MapObj.Init();
 	m_MapObj.SetDevice(m_pd3dDevice.Get(), m_pImmediateContext.Get());
 	m_MapObj.CreateHeightMap(L"../../data/map/HEIGHT_MOUNTAIN.bmp");// heightMap513.bmp");
-	Texture* pTexMap = I_Texture.Load(L"../../data/map/020.bmp");
+	STexture* pTexMap = I_Texture.Load(L"../../data/map/020.bmp");
 	m_MapObj.m_pColorTex = pTexMap;
 	m_MapObj.m_pVShader = I_Shader.CreateVertexShader(m_pd3dDevice.Get(), L"map.hlsl", "VS");
 	m_MapObj.m_pPShader = I_Shader.CreatePixelShader(m_pd3dDevice.Get(), L"map.hlsl", "PS");
@@ -62,26 +62,26 @@ bool Sample::Init()
 }
 bool Sample::Frame()
 {
-	if (Input::Get().GetKey('A') || Input::Get().GetKey(VK_LEFT))
+	if (SInput::Get().GetKey('A') || SInput::Get().GetKey(VK_LEFT))
 	{
 		m_PlayerObj.m_vPos -= m_PlayerObj.m_vLight * g_fSecPerFrame * 10.0f;
 	}
-	if (Input::Get().GetKey('D') || Input::Get().GetKey(VK_RIGHT))
+	if (SInput::Get().GetKey('D') || SInput::Get().GetKey(VK_RIGHT))
 	{
 		m_PlayerObj.m_vPos += m_PlayerObj.m_vLight * g_fSecPerFrame * 10.0f;
 	}
-	if (Input::Get().GetKey('W') || Input::Get().GetKey(VK_UP))
+	if (SInput::Get().GetKey('W') || SInput::Get().GetKey(VK_UP))
 	{
 		m_PlayerObj.m_vPos += m_PlayerObj.m_vLook * g_fSecPerFrame * 10.0f;
 	}
-	if (Input::Get().GetKey('S') || Input::Get().GetKey(VK_DOWN))
+	if (SInput::Get().GetKey('S') || SInput::Get().GetKey(VK_DOWN))
 	{
 		m_PlayerObj.m_vPos -= m_PlayerObj.m_vLook * g_fSecPerFrame * 10.0f;
 	}
 	Math::Matrix matRotate;
 	Math::Matrix matScale;
 	static float fRadian = 0.0f;
-	fRadian += (Input::Get().m_ptDeltaMouse.x / (float)g_rtClient.right) * BASIS_PI;
+	fRadian += (SInput::Get().m_ptDeltaMouse.x / (float)g_rtClient.right) * BASIS_PI;
 	matRotate.YRotate(fRadian);
 	matScale.Scale(50, 50, 50);
 	m_PlayerObj.m_matWorld = matScale * matRotate;
@@ -109,13 +109,13 @@ bool Sample::Render()
 	matRotation.YRotate(g_fGameTimer * 0.00f);
 	m_SkyObj.m_matWorld = matScale * matRotation;
 	m_SkyObj.SetMatrix(NULL, &m_SkyObj.m_matViewSky, &m_Camera.m_matProj);
-	m_pImmediateContext->RSSetState(DxState::g_pRSNoneCullSolid);
-	m_pImmediateContext->PSSetSamplers(0, 1, &DxState::m_pSSLinear);
-	m_pImmediateContext->PSSetSamplers(1, 1, &DxState::m_pSSPoint);
+	m_pImmediateContext->RSSetState(SDxState::g_pRSNoneCullSolid);
+	m_pImmediateContext->PSSetSamplers(0, 1, &SDxState::m_pSSLinear);
+	m_pImmediateContext->PSSetSamplers(1, 1, &SDxState::m_pSSPoint);
 	m_SkyObj.Render();
 
-	//m_pImmediateContext->PSSetSamplers(0, 1, &DxState::m_pSSLinear);
-	m_pImmediateContext->RSSetState(DxState::g_pRSBackCullSolid);
+	//m_pImmediateContext->PSSetSamplers(0, 1, &SDxState::m_pSSLinear);
+	m_pImmediateContext->RSSetState(SDxState::g_pRSBackCullSolid);
 	m_MapObj.SetMatrix(nullptr, &m_Camera.m_matView, &m_Camera.m_matProj);
 	m_MapObj.Render();
 

@@ -27,7 +27,7 @@ bool SFbxObj::Frame()
 			auto binepose = pObject->m_matBindPoseMap.find(pObject->m_iIndex);
 			if (binepose != pObject->m_matBindPoseMap.end())
 			{
-				TMatrix matInverseBindpose = binepose->second;
+				SMatrix matInverseBindpose = binepose->second;
 				m_matBoneArray.matBoneWorld[iObj] =
 					matInverseBindpose *
 					pObject->m_AnimTrack[iFrame].matTrack;
@@ -38,7 +38,7 @@ bool SFbxObj::Frame()
 					pObject->m_AnimTrack[iFrame].matTrack;
 			}
 		}
-		T::D3DXMatrixTranspose(&m_matBoneArray.matBoneWorld[iObj],&m_matBoneArray.matBoneWorld[iObj]);
+		S::D3DXMatrixTranspose(&m_matBoneArray.matBoneWorld[iObj],&m_matBoneArray.matBoneWorld[iObj]);
 	}	*/
 	return true;
 }
@@ -61,9 +61,9 @@ void SFbxObj::GenAABB()
 
 }
 
-T::TMatrix SFbxObj::Interplate(SFbxImporter* pAnimImporter, SFbxModel* pModel, float fTime)
+S::SMatrix SFbxObj::Interplate(SFbxImporter* pAnimImporter, SFbxModel* pModel, float fTime)
 {
-	T::TMatrix matAnim; // 애니메이션 행렬 생성
+	S::SMatrix matAnim; // 애니메이션 행렬 생성
 	Scene tScene = pAnimImporter->m_Scene;
 	int iStart = max(tScene.iStart, fTime);
 	int iEnd = min(tScene.iEnd, fTime + 1);
@@ -72,16 +72,16 @@ T::TMatrix SFbxObj::Interplate(SFbxImporter* pAnimImporter, SFbxModel* pModel, f
 	Track A = pModel->m_AnimTrack[iStart];
 	Track B = pModel->m_AnimTrack[iEnd];
 	float s = fTime - (float)iStart;
-	T::TVector3 pos; // 위치
-	T::D3DXVec3Lerp(&pos, &A.t, &B.t, s);
-	T::TVector3 scale; // 크기
-	T::D3DXVec3Lerp(&scale, &A.s, &B.s, s);
-	T::TQuaternion rotation; // 회전
-	T::D3DXQuaternionSlerp(&rotation, &A.r, &B.r, s);
-	T::TMatrix matScale; // 크기행렬
-	T::D3DXMatrixScaling(&matScale, scale.x, scale.y, scale.z);
-	T::TMatrix matRotation; // 회전행렬
-	T::D3DXMatrixRotationQuaternion(&matRotation, &rotation);
+	S::SVector3 pos; // 위치
+	S::D3DXVec3Lerp(&pos, &A.t, &B.t, s);
+	S::SVector3 scale; // 크기
+	S::D3DXVec3Lerp(&scale, &A.s, &B.s, s);
+	S::SQuaternion rotation; // 회전
+	S::D3DXQuaternionSlerp(&rotation, &A.r, &B.r, s);
+	S::SMatrix matScale; // 크기행렬
+	S::D3DXMatrixScaling(&matScale, scale.x, scale.y, scale.z);
+	S::SMatrix matRotation; // 회전행렬
+	S::D3DXMatrixRotationQuaternion(&matRotation, &rotation);
 
 	matAnim = matScale * matRotation; // 애니메이션 행렬 = 크기행렬 * 회전행렬
 	matAnim._41 = pos.x;

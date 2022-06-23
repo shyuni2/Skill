@@ -1,11 +1,12 @@
 #pragma once
-#include "Core.h"
+#include "SCore.h"
 #include "PlaneObj.h"
 #include "Camera.h"
 #include "Map.h"
 #include "SkyObj.h"
 #include "BoxObj.h"
-class Sample : public Core
+
+class Sample : public SCore
 {
 	Camera		    m_Camera;
 	Camera			m_CameraTopView;

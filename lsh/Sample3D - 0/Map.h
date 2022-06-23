@@ -1,12 +1,12 @@
 #pragma once
-#include "Obj3D.h"
+#include "SObj3D.h"
 struct Face
 {
 	UINT v0, v1, v2; 
 	Math::Vector3 vNomal;
 };
 
-class Map : public Obj3D
+class Map : public SObj3D
 {
 public:
 	std::vector< Face> m_FaceList;

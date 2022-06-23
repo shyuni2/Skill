@@ -7,7 +7,7 @@ void TDxObject::SetDevice(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pCOntex
 }
 
 // 화면좌표 위치를 중점으로 NDC변환하는 컨버터함수
-void TDxObject::Convert(TVector2 center, float fWidth, float fHeight, vector<SimpleVertex>& retList)
+void TDxObject::Convert(SVector2 center, float fWidth, float fHeight, vector<SimpleVertex>& retList)
 {
 	// 사각형을 만드려면 삼각형이 두개 붙어야함
 	// 0         1,4
@@ -45,7 +45,7 @@ void TDxObject::Convert(vector<SimpleVertex>& list, vector<SimpleVertex>& retLis
 }
 
 // 오브젝트 만들기
-bool TDxObject::Create(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pContext, TVector2 vPos, float fWidth, float fHeight)
+bool TDxObject::Create(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pContext, SVector2 vPos, float fWidth, float fHeight)
 {
 	// 화면밖으로 못나가게 설정
 	if ((vPos.x - fWidth / 2.0f) < 0) return false;
@@ -57,12 +57,12 @@ bool TDxObject::Create(ID3D11Device* pd3dDevice, ID3D11DeviceContext* pContext, 
 	HRESULT hr;
 	// ui에 사용
 	m_InitScreenList.resize(6); // 현재 점이 6개니까
-	m_InitScreenList[0].v = TVector2(0.0f, 0.0f);
-	m_InitScreenList[1].v = TVector2(fWidth, 0.0f);
-	m_InitScreenList[2].v = TVector2(0.0f, fHeight);
-	m_InitScreenList[3].v = TVector2(0.0f, fHeight);
-	m_InitScreenList[4].v = TVector2(fWidth, 0.0f);
-	m_InitScreenList[5].v = TVector2(fWidth, fHeight);
+	m_InitScreenList[0].v = SVector2(0.0f, 0.0f);
+	m_InitScreenList[1].v = SVector2(fWidth, 0.0f);
+	m_InitScreenList[2].v = SVector2(0.0f, fHeight);
+	m_InitScreenList[3].v = SVector2(0.0f, fHeight);
+	m_InitScreenList[4].v = SVector2(fWidth, 0.0f);
+	m_InitScreenList[5].v = SVector2(fWidth, fHeight);
 
 	m_vPos = vPos;
 	Convert(m_vPos, fWidth, fHeight, m_VertexList);

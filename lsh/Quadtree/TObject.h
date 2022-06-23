@@ -6,10 +6,10 @@
 class TObject
 {
 public:
-	TVector2    m_vPos;
+	SVector2    m_vPos;
 	TRect		m_rt;
 public:
-	void   SetPos(TVector2    pos);
+	void   SetPos(SVector2    pos);
 	void   SetPos(float x, float y);
 	void   SetRect(TRect rt);
 	TObject(int x, int y)

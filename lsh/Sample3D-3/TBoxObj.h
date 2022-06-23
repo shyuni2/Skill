@@ -1,9 +1,9 @@
 #pragma once
-#include "Obj3D.h"
-class BoxObj : public Obj3D
+#include "SObj3D.h"
+class BoxObj : public SObj3D
 {
 public:
-	Texture* m_pTexCube;
+	STexture* m_pTexCube;
 	virtual bool		SetVertexData();
 	virtual bool		SetIndexData();
 	bool	PostRender();

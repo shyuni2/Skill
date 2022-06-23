@@ -1,11 +1,11 @@
 #pragma once
 #include "SFbxImporter.h"
-#include "Camera.h"
+#include "SCamera.h"
 
-class SFbxObj : public Obj3D
+class SFbxObj : public SObj3D
 {
 public:
-	Camera* m_pMainCamera;
+	SCamera* m_pMainCamera;
 	SFbxImporter* m_pMeshImporter;
 	SFbxImporter* m_pAnimImporter;
 	BoneWorld m_matBoneArray;
@@ -21,6 +21,6 @@ public:
 	virtual bool Release() override;
 	void GenAABB() override;
 public:
-	T::TMatrix Interplate(SFbxImporter* pAnimImporter, SFbxModel* pModel, float fTime);
+	S::SMatrix Interplate(SFbxImporter* pAnimImporter, SFbxModel* pModel, float fTime);
 };
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "DxObj.h"
 
-class Obj3D : public DxObj
+class SObj3D : public DxObj
 {
 };
 

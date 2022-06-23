@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TVector3.h">
+    <ClInclude Include="SVector3.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="TOctree.h">
@@ -32,7 +32,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TVector3.cpp">
+    <ClCompile Include="SVector3.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="TOctree.cpp">

@@ -12,15 +12,15 @@ void Sample::DeleteResizeDevice(UINT iWidth, UINT iHeight)
 bool Sample::Init()
 {	
 	// 카메라 ---------------------------
-	m_CameraTopView.CreateViewMatrix(T::TVector3(0, 3000.0f, -1), T::TVector3(0, 0.0f, 0));
+	m_CameraTopView.CreateViewMatrix(S::SVector3(0, 3000.0f, -1), S::SVector3(0, 0.0f, 0));
 	m_CameraTopView.CreateProjMatrix(XM_PI * 0.25f, (float)g_rtClient.right / (float)g_rtClient.bottom, 1.0f, 10000.0f);
 
 	m_Camera.Init();
-	m_Camera.CreateViewMatrix(T::TVector3(0, 500.0f, -100.0f), T::TVector3(0, 0.0f, 0));
+	m_Camera.CreateViewMatrix(S::SVector3(0, 500.0f, -100.0f), S::SVector3(0, 0.0f, 0));
 	m_Camera.CreateProjMatrix(XM_PI * 0.25f, (float)g_rtClient.right / (float)g_rtClient.bottom, 0.1f, 5000.0f);
 	m_Camera.m_pVShader = I_Shader.CreateVertexShader(m_pd3dDevice.Get(), L"Box.hlsl", "VSColor");
 	m_Camera.m_pPShader = I_Shader.CreatePixelShader(m_pd3dDevice.Get(), L"Box.hlsl", "PSColor");
-	m_Camera.SetPosition(T::TVector3(0.0f, 1.0f, 0.0f));
+	m_Camera.SetPosition(S::SVector3(0.0f, 1.0f, 0.0f));
 	if (!m_Camera.Create(m_pd3dDevice.Get(), m_pImmediateContext.Get()))
 	{
 		return false;
@@ -30,7 +30,7 @@ bool Sample::Init()
 	m_MapObj.Init();
 	m_MapObj.SetDevice(m_pd3dDevice.Get(), m_pImmediateContext.Get());
 	m_MapObj.CreateHeightMap(L"../../data/map/129.jpg");
-	Texture* pTexMap = I_Texture.Load(L"../../data/map/020.bmp");
+	STexture* pTexMap = I_Texture.Load(L"../../data/map/020.bmp");
 	m_MapObj.m_pColorTex = pTexMap;	
 	m_MapObj.m_pVShader = I_Shader.CreateVertexShader(m_pd3dDevice.Get(), L"map.hlsl", "VS");
 	m_MapObj.m_pPShader = I_Shader.CreatePixelShader(m_pd3dDevice.Get(), L"map.hlsl", "PS");
@@ -47,71 +47,71 @@ bool Sample::Init()
 }
 bool Sample::Frame()
 {	
-	T::TVector2 dir = Input::Get().GetDelta();
-	T::TMatrix matRotate;
-	T::TMatrix matScale;
+	S::SVector2 dir = SInput::Get().GetDelta();
+	S::SMatrix matRotate;
+	S::SMatrix matScale;
 
-	T::D3DXMatrixRotationY(&matRotate, -dir.y);
-	T::D3DXMatrixScaling(&matScale, 100, 100, 100);
+	S::D3DXMatrixRotationY(&matRotate, -dir.y);
+	S::D3DXMatrixScaling(&matScale, 100, 100, 100);
 
 	float y = m_MapObj.GetHeight(m_Camera.m_vCamera.x, m_Camera.m_vCamera.z);
 	
 	// 카메라이동 방향키 ---------------------------
-	if (Input::Get().GetKey('A'))
+	if (SInput::Get().GetKey('A'))
 	{
 		m_Camera.MoveSide(-g_fSecPerFrame * 1000.0f);
 	}
-	if (Input::Get().GetKey('D'))
+	if (SInput::Get().GetKey('D'))
 	{
 		m_Camera.MoveSide(g_fSecPerFrame * 1000.0f);
 	}
-	if (Input::Get().GetKey('W'))
+	if (SInput::Get().GetKey('W'))
 	{
 		m_Camera.MoveLook(g_fSecPerFrame * 1000.0f);
 	}
-	if (Input::Get().GetKey('S'))
+	if (SInput::Get().GetKey('S'))
 	{
 		m_Camera.MoveLook(-g_fSecPerFrame * 1000.0f);
 	}
 	
-	m_Camera.Update(T::TVector4(-dir.x, -dir.y,0,0));
+	m_Camera.Update(S::SVector4(-dir.x, -dir.y,0,0));
 	m_MapObj.Frame();
 	m_Quadtree.Update(&m_Camera);
 
 	// 마우스 피킹 ---------------------------
-	if (Input::Get().m_dwMouseState[1] == KEY_HOLD)
+	if (SInput::Get().m_dwMouseState[1] == KEY_HOLD)
 	{
 		POINT ptCursor;
 		GetCursorPos(&ptCursor);
 		ScreenToClient(g_hWnd, &ptCursor);
-		T::TVector3 vView, vProj; // view
+		S::SVector3 vView, vProj; // view
 		vProj.x = (((2.0f * ptCursor.x - 2.0f* m_ViewPort.TopLeftX) / m_ViewPort.Width) - 1 ) ;
 		vProj.y = -(((2.0f * ptCursor.y - 2.0f * m_ViewPort.TopLeftY) / m_ViewPort.Height) - 1);
 		vProj.z = 1.0f;
 		vView.x = vProj.x / m_Camera.m_matProj._11;
 		vView.y = vProj.y / m_Camera.m_matProj._22;
 		vView.z = vProj.z;
-		T::TMatrix m;
-		T::D3DXMatrixInverse(&m, nullptr, &m_Camera.m_matView);
+		S::SMatrix m;
+		S::D3DXMatrixInverse(&m, nullptr, &m_Camera.m_matView);
 
 		// 지형 ---------------------------
-		T::TRay ray;		
+		S::SRay ray;		
 		ray.direction.x = vView.x*m._11 + vView.y*m._21 + vView.z*m._31;
 		ray.direction.y = vView.x*m._12 + vView.y*m._22 + vView.z*m._32;
 		ray.direction.z = vView.x*m._13 + vView.y*m._23 + vView.z*m._33;
 		ray.position.x = m._41;
 		ray.position.y = m._42;
 		ray.position.z = m._43;
-		T::D3DXVec3Normalize(&ray.direction, &ray.direction);
-		T::TVector3 vStart = ray.position; // 교점
-		T::TVector3 vEnd = ray.position + ray.direction * m_Camera.m_fFarDistance; 
+		S::D3DXVec3Normalize(&ray.direction, &ray.direction);
+		S::SVector3 vStart = ray.position; // 교점
+		S::SVector3 vEnd = ray.position + ray.direction * m_Camera.m_fFarDistance; 
 		for (int iNode = 0; iNode < m_Quadtree.g_pDrawLeafNodes.size(); iNode++)
 		{
 			Node* pNode = m_Quadtree.g_pDrawLeafNodes[iNode];
 
 			for (int i = 0; i < pNode->m_IndexList[0].size(); i += 3)
 			{
-				T::TVector3 v0, v1, v2;
+				S::SVector3 v0, v1, v2;
 				DWORD i0 = pNode->m_IndexList[0][i + 0];
 				DWORD i1 = pNode->m_IndexList[0][i + 1];
 				DWORD i2 = pNode->m_IndexList[0][i + 2];
@@ -123,9 +123,9 @@ bool Sample::Frame()
 				if (IntersectTriangle(ray.position, ray.direction, v0, v1, v2, &t, &u, &v))
 				{
 					m_vIntersection = ray.position + ray.direction * t;
-					m_MapObj.m_VertexList[i0].c = T::TVector4(1, 0, 0, 1);
-					m_MapObj.m_VertexList[i1].c = T::TVector4(1, 0, 0, 1);
-					m_MapObj.m_VertexList[i2].c = T::TVector4(1, 0, 0, 1);
+					m_MapObj.m_VertexList[i0].c = S::SVector4(1, 0, 0, 1);
+					m_MapObj.m_VertexList[i1].c = S::SVector4(1, 0, 0, 1);
+					m_MapObj.m_VertexList[i2].c = S::SVector4(1, 0, 0, 1);
 					m_MapObj.m_pContext->UpdateSubresource(m_MapObj.m_pVertexBuffer, 0, NULL, &m_MapObj.m_VertexList.at(0), 0, 0);
 
 					DisplayText("\n%10.4f, %10.4f, %10.4f ", m_vIntersection.x, m_vIntersection.y, m_vIntersection.z);
@@ -140,14 +140,14 @@ bool Sample::Render()
 {		
 	if (m_bWireFrame)
 	{
-		m_pImmediateContext->RSSetState(DxState::g_pRSBackCullWireFrame);
+		m_pImmediateContext->RSSetState(SDxState::g_pRSBackCullWireFrame);
 	}		
 	else
 	{
-		m_pImmediateContext->RSSetState(DxState::g_pRSBackCullSolid);
+		m_pImmediateContext->RSSetState(SDxState::g_pRSBackCullSolid);
 	}
 
-	m_pImmediateContext->PSSetSamplers(0, 1, &DxState::m_pSSLinear);
+	m_pImmediateContext->PSSetSamplers(0, 1, &SDxState::m_pSSLinear);
 	m_MapObj.SetMatrix(nullptr, &m_Camera.m_matView,&m_Camera.m_matProj);
 	m_Quadtree.Render();	
 

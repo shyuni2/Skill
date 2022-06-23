@@ -1,5 +1,5 @@
 #pragma once
-#include "TVector2.h"
+#include "SVector2.h"
 
 // 충돌타입 
 // RECT_OUT 떨어져있음, RECT_IN 안에 있음, RECT_OVERLAP 걸쳐있음
@@ -12,10 +12,10 @@ enum TCollisionType
 // 상자
 struct TRect
 {
-	TVector2 vMin; // 최소
-	TVector2 vMax; // 최대
-	TVector2 middle; // 중간
-	TVector2 size; // 길이
+	SVector2 vMin; // 최소
+	SVector2 vMax; // 최대
+	SVector2 middle; // 중간
+	SVector2 size; // 길이
 
 	bool operator == (const TRect& v)
 	{
@@ -32,7 +32,7 @@ struct TRect
 	
 	TRect() {};
 
-	TRect(TVector2 vMin, TVector2 vMax)
+	TRect(SVector2 vMin, SVector2 vMax)
 	{
 		this->vMin = vMin;
 		this->vMax = vMax;
@@ -41,10 +41,10 @@ struct TRect
 		size.y = vMax.y - vMin.y;
 	}
 
-	TRect(TVector2 v, float w, float h)
+	TRect(SVector2 v, float w, float h)
 	{
 		this->vMin = v;
-		this->vMax = vMin + TVector2(w, h);
+		this->vMax = vMin + SVector2(w, h);
 		middle = (vMax + vMin) / 2.0f;
 		this->size.x = w;
 		this->size.y = h;
@@ -56,7 +56,7 @@ class TCollision
 {
 public:
 	static bool   RectToPoint(TRect rt, int x, int y);
-	static bool   RectToPoint(TRect rt, TVector2 v);
+	static bool   RectToPoint(TRect rt, SVector2 v);
 	static TCollisionType    RectToRect(TRect, TRect);
 	static TRect  UnionRect(TRect rt1, TRect rt2);
 	static bool  IntersectRect(TRect rt1, TRect rt2, TRect* rt);

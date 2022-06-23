@@ -66,11 +66,11 @@ float Map::Lerp(float fStart, float fEnd, float fTangent)
 }
 bool Map::Frame()
 {
-	T::TVector3 vLight(cosf(g_fGameTimer)*100.0f, 
+	S::SVector3 vLight(cosf(g_fGameTimer)*100.0f, 
 		            100, 
 					sinf(g_fGameTimer) * 100.0f);
 
-	T::D3DXVec3Normalize(&vLight, &vLight);
+	S::D3DXVec3Normalize(&vLight, &vLight);
 	vLight = vLight * -1.0f;
 	m_LightConstantList.vLightDir.x = vLight.x;
 	m_LightConstantList.vLightDir.y = vLight.y;
@@ -166,12 +166,12 @@ bool		Map::SetVertexData()
 			m_VertexList[index].p.x = (iCol- hHalfCol)* m_fCellDistance;
 			m_VertexList[index].p.y = m_fHeightList[index];
 			m_VertexList[index].p.z = -((iRow - hHalfRow)* m_fCellDistance);
-			m_VertexList[index].n = T::TVector3(0, 1, 0);
-			m_VertexList[index].c = T::TVector4(randstep(0.0f, 1.0f), 
+			m_VertexList[index].n = S::SVector3(0, 1, 0);
+			m_VertexList[index].c = S::SVector4(randstep(0.0f, 1.0f), 
 				randstep(0.0f, 1.0f), 
 				randstep(0.0f, 1.0f), 1);
 			m_VertexList[index].t = 
-				T::TVector2(ftxOffetU*iCol, ftxOffetV * iRow);
+				S::SVector2(ftxOffetU*iCol, ftxOffetV * iRow);
 		}
 	}
 	return true;
@@ -197,8 +197,8 @@ bool		Map::SetIndexData()
 	}
 
 	iIndex = 0;
-	T::TVector3 vLight(100, 100, 0);
-	T::D3DXVec3Normalize(&vLight, &vLight);
+	S::SVector3 vLight(100, 100, 0);
+	S::D3DXVec3Normalize(&vLight, &vLight);
 	vLight = vLight * 1.0f;
 	for (int iRow = 0; iRow < m_iNumCellRows; iRow++)
 	{
@@ -209,46 +209,46 @@ bool		Map::SetIndexData()
 			face.v0 = m_IndexList[iIndex + 0];
 			face.v1 = m_IndexList[iIndex + 1];
 			face.v2 = m_IndexList[iIndex + 2];
-			T::TVector3 vNormal;
-			T::TVector3 vE0= m_VertexList[face.v1].p - m_VertexList[face.v0].p;
-			T::D3DXVec3Normalize(&vE0, &vE0);
-			T::TVector3 vE1= m_VertexList[face.v2].p - m_VertexList[face.v0].p;
-			T::D3DXVec3Normalize(&vE0, &vE1);
+			S::SVector3 vNormal;
+			S::SVector3 vE0= m_VertexList[face.v1].p - m_VertexList[face.v0].p;
+			S::D3DXVec3Normalize(&vE0, &vE0);
+			S::SVector3 vE1= m_VertexList[face.v2].p - m_VertexList[face.v0].p;
+			S::D3DXVec3Normalize(&vE0, &vE1);
 			
-			T::D3DXVec3Cross(&face.vNomal, &vE0, &vE1);
-			T::D3DXVec3Normalize(&face.vNomal, &face.vNomal);
+			S::D3DXVec3Cross(&face.vNomal, &vE0, &vE1);
+			S::D3DXVec3Normalize(&face.vNomal, &face.vNomal);
 
 			m_VertexList[face.v0].n += face.vNomal;
 			m_VertexList[face.v1].n += face.vNomal;
 			m_VertexList[face.v2].n += face.vNomal;
 
-			float fDot = max(0.0f, T::D3DXVec3Dot(&vLight, &face.vNomal));
-			m_VertexList[face.v0].c = T::TVector4(fDot, fDot, fDot,1);
-			m_VertexList[face.v1].c = T::TVector4(fDot, fDot, fDot, 1);
-			m_VertexList[face.v2].c = T::TVector4(fDot, fDot, fDot, 1);
+			float fDot = max(0.0f, S::D3DXVec3Dot(&vLight, &face.vNomal));
+			m_VertexList[face.v0].c = S::SVector4(fDot, fDot, fDot,1);
+			m_VertexList[face.v1].c = S::SVector4(fDot, fDot, fDot, 1);
+			m_VertexList[face.v2].c = S::SVector4(fDot, fDot, fDot, 1);
 			m_FaceList.push_back(face);
 
 			// 1face
 			face.v0 = m_IndexList[iIndex + 3];
 			face.v1 = m_IndexList[iIndex + 4];
 			face.v2 = m_IndexList[iIndex + 5];
-			T::D3DXVec3Subtract(&vE0, &m_VertexList[face.v1].p, &m_VertexList[face.v0].p);
-			T::D3DXVec3Normalize(&vE0, &vE0);
+			S::D3DXVec3Subtract(&vE0, &m_VertexList[face.v1].p, &m_VertexList[face.v0].p);
+			S::D3DXVec3Normalize(&vE0, &vE0);
 
-			T::D3DXVec3Subtract(&vE1, &m_VertexList[face.v2].p, &m_VertexList[face.v0].p);
-			T::D3DXVec3Normalize(&vE1, &vE1);
-			T::D3DXVec3Cross(&face.vNomal, &vE0, &vE1);
-			T::D3DXVec3Normalize(&face.vNomal, &face.vNomal);
+			S::D3DXVec3Subtract(&vE1, &m_VertexList[face.v2].p, &m_VertexList[face.v0].p);
+			S::D3DXVec3Normalize(&vE1, &vE1);
+			S::D3DXVec3Cross(&face.vNomal, &vE0, &vE1);
+			S::D3DXVec3Normalize(&face.vNomal, &face.vNomal);
 
 			m_VertexList[face.v0].n += face.vNomal;
 			m_VertexList[face.v1].n += face.vNomal;
 			m_VertexList[face.v2].n += face.vNomal;
 
-			fDot = max(0.0f, T::D3DXVec3Dot(&vLight, &face.vNomal));
+			fDot = max(0.0f, S::D3DXVec3Dot(&vLight, &face.vNomal));
 
-			m_VertexList[face.v0].c = T::TVector4(fDot, fDot, fDot, 1);
-			m_VertexList[face.v1].c = T::TVector4(fDot, fDot, fDot, 1);
-			m_VertexList[face.v2].c = T::TVector4(fDot, fDot, fDot, 1);
+			m_VertexList[face.v0].c = S::SVector4(fDot, fDot, fDot, 1);
+			m_VertexList[face.v1].c = S::SVector4(fDot, fDot, fDot, 1);
+			m_VertexList[face.v2].c = S::SVector4(fDot, fDot, fDot, 1);
 			m_FaceList.push_back(face);
 
 			iIndex += 6;
@@ -260,8 +260,8 @@ bool		Map::SetIndexData()
 		{
 			m_VertexList[iRow * m_iNumCols + iCol].n.Normalize();
 			float fDot;
-			fDot = max(0.0f, T::D3DXVec3Dot(&vLight, &m_VertexList[iRow * m_iNumCols + iCol].n));
-			m_VertexList[iRow * m_iNumCols + iCol].c = T::TVector4(fDot, fDot, fDot, 1);
+			fDot = max(0.0f, S::D3DXVec3Dot(&vLight, &m_VertexList[iRow * m_iNumCols + iCol].n));
+			m_VertexList[iRow * m_iNumCols + iCol].c = S::SVector4(fDot, fDot, fDot, 1);
 		}
 	}
 	return true;

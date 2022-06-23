@@ -11,7 +11,7 @@ void main()
 		float hw = (float)(rand() % 10) + 10;
 		float hh = (float)(rand() % 10) + 10;
 
-		TVector2 vMin;
+		SVector2 vMin;
 
 		vMin.x = pObj->m_vPos.x - hw;
 		vMin.y = pObj->m_vPos.y - hh;

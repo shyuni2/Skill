@@ -1,5 +1,5 @@
 #include "Camera.h"
-#include "Input.h"
+#include "SInput.h"
 #include "SimpleMath.h"
 
 using namespace DirectX::SimpleMath;
@@ -12,19 +12,19 @@ bool Camera::Init()
 }
 bool Camera::Frame()
 {
-	/*if (Input::Get().GetKey(VK_LEFT))
+	/*if (SInput::Get().GetKey(VK_LEFT))
 	{
 		m_vCamera.z -= g_fSecPerFrame * 1.0f;
 	}
-	if (Input::Get().GetKey(VK_RIGHT))
+	if (SInput::Get().GetKey(VK_RIGHT))
 	{
 		m_vCamera.z += g_fSecPerFrame * 1.0f;
 	}
-	if (Input::Get().GetKey(VK_UP))
+	if (SInput::Get().GetKey(VK_UP))
 	{
 		m_vCamera.y += g_fSecPerFrame * 1.0f;
 	}
-	if (Input::Get().GetKey(VK_DOWN))
+	if (SInput::Get().GetKey(VK_DOWN))
 	{
 		m_vCamera.y -= g_fSecPerFrame * 1.0f;
 	}*/

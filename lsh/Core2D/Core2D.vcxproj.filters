@@ -33,10 +33,10 @@
     <ClCompile Include="DxObj.cpp">
       <Filter>Base</Filter>
     </ClCompile>
-    <ClCompile Include="DxState.cpp">
+    <ClCompile Include="SDxState.cpp">
       <Filter>Base</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
+    <ClCompile Include="SInput.cpp">
       <Filter>Base</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
@@ -69,7 +69,7 @@
     <ClCompile Include="Obj2D.cpp">
       <Filter>Obj</Filter>
     </ClCompile>
-    <ClCompile Include="Obj3D.cpp">
+    <ClCompile Include="SObj3D.cpp">
       <Filter>Obj</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,10 +93,10 @@
     <ClInclude Include="DxObj.h">
       <Filter>Base</Filter>
     </ClInclude>
-    <ClInclude Include="DxState.h">
+    <ClInclude Include="SDxState.h">
       <Filter>Base</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
+    <ClInclude Include="SInput.h">
       <Filter>Base</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
@@ -129,7 +129,7 @@
     <ClInclude Include="Obj2D.h">
       <Filter>Obj</Filter>
     </ClInclude>
-    <ClInclude Include="Obj3D.h">
+    <ClInclude Include="SObj3D.h">
       <Filter>Obj</Filter>
     </ClInclude>
   </ItemGroup>

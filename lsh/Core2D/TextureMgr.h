@@ -4,7 +4,7 @@
 #include "WICTextureLoader.h"
 #pragma comment	(lib, "d3dcompiler.lib")
 
-class Texture
+class STexture
 {
 public:
 	int m_iIndex;
@@ -21,11 +21,11 @@ public:
 	bool Release();
 	bool Load(ID3D11Device* pd3dDevice, std::wstring filename);
 public:
-	Texture();
-	virtual ~Texture();
+	STexture();
+	virtual ~STexture();
 };
 
-class TextureMgr : public BaseMgr<Texture, TextureMgr>					
+class TextureMgr : public BaseMgr<STexture, TextureMgr>					
 {
 private:
 	friend class Singleton<TextureMgr>;

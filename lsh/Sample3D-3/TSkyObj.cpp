@@ -1,6 +1,6 @@
 #include "SkyObj.h"
-void		SkyObj::SetMatrix(T::TMatrix* matWorld,
-	T::TMatrix* matView, T::TMatrix* matProj)
+void		SkyObj::SetMatrix(S::SMatrix* matWorld,
+	S::SMatrix* matView, S::SMatrix* matProj)
 {
 	m_ConstantList.matWorld = m_matWorld.Transpose();
 	if (matWorld != nullptr)
@@ -9,7 +9,7 @@ void		SkyObj::SetMatrix(T::TMatrix* matWorld,
 	}
 	if (matView != nullptr)
 	{
-		T::TMatrix matViewSky = *matView;
+		S::SMatrix matViewSky = *matView;
 		matViewSky._41 = 0;
 		matViewSky._42 = 0;
 		matViewSky._43 = 0;
@@ -64,39 +64,39 @@ bool		SkyObj::SetVertexData()
 	// 0    3  
 	// ¾Õ¸é
 	m_VertexList.resize(24);
-	m_VertexList[0] = TVertex(T::TVector3(-1.0f, 1.0f, -1.0f), T::TVector3(0.0f, 0.0f, -1.0f), T::TVector4(1.0f, 0.0f, 0.0f, 1.0f), T::TVector2(0.0f, 0.0f));
-	m_VertexList[1] = TVertex(T::TVector3(1.0f, 1.0f, -1.0f), T::TVector3(0.0f, 0.0f, -1.0f), T::TVector4(1.0f, 0.0f, 0.0f, 1.0f), T::TVector2(1.0f, 0.0f));
-	m_VertexList[2] = TVertex(T::TVector3(1.0f, -1.0f, -1.0f), T::TVector3(0.0f, 0.0f, -1.0f), T::TVector4(1.0f, 0.0f, 0.0f, 1.0f), T::TVector2(1.0f, 1.0f));
-	m_VertexList[3] = TVertex(T::TVector3(-1.0f, -1.0f, -1.0f), T::TVector3(0.0f, 0.0f, -1.0f), T::TVector4(1.0f, 0.0f, 0.0f, 1.0f), T::TVector2(0.0f, 1.0f));
+	m_VertexList[0] = TVertex(S::SVector3(-1.0f, 1.0f, -1.0f), S::SVector3(0.0f, 0.0f, -1.0f), S::SVector4(1.0f, 0.0f, 0.0f, 1.0f), S::SVector2(0.0f, 0.0f));
+	m_VertexList[1] = TVertex(S::SVector3(1.0f, 1.0f, -1.0f), S::SVector3(0.0f, 0.0f, -1.0f), S::SVector4(1.0f, 0.0f, 0.0f, 1.0f), S::SVector2(1.0f, 0.0f));
+	m_VertexList[2] = TVertex(S::SVector3(1.0f, -1.0f, -1.0f), S::SVector3(0.0f, 0.0f, -1.0f), S::SVector4(1.0f, 0.0f, 0.0f, 1.0f), S::SVector2(1.0f, 1.0f));
+	m_VertexList[3] = TVertex(S::SVector3(-1.0f, -1.0f, -1.0f), S::SVector3(0.0f, 0.0f, -1.0f), S::SVector4(1.0f, 0.0f, 0.0f, 1.0f), S::SVector2(0.0f, 1.0f));
 	// µÞ¸é
-	m_VertexList[4] = TVertex(T::TVector3(1.0f, 1.0f, 1.0f), T::TVector3(0.0f, 0.0f, 1.0f), T::TVector4(0.0f, 0.0f, 0.0f, 1.0f), T::TVector2(0.0f, 0.0f));
-	m_VertexList[5] = TVertex(T::TVector3(-1.0f, 1.0f, 1.0f), T::TVector3(0.0f, 0.0f, 1.0f), T::TVector4(0.0f, 1.0f, 0.0f, 1.0f), T::TVector2(1.0f, 0.0f));
-	m_VertexList[6] = TVertex(T::TVector3(-1.0f, -1.0f, 1.0f), T::TVector3(0.0f, 0.0f, 1.0f), T::TVector4(0.0f, 1.0f, 0.0f, 1.0f), T::TVector2(1.0f, 1.0f));
-	m_VertexList[7] = TVertex(T::TVector3(1.0f, -1.0f, 1.0f), T::TVector3(0.0f, 0.0f, 1.0f), T::TVector4(0.0f, 1.0f, 0.0f, 1.0f), T::TVector2(0.0f, 1.0f));
+	m_VertexList[4] = TVertex(S::SVector3(1.0f, 1.0f, 1.0f), S::SVector3(0.0f, 0.0f, 1.0f), S::SVector4(0.0f, 0.0f, 0.0f, 1.0f), S::SVector2(0.0f, 0.0f));
+	m_VertexList[5] = TVertex(S::SVector3(-1.0f, 1.0f, 1.0f), S::SVector3(0.0f, 0.0f, 1.0f), S::SVector4(0.0f, 1.0f, 0.0f, 1.0f), S::SVector2(1.0f, 0.0f));
+	m_VertexList[6] = TVertex(S::SVector3(-1.0f, -1.0f, 1.0f), S::SVector3(0.0f, 0.0f, 1.0f), S::SVector4(0.0f, 1.0f, 0.0f, 1.0f), S::SVector2(1.0f, 1.0f));
+	m_VertexList[7] = TVertex(S::SVector3(1.0f, -1.0f, 1.0f), S::SVector3(0.0f, 0.0f, 1.0f), S::SVector4(0.0f, 1.0f, 0.0f, 1.0f), S::SVector2(0.0f, 1.0f));
 
 	// ¿À¸¥ÂÊ
-	m_VertexList[8] = TVertex(T::TVector3(1.0f, 1.0f, -1.0f), T::TVector3(1.0f, 0.0f, 0.0f), T::TVector4(0.0f, 0.0f, 1.0f, 1.0f), T::TVector2(0.0f, 0.0f));
-	m_VertexList[9] = TVertex(T::TVector3(1.0f, 1.0f, 1.0f), T::TVector3(1.0f, 0.0f, 0.0f), T::TVector4(0.0f, 0.0f, 1.0f, 1.0f), T::TVector2(1.0f, 0.0f));
-	m_VertexList[10] = TVertex(T::TVector3(1.0f, -1.0f, 1.0f), T::TVector3(1.0f, 0.0f, 0.0f), T::TVector4(0.0f, 0.0f, 1.0f, 1.0f), T::TVector2(1.0f, 1.0f));
-	m_VertexList[11] = TVertex(T::TVector3(1.0f, -1.0f, -1.0f), T::TVector3(1.0f, 0.0f, 0.0f), T::TVector4(0.0f, 0.0f, 1.0f, 1.0f), T::TVector2(0.0f, 1.0f));
+	m_VertexList[8] = TVertex(S::SVector3(1.0f, 1.0f, -1.0f), S::SVector3(1.0f, 0.0f, 0.0f), S::SVector4(0.0f, 0.0f, 1.0f, 1.0f), S::SVector2(0.0f, 0.0f));
+	m_VertexList[9] = TVertex(S::SVector3(1.0f, 1.0f, 1.0f), S::SVector3(1.0f, 0.0f, 0.0f), S::SVector4(0.0f, 0.0f, 1.0f, 1.0f), S::SVector2(1.0f, 0.0f));
+	m_VertexList[10] = TVertex(S::SVector3(1.0f, -1.0f, 1.0f), S::SVector3(1.0f, 0.0f, 0.0f), S::SVector4(0.0f, 0.0f, 1.0f, 1.0f), S::SVector2(1.0f, 1.0f));
+	m_VertexList[11] = TVertex(S::SVector3(1.0f, -1.0f, -1.0f), S::SVector3(1.0f, 0.0f, 0.0f), S::SVector4(0.0f, 0.0f, 1.0f, 1.0f), S::SVector2(0.0f, 1.0f));
 
 	// ¿ÞÂÊ
-	m_VertexList[12] = TVertex(T::TVector3(-1.0f, 1.0f, 1.0f), T::TVector3(-1.0f, 0.0f, 0.0f), T::TVector4(1.0f, 1.0f, 0.0f, 1.0f), T::TVector2(0.0f, 0.0f));
-	m_VertexList[13] = TVertex(T::TVector3(-1.0f, 1.0f, -1.0f), T::TVector3(-1.0f, 0.0f, 0.0f), T::TVector4(1.0f, 1.0f, 0.0f, 1.0f), T::TVector2(1.0f, 0.0f));
-	m_VertexList[14] = TVertex(T::TVector3(-1.0f, -1.0f, -1.0f), T::TVector3(-1.0f, 0.0f, 0.0f), T::TVector4(1.0f, 1.0f, 0.0f, 1.0f), T::TVector2(1.0f, 1.0f));
-	m_VertexList[15] = TVertex(T::TVector3(-1.0f, -1.0f, 1.0f), T::TVector3(-1.0f, 0.0f, 0.0f), T::TVector4(1.0f, 1.0f, 0.0f, 1.0f), T::TVector2(0.0f, 1.0f));
+	m_VertexList[12] = TVertex(S::SVector3(-1.0f, 1.0f, 1.0f), S::SVector3(-1.0f, 0.0f, 0.0f), S::SVector4(1.0f, 1.0f, 0.0f, 1.0f), S::SVector2(0.0f, 0.0f));
+	m_VertexList[13] = TVertex(S::SVector3(-1.0f, 1.0f, -1.0f), S::SVector3(-1.0f, 0.0f, 0.0f), S::SVector4(1.0f, 1.0f, 0.0f, 1.0f), S::SVector2(1.0f, 0.0f));
+	m_VertexList[14] = TVertex(S::SVector3(-1.0f, -1.0f, -1.0f), S::SVector3(-1.0f, 0.0f, 0.0f), S::SVector4(1.0f, 1.0f, 0.0f, 1.0f), S::SVector2(1.0f, 1.0f));
+	m_VertexList[15] = TVertex(S::SVector3(-1.0f, -1.0f, 1.0f), S::SVector3(-1.0f, 0.0f, 0.0f), S::SVector4(1.0f, 1.0f, 0.0f, 1.0f), S::SVector2(0.0f, 1.0f));
 
 	// À­¸é
-	m_VertexList[16] = TVertex(T::TVector3(-1.0f, 1.0f, 1.0f), T::TVector3(0.0f, 1.0f, 0.0f), T::TVector4(1.0f, 0.5f, 1.0f, 1.0f), T::TVector2(0.0f, 0.0f));
-	m_VertexList[17] = TVertex(T::TVector3(1.0f, 1.0f, 1.0f), T::TVector3(0.0f, 1.0f, 0.0f), T::TVector4(1.0f, 0.5f, 1.0f, 1.0f), T::TVector2(1.0f, 0.0f));
-	m_VertexList[18] = TVertex(T::TVector3(1.0f, 1.0f, -1.0f), T::TVector3(0.0f, 1.0f, 0.0f), T::TVector4(1.0f, 0.5f, 1.0f, 1.0f), T::TVector2(1.0f, 1.0f));
-	m_VertexList[19] = TVertex(T::TVector3(-1.0f, 1.0f, -1.0f), T::TVector3(0.0f, 1.0f, 0.0f), T::TVector4(1.0f, 0.5f, 1.0f, 1.0f), T::TVector2(0.0f, 1.0f));
+	m_VertexList[16] = TVertex(S::SVector3(-1.0f, 1.0f, 1.0f), S::SVector3(0.0f, 1.0f, 0.0f), S::SVector4(1.0f, 0.5f, 1.0f, 1.0f), S::SVector2(0.0f, 0.0f));
+	m_VertexList[17] = TVertex(S::SVector3(1.0f, 1.0f, 1.0f), S::SVector3(0.0f, 1.0f, 0.0f), S::SVector4(1.0f, 0.5f, 1.0f, 1.0f), S::SVector2(1.0f, 0.0f));
+	m_VertexList[18] = TVertex(S::SVector3(1.0f, 1.0f, -1.0f), S::SVector3(0.0f, 1.0f, 0.0f), S::SVector4(1.0f, 0.5f, 1.0f, 1.0f), S::SVector2(1.0f, 1.0f));
+	m_VertexList[19] = TVertex(S::SVector3(-1.0f, 1.0f, -1.0f), S::SVector3(0.0f, 1.0f, 0.0f), S::SVector4(1.0f, 0.5f, 1.0f, 1.0f), S::SVector2(0.0f, 1.0f));
 
 	// ¾Æ·§¸é
-	m_VertexList[20] = TVertex(T::TVector3(-1.0f, -1.0f, -1.0f), T::TVector3(0.0f, -1.0f, 0.0f), T::TVector4(0.0f, 1.0f, 1.0f, 1.0f), T::TVector2(0.0f, 0.0f));
-	m_VertexList[21] = TVertex(T::TVector3(1.0f, -1.0f, -1.0f), T::TVector3(0.0f, -1.0f, 0.0f), T::TVector4(0.0f, 1.0f, 1.0f, 1.0f), T::TVector2(1.0f, 0.0f));
-	m_VertexList[22] = TVertex(T::TVector3(1.0f, -1.0f, 1.0f), T::TVector3(0.0f, -1.0f, 0.0f), T::TVector4(0.0f, 1.0f, 1.0f, 1.0f), T::TVector2(1.0f, 1.0f));
-	m_VertexList[23] = TVertex(T::TVector3(-1.0f, -1.0f, 1.0f), T::TVector3(0.0f, -1.0f, 0.0f), T::TVector4(0.0f, 1.0f, 1.0f, 1.0f), T::TVector2(0.0f, 1.0f));
+	m_VertexList[20] = TVertex(S::SVector3(-1.0f, -1.0f, -1.0f), S::SVector3(0.0f, -1.0f, 0.0f), S::SVector4(0.0f, 1.0f, 1.0f, 1.0f), S::SVector2(0.0f, 0.0f));
+	m_VertexList[21] = TVertex(S::SVector3(1.0f, -1.0f, -1.0f), S::SVector3(0.0f, -1.0f, 0.0f), S::SVector4(0.0f, 1.0f, 1.0f, 1.0f), S::SVector2(1.0f, 0.0f));
+	m_VertexList[22] = TVertex(S::SVector3(1.0f, -1.0f, 1.0f), S::SVector3(0.0f, -1.0f, 0.0f), S::SVector4(0.0f, 1.0f, 1.0f, 1.0f), S::SVector2(1.0f, 1.0f));
+	m_VertexList[23] = TVertex(S::SVector3(-1.0f, -1.0f, 1.0f), S::SVector3(0.0f, -1.0f, 0.0f), S::SVector4(0.0f, 1.0f, 1.0f, 1.0f), S::SVector2(0.0f, 1.0f));
 
 	GenAABB();
 	return true;
