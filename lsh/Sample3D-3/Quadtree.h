@@ -24,7 +24,7 @@ public:
 public:
 	void		Build(Map* pMap, int iMaxDepth);
 	void		BuildTree(Node* pParent);
-	TBox		GenBoundingBox(Node* pNode);
+	SBox		GenBoundingBox(Node* pNode);
 	SVector2	GetHeightFromNode(DWORD dwTL, DWORD dwTR, DWORD dwBL, DWORD dwBR);
 	bool		AddObject(MapObj* obj);
 	bool		AddDynamicObject(MapObj* obj);

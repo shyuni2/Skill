@@ -1,5 +1,5 @@
 #pragma once
-#include "TCore.h"
+#include "SCore.h"
 #include "PlaneObj.h"
 #include "Camera.h"
 #include "Map.h"
@@ -8,7 +8,7 @@
 #include "Quadtree.h" 
 
 #define  MAX_NUM_OBJECTS 100
-class Sample : public TCore
+class Sample : public SCore
 {
 	Camera		    m_Camera;
 	Camera			m_CameraTopView;

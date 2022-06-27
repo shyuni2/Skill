@@ -107,7 +107,7 @@ bool Sample::Frame()
 		S::SVector3 vEnd = ray.position + ray.direction * m_Camera.m_fFarDistance; 
 		for (int iNode = 0; iNode < m_Quadtree.g_pDrawLeafNodes.size(); iNode++)
 		{
-			Node* pNode = m_Quadtree.g_pDrawLeafNodes[iNode];
+			SNode* pNode = m_Quadtree.g_pDrawLeafNodes[iNode];
 
 			for (int i = 0; i < pNode->m_IndexList[0].size(); i += 3)
 			{
